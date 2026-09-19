@@ -1,9 +1,8 @@
-// Symbole Sirius réutilisable : anneau dégradé + étoile à 4 branches + halo.
-// `variant="visual"` produit la grande version animée (hero).
+// Symbole Sirius : anneau et étoile à quatre branches.
+// Monochrome, il prend la couleur du texte (currentColor) et s'adapte
+// donc tout seul aux thèmes clair et sombre.
 
-export default function SiriusMark({ size = 40, withGlow = true, className = "", title = "SSD Sirius" }) {
-  const gid = `sirius-grad-${size}`;
-  const sid = `sirius-soft-${size}`;
+export default function SiriusMark({ size = 20, title = "SSD Sirius", className = "" }) {
   return (
     <svg
       width={size}
@@ -13,48 +12,11 @@ export default function SiriusMark({ size = 40, withGlow = true, className = "",
       aria-label={title}
       className={className}
     >
-      <defs>
-        <linearGradient id={gid} x1="12" y1="16" x2="88" y2="84" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#4f7cff" />
-          <stop offset="0.55" stopColor="#7c5cff" />
-          <stop offset="1" stopColor="#b06bff" />
-        </linearGradient>
-        <radialGradient id={sid} cx="50%" cy="50%" r="50%">
-          <stop offset="0" stopColor="#ffffff" stopOpacity="0.9" />
-          <stop offset="1" stopColor="#ffffff" stopOpacity="0" />
-        </radialGradient>
-      </defs>
-
-      {withGlow && <circle cx="50" cy="50" r="30" fill={`url(#${sid})`} opacity="0.5" />}
-
-      <circle
-        cx="50"
-        cy="50"
-        r="34"
-        fill="none"
-        stroke={`url(#${gid})`}
-        strokeWidth="4"
-      />
-
-      {/* Étoile à quatre branches */}
+      <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" strokeWidth="8" />
       <path
-        d="M50 12 C52 34 66 48 88 50 C66 52 52 66 50 88 C48 66 34 52 12 50 C34 48 48 34 50 12 Z"
-        fill="#ffffff"
+        d="M50 14 C52.6 37 63 47.4 86 50 C63 52.6 52.6 63 50 86 C47.4 63 37 52.6 14 50 C37 47.4 47.4 37 50 14 Z"
+        fill="currentColor"
       />
     </svg>
-  );
-}
-
-export function SiriusVisual() {
-  return (
-    <div className="sirius-visual" aria-hidden="true">
-      <div className="sirius-visual__glow" />
-      <div className="sirius-visual__orbit" />
-      <div className="sirius-visual__orbit" />
-      <div className="sirius-visual__orbit" />
-      <div className="sirius-visual__core">
-        <SiriusMark size={180} />
-      </div>
-    </div>
   );
 }

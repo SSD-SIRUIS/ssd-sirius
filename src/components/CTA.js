@@ -2,47 +2,38 @@ import Link from "next/link";
 import Icon from "@/components/Icon";
 import { MEETING } from "@/data/site";
 
-// Bloc de conversion réutilisable en fin de page.
-// Pas de devis ni d'estimation : on propose un court point en visio.
+// Appel à l'action de fin de page : titre en deux tons, puis deux boutons.
+// Pas de devis ni d'estimation : on propose simplement d'en parler.
 export default function CTA({
-  title = "Vous avez un projet en tête ?",
-  text = MEETING.long,
+  title = "Parlez-nous de votre projet.",
+  text = "Tout le reste, on s’en occupe — conception, développement, paiements et publication sur les stores.",
   primary = { href: "/contact", label: MEETING.ctaLabel },
-  secondary = { href: "/realisations", label: "Voir les réalisations" },
+  secondary = MEETING.bookingUrl
+    ? { href: MEETING.bookingUrl, label: MEETING.bookingLabel, external: true }
+    : { href: "/realisations", label: "Voir nos réalisations" },
 }) {
   return (
-    <section className="section section--tight">
+    <section className="cta-final">
       <div className="container">
-        <div className="mission">
-          <span className="eyebrow" style={{ justifyContent: "center" }}>
-            SSD Sirius
-          </span>
-          <h2 className="h2" style={{ margin: "16px auto 0", maxWidth: "22ch" }}>
-            {title}
-          </h2>
-          <p className="lead mx-auto" style={{ marginTop: 16 }}>
-            {text}
-          </p>
-          <div
-            style={{
-              display: "flex",
-              gap: 14,
-              justifyContent: "center",
-              flexWrap: "wrap",
-              marginTop: 28,
-            }}
-          >
-            <Link href={primary.href} className="btn btn--primary">
-              {primary.label}
-              <Icon name="ArrowRight" />
-            </Link>
-            {secondary && (
-              <Link href={secondary.href} className="btn btn--ghost">
+        <h2 className="title-1" style={{ maxWidth: 900 }}>
+          <span className="strong">{title}</span> <span className="soft">{text}</span>
+        </h2>
+        <div className="btn-row">
+          <Link href={primary.href} className="btn btn--primary">
+            {primary.label}
+            <Icon name="ArrowRight" />
+          </Link>
+          {secondary &&
+            (secondary.external ? (
+              <a href={secondary.href} target="_blank" rel="noreferrer" className="btn btn--secondary">
                 {secondary.label}
-                <Icon name="ArrowRight" />
+                <Icon name="ArrowUpRight" />
+              </a>
+            ) : (
+              <Link href={secondary.href} className="btn btn--secondary">
+                {secondary.label}
               </Link>
-            )}
-          </div>
+            ))}
         </div>
       </div>
     </section>

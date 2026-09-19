@@ -2,9 +2,14 @@
 // Données des réalisations (repli local).
 // Utilisées quand Supabase n'est pas configuré ou ne renvoie rien.
 //
-// FLASH MARKET = projet phare de SSD Sirius (produit interne, pas une commande client).
-// Contenu et stack technique fournis par l'équipe — ne pas embellir.
-// Les 3 autres entrées restent des placeholders à remplacer.
+// Projets réels de SSD Sirius :
+//   1. FLASH MARKET (projet phare) — marketplace mobile iOS / Android
+//   2. MALILINK — plateforme d’emploi web
+// Contenu et stack fournis par l’équipe ou vérifiés sur le site en ligne.
+//
+// Les 3 entrées suivantes (plateforme-e-commerce, passerelle-paiement,
+// marketplace-locale) sont encore des PLACEHOLDERS : à remplacer par de vrais
+// projets ou à supprimer avant une diffusion commerciale large.
 // ------------------------------------------------------------------
 
 // Passer à `false` pour revenir aux aperçus dégradés.
@@ -22,6 +27,8 @@ const flashShot = (file, tone, label) => ({
 export const PROJECTS = [
   {
     slug: "flash-market",
+    headline: "Une application complète, publiée sur iOS et Android",
+    card_tone: "linear-gradient(140deg, #22a653 0%, #0f6b33 100%)",
     title: "Flash Market",
     client_name: "",
     own_product: true,
@@ -164,6 +171,8 @@ export const PROJECTS = [
 
   {
     slug: "malilink",
+    headline: "La plateforme qui connecte les talents maliens aux recruteurs",
+    card_image: "/realisations/malilink/01-accueil.jpg",
     title: "MaliLink",
     client_name: "",
     own_product: true,
@@ -270,6 +279,8 @@ export const PROJECTS = [
 
   {
     slug: "plateforme-e-commerce",
+    headline: "Une boutique en ligne pensée pour le mobile et le paiement local",
+    card_tone: "#4f52d9",
     title: "Plateforme e-commerce",
     client_name: "Projet interne SSD Sirius",
     type: "plateforme",
@@ -309,6 +320,8 @@ export const PROJECTS = [
 
   {
     slug: "passerelle-paiement",
+    headline: "Une passerelle qui centralise les encaissements Mobile Money",
+    card_tone: "linear-gradient(180deg, #6f93dd 0%, #9b86dc 100%)",
     title: "Passerelle de paiement",
     client_name: "Projet interne SSD Sirius",
     type: "site",
@@ -347,6 +360,8 @@ export const PROJECTS = [
 
   {
     slug: "marketplace-locale",
+    headline: "De la recherche au contact vendeur en deux clics",
+    card_tone: "#1c1d20",
     title: "Marketplace locale",
     client_name: "Projet interne SSD Sirius",
     type: "site",

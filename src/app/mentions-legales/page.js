@@ -14,10 +14,10 @@ export default async function MentionsPage() {
   const { contact, company } = await getSettings();
 
   return (
-    <section className="section" style={{ paddingTop: "clamp(80px, 12vw, 140px)" }}>
+    <section className="hero">
       <div className="container">
-        <span className="eyebrow">Conformité</span>
-        <h1 className="display display--page" style={{ margin: "16px 0 32px" }}>
+        <span className="mono">Conformité</span>
+        <h1 className="title-page" style={{ margin: "16px 0 40px" }}>
           Mentions légales
         </h1>
 
@@ -70,7 +70,7 @@ export default async function MentionsPage() {
           </p>
         </div>
 
-        <p className="muted" style={{ marginTop: 40, fontSize: "0.82rem" }}>
+        <p className="mono" style={{ marginTop: 48 }}>
           Dernière mise à jour : à compléter — {SITE.legalName}.
         </p>
       </div>

@@ -14,14 +14,24 @@ export const SITE = {
   locale: "fr_FR",
 };
 
-// Contenu du hero de la page d'accueil.
+// Hero de la page d’accueil — titre en deux tons : la phrase forte,
+// puis la suite en gris.
 export const HERO = {
-  eyebrow: "SSD Sirius Solutions Digitales",
-  titleLead: "Votre application conceptualisée et",
-  titleAccent: "disponible en 1 mois",
-  subtitle:
-    "Nous concevons, développons et publions votre application — base de données, paiements Mobile Money, App Store et Play Store inclus. Vous validez, on s'occupe de tout le reste.",
+  announce: { tag: "Nouveau", label: "MaliLink, la plateforme d’emploi du Mali", href: "/realisations/malilink" },
+  strong: "Votre application conceptualisée et disponible en 1 mois.",
+  soft: "Nous concevons, développons et publions votre produit — base de données, paiements Mobile Money, App Store et Play Store inclus.",
+  note: "Ni devis à remplir, ni dossier à monter. Parlez-nous de votre projet, on s’occupe du reste.",
 };
+
+// Les trois temps d’un projet, illustrés en fil de fer sous le hero.
+export const FIGURES = [
+  { variant: "layers", label: "FIG 0.1 — Conception" },
+  { variant: "modules", label: "FIG 0.2 — Développement" },
+  { variant: "releases", label: "FIG 0.3 — Publication" },
+];
+
+// Technologies réellement utilisées sur nos projets (Flash Market, MaliLink).
+export const TECH = ["React Native", "Next.js", "Expo", "Supabase", "PostgreSQL", "Google Cloud", "Mobile Money"];
 
 // Message de conversion : pas de devis ni d'estimation à remplir.
 // Le visiteur nous parle de son projet, on s'occupe du reste.
@@ -104,10 +114,10 @@ export const STATS = [
 ];
 
 export const NAV = [
-  { href: "/", label: "Accueil" },
   { href: "/services", label: "Services" },
   { href: "/realisations", label: "Réalisations" },
   { href: "/a-propos", label: "À propos" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export function whatsappLink(message) {

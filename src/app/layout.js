@@ -1,16 +1,23 @@
-import { Outfit } from "next/font/google";
+import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Starfield from "@/components/Starfield";
 import { themeInitScript } from "@/components/ThemeToggle";
 import { SITE } from "@/data/site";
 
-const outfit = Outfit({
+// Inter : la typographie de référence de l esthétique retenue.
+// Police variable : toutes les graisses intermédiaires (510, 590…) sont disponibles.
+const inter = Inter({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-outfit",
-  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-inter",
+});
+
+// Chasse fixe pour les étiquettes techniques (FIG 0.1, identifiants, légendes).
+const mono = Geist_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-mono",
 });
 
 export const metadata = {
@@ -45,8 +52,10 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: "#04050c",
-  colorScheme: "dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#08090a" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+  ],
 };
 
 export default function RootLayout({ children }) {
@@ -61,7 +70,7 @@ export default function RootLayout({ children }) {
   };
 
   return (
-    <html lang="fr" className={outfit.variable} data-theme="dark" suppressHydrationWarning>
+    <html lang="fr" className={`${inter.variable} ${mono.variable}`} data-theme="dark" suppressHydrationWarning>
       <head>
         {/* Applique le thème mémorisé avant le premier rendu (évite le flash) */}
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
@@ -71,7 +80,6 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
-        <Starfield />
         <div className="app-shell">
           <Header />
           <main id="contenu">{children}</main>

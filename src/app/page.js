@@ -2,129 +2,111 @@ import Link from "next/link";
 import Icon from "@/components/Icon";
 import Reveal from "@/components/Reveal";
 import CTA from "@/components/CTA";
-import ProjectCard from "@/components/ProjectCard";
-import ServiceCard from "@/components/ServiceCard";
+import IsoFigure from "@/components/IsoFigure";
 import MockShot from "@/components/MockShot";
-import SpaceScene from "@/components/SpaceScene";
-import { getProjects, getSettings } from "@/lib/content";
-import { SERVICES, DIFFERENTIATORS } from "@/data/services";
-import { HERO, GUARANTEES, MEETING } from "@/data/site";
+import ProjectCard from "@/components/ProjectCard";
+import { PaymentWindows, ProjectBoard } from "@/components/Mockups";
+import { getProjects } from "@/lib/content";
+import { FIGURES, GUARANTEES, HERO, MEETING, TECH } from "@/data/site";
 
 export const revalidate = 300;
 
-const USE_CASES = [
-  { icon: "Smartphone", label: "Applications mobiles" },
-  { icon: "ShoppingCart", label: "Commerce en ligne" },
-  { icon: "Store", label: "Marketplaces" },
-  { icon: "Wallet", label: "Mobile Money" },
-  { icon: "Boxes", label: "API & systèmes" },
-  { icon: "Globe", label: "Présence web" },
-];
+function FeatureHead({ title, children, link }) {
+  return (
+    <div className="feature-head">
+      <h2 className="title-1">{title}</h2>
+      <div>
+        <p className="text-lg">{children}</p>
+        {link && (
+          <Link href={link.href} className="link-more">
+            {link.label} <Icon name="ArrowRight" />
+          </Link>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default async function HomePage() {
-  const [projects, settings] = await Promise.all([getProjects(), getSettings()]);
-  const flagship = projects.find((p) => p.flagship) || projects[0];
-  const rest = projects.filter((p) => p.slug !== flagship?.slug);
-  const stats = settings.stats || [];
+  const projects = await getProjects();
+  const flash = projects.find((p) => p.slug === "flash-market");
+  const malilink = projects.find((p) => p.slug === "malilink");
+  const featured = projects.filter((p) => p.featured).slice(0, 2);
+  const phones = (flash?.screens || []).slice(0, 3);
 
   return (
     <>
-      {/* ---------------- Hero ---------------- */}
+      {/* ------------------------------------------------------------ Hero */}
       <section className="hero">
         <div className="container">
-          <div className="hero__grid">
-            <div>
-              <span className="eyebrow">{HERO.eyebrow}</span>
-              <h1 className="display hero__title">
-                {HERO.titleLead} <span className="grad-text">{HERO.titleAccent}</span>.
-              </h1>
-              <p className="lead">{HERO.subtitle}</p>
-              <div className="hero__cta">
-                <Link href="/contact" className="btn btn--primary">
-                  {MEETING.ctaLabel}
-                  <Icon name="ArrowRight" />
-                </Link>
-                <Link href="/realisations" className="btn btn--ghost">
-                  Découvrir nos réalisations
-                  <Icon name="ArrowRight" />
-                </Link>
-              </div>
-              <p className="hero__note">
-                <Icon name="Sparkles" />
-                Ni devis à remplir, ni dossier à monter — parlez-nous de votre projet, on
-                s&apos;occupe du reste.
-              </p>
-            </div>
-
-            <div className="hero__scene">
-              <SpaceScene />
-            </div>
+          <Link href={HERO.announce.href} className="chip-link">
+            <span className="chip-link__tag">{HERO.announce.tag}</span>
+            {HERO.announce.label}
+            <Icon name="ArrowRight" />
+          </Link>
+          <h1 className="title-hero">
+            <span className="strong">{HERO.strong}</span> <span className="soft">{HERO.soft}</span>
+          </h1>
+          <div className="btn-row">
+            <Link href="/contact" className="btn btn--primary">
+              {MEETING.ctaLabel}
+              <Icon name="ArrowRight" />
+            </Link>
+            <Link href="/realisations" className="btn btn--secondary">
+              Découvrir nos réalisations
+            </Link>
           </div>
-
-          <div className="proofbar">
-            {DIFFERENTIATORS.map((d) => (
-              <div className="proofbar__item" key={d.title}>
-                <Icon name={d.icon} />
-                <div>
-                  <strong>{d.title}</strong>
-                  <span>{d.text}</span>
-                </div>
-              </div>
-            ))}
-          </div>
+          <p className="hero__note">{HERO.note}</p>
         </div>
       </section>
 
-      {/* ---------------- Projet phare : Flash Market ---------------- */}
-      {flagship && (
-        <section className="section" id="flash-market">
-          <div className="container">
-            <Reveal className="flagship">
-              <div className="flagship__grid">
-                <div className="stack" style={{ "--gap": "16px" }}>
-                  <span className="badge-flagship">
-                    <Icon name="Star" />
-                    Projet phare
-                  </span>
-                  <h2 className="h2 h2--md">
-                    {flagship.title}
-                  </h2>
-                  {flagship.platforms?.length > 0 && (
-                    <div className="platform-badges">
-                      {flagship.platforms.map((p) => (
-                        <span key={p} className="tag">{p}</span>
-                      ))}
-                    </div>
-                  )}
-                  <p className="muted">{flagship.summary}</p>
-                  <div className="tag-row">
-                    {flagship.technologies.slice(0, 5).map((t) => (
-                      <span key={t} className="tag">{t}</span>
-                    ))}
-                  </div>
-                  <Link href={`/realisations/${flagship.slug}`} className="btn btn--primary">
-                    Découvrir le projet
-                    <Icon name="ArrowRight" />
-                  </Link>
-                </div>
+      {/* ------------------------------------------- Méthode + technologies */}
+      <section aria-label="Notre méthode">
+        <div className="container">
+          <div className="figs">
+            {FIGURES.map((f) => (
+              <figure className="fig" key={f.variant}>
+                <figcaption className="mono fig__label">{f.label}</figcaption>
+                <IsoFigure variant={f.variant} />
+              </figure>
+            ))}
+          </div>
 
-                <div>
-                  {flagship.screens?.length > 0 ? (
-                    <div className="screens-row">
-                      {flagship.screens.slice(0, 4).map((s, i) => (
-                        <div className="screen-item" key={i}>
-                          <MockShot tone={s.tone} label={s.label} phone src={s.url} />
-                          <span>{s.label}</span>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <MockShot
-                      {...(flagship.cover_url ? { src: flagship.cover_url } : { tone: flagship.cover })}
-                      label={flagship.title}
-                      phone={flagship.type === "application"}
-                    />
-                  )}
+          <div className="logos" aria-label="Technologies utilisées">
+            {TECH.map((t) => (
+              <span className="logo-word" key={t}>
+                {t}
+              </span>
+            ))}
+          </div>
+          <p className="mono logos-caption">Les technologies derrière nos produits</p>
+        </div>
+      </section>
+
+      {/* -------------------------------------------- Applications mobiles */}
+      {flash && (
+        <section className="section">
+          <div className="container">
+            <FeatureHead
+              title={
+                <>
+                  Applications
+                  <br />
+                  mobiles
+                </>
+              }
+              link={{ href: `/realisations/${flash.slug}`, label: "Découvrir Flash Market" }}
+            >
+              Des applications iOS et Android complètes, publiées sur les stores. Flash Market,
+              notre marketplace mobile, en est la preuve : comptes, messagerie en temps réel,
+              espace professionnel et paiement Mobile Money.
+            </FeatureHead>
+            <Reveal className="feature-visual">
+              <div className="showcase showcase--crop fade-b">
+                <div className="phones">
+                  {phones.map((s, i) => (
+                    <MockShot key={i} src={s.url} tone={s.tone} label={s.label} alt={s.label} phone />
+                  ))}
                 </div>
               </div>
             </Reveal>
@@ -132,131 +114,149 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* ---------------- Services ---------------- */}
-      <section className="section" id="services">
-        <div className="container">
-          <div className="section-head">
-            <span className="eyebrow">Nos services</span>
-            <h2 className="h2">
-              Des solutions digitales adaptées à <span className="grad-text">vos besoins</span>.
-            </h2>
-            <p className="lead">
-              Nous transformons vos idées en produits digitaux performants, sécurisés et évolutifs.
-            </p>
-          </div>
-
-          <div className="grid grid-4">
-            {SERVICES.map((s, i) => (
-              <Reveal key={s.slug} delay={i * 60}>
-                <ServiceCard service={s} href={`/services#${s.slug}`} />
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ---------------- Engagements ---------------- */}
-      <section className="section section--tight" id="engagements">
-        <div className="container">
-          <div className="section-head">
-            <span className="eyebrow">Nos engagements</span>
-            <h2 className="h2">
-              Ce que <span className="grad-text">Sirius</span> garantit
-            </h2>
-            <p className="lead">
-              Vous n'avez qu'à valider et à lancer votre activité. Le reste, c'est notre travail.
-            </p>
-          </div>
-
-          <div className="grid grid-3">
-            {GUARANTEES.map((g, i) => (
-              <Reveal key={g.title} delay={i * 50} className="card">
-                <span className="icon-orbit">
-                  <Icon name={g.icon} />
-                </span>
-                <h3 className="h3">{g.title}</h3>
-                <p className="muted">{g.text}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ---------------- Autres réalisations ---------------- */}
-      {rest.length > 0 && (
-        <section className="section" id="realisations">
+      {/* ------------------------------------------------ Plateformes web */}
+      {malilink && (
+        <section className="section section--line">
           <div className="container">
-            <div className="section-head section-head--split">
-              <div className="stack" style={{ "--gap": "14px" }}>
-                <span className="eyebrow">Réalisations</span>
-                <h2 className="h2">
-                  D'autres <span className="grad-text">projets</span> signés Sirius.
-                </h2>
+            <FeatureHead
+              title={
+                <>
+                  Plateformes
+                  <br />
+                  web
+                </>
+              }
+              link={{ href: `/realisations/${malilink.slug}`, label: "Découvrir MaliLink" }}
+            >
+              Des plateformes rapides et solides, pensées pour les usages réels. MaliLink relie
+              les talents maliens — et la diaspora — aux recruteurs : inscription par téléphone,
+              coffre-fort de documents, employeurs vérifiés.
+            </FeatureHead>
+            <Reveal className="feature-visual">
+              <div className="showcase showcase--pad showcase--float">
+                <MockShot src={malilink.cover_url} label="Accueil de MaliLink" alt="Page d’accueil de MaliLink" />
+                <div className="float-card" aria-hidden="true">
+                  <div className="float-card__title">
+                    <Icon name="Lock" /> Candidature prête en un clic
+                  </div>
+                  <div className="float-card__rows">
+                    <div className="float-card__row">
+                      <Icon name="Check" /> CV — depuis le coffre-fort
+                    </div>
+                    <div className="float-card__row">
+                      <Icon name="Check" /> Diplômes — depuis le coffre-fort
+                    </div>
+                    <div className="float-card__row">
+                      <Icon name="Check" /> Employeur vérifié par NIF et RCCM
+                    </div>
+                  </div>
+                </div>
               </div>
-              <Link href="/realisations" className="btn btn--ghost">
-                Voir tous les projets
-                <Icon name="ArrowRight" />
+            </Reveal>
+          </div>
+        </section>
+      )}
+
+      {/* ------------------------------------------ Paiement Mobile Money */}
+      <section className="section section--line">
+        <div className="container">
+          <FeatureHead
+            title={
+              <>
+                Paiements
+                <br />
+                Mobile Money
+              </>
+            }
+            link={{ href: "/services#mobile-money", label: "Notre expertise paiement" }}
+          >
+            Le paiement mobile au cœur de vos produits : agrégateur, choix du pays et de
+            l’opérateur, confirmation et suivi de chaque transaction — jusqu’à la validation.
+          </FeatureHead>
+          <Reveal className="feature-visual">
+            <div className="fade-x">
+              <PaymentWindows />
+            </div>
+            <p className="mono visual-caption">Parcours réel de Flash Market, reproduit en maquette</p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ------------------------------------------------ Suivi de projet */}
+      <section className="section section--line">
+        <div className="container">
+          <FeatureHead
+            title={
+              <>
+                Un suivi à
+                <br />
+                chaque étape
+              </>
+            }
+            link={{ href: "#engagements", label: "Nos engagements" }}
+          >
+            Des premiers résultats dès la première semaine, un point d’avancement journalier ou
+            hebdomadaire, et un échange direct avec l’équipe qui construit votre produit.
+          </FeatureHead>
+          <Reveal className="feature-visual">
+            <ProjectBoard />
+            <p className="mono visual-caption">Exemple de suivi — illustration</p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ---------------------------------------------------- Engagements */}
+      <section className="section section--line" id="engagements">
+        <div className="container">
+          <div className="section-head">
+            <h2 className="title-1">
+              <span className="strong">Ce que Sirius garantit.</span>{" "}
+              <span className="soft">Vous validez, on s’occupe de tout le reste.</span>
+            </h2>
+          </div>
+          <div className="cells">
+            {GUARANTEES.map((g, i) => (
+              <div className="cell" key={g.title}>
+                <span className="mono">{String(i + 1).padStart(2, "0")}</span>
+                <Icon name={g.icon} className="cell__icon" />
+                <h3>{g.title}</h3>
+                <p>{g.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* --------------------------------------------------- Réalisations */}
+      <section className="section section--line">
+        <div className="container">
+          <div className="feature-head">
+            <h2 className="title-1">Réalisations</h2>
+            <div>
+              <p className="text-lg">
+                Des produits conçus, développés et mis en ligne par l’équipe Sirius.
+              </p>
+              <Link href="/realisations" className="link-more">
+                Toutes les réalisations <Icon name="ArrowRight" />
               </Link>
             </div>
-
-            <div className="grid grid-3">
-              {rest.map((p, i) => (
-                <Reveal key={p.slug} delay={i * 60}>
-                  <ProjectCard project={p} />
-                </Reveal>
-              ))}
-            </div>
           </div>
-        </section>
-      )}
-
-      {/* ---------------- Indicateurs ---------------- */}
-      {stats.length > 0 && (
-        <section className="section section--tight">
-          <div className="container">
-            <div className="stats">
-              {stats.map((s) => (
-                <div className="stats__item" key={s.label}>
-                  {s.icon && <Icon name={s.icon} />}
-                  <span className="stats__value">{s.value}</span>
-                  <span className="stats__label">{s.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ---------------- Secteurs / cas d'usage ---------------- */}
-      <section className="section section--tight">
-        <div className="container">
-          <p className="eyebrow" style={{ justifyContent: "center", marginBottom: 26 }}>
-            Ce que nous construisons
-          </p>
-          <div className="trust">
-            {USE_CASES.map((u) => (
-              <span className="trust__logo" key={u.label}>
-                <Icon name={u.icon} />
-                {u.label}
-              </span>
+          <div className="stories">
+            {featured.map((p) => (
+              <ProjectCard key={p.slug} project={p} />
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ---------------- Mission ---------------- */}
-      <section className="section">
-        <div className="container">
-          <div className="mission">
-            <span className="eyebrow" style={{ justifyContent: "center" }}>
-              Notre mission
-            </span>
-            <h2 className="h2">Conçu au Mali. Pensé pour l'Afrique.</h2>
-            <p className="lead mx-auto" style={{ marginTop: 16 }}>
-              Nous construisons des produits digitaux qui tiennent compte des réalités locales :
-              usages mobiles, connexions instables, paiement Mobile Money et besoin d'autonomie
-              pour les équipes.
-            </p>
+            <article className="story">
+              <Link href="/contact" className="story__media story__media--empty" aria-label="Parlez-nous de votre projet">
+                <span className="story__word">Votre projet</span>
+              </Link>
+              <p className="mono story__meta">Prochaine réalisation</p>
+              <h3 className="story__title">
+                <Link href="/contact">Une application en ligne dans un mois — la vôtre ?</Link>
+              </h3>
+              <Link href="/contact" className="link-more">
+                {MEETING.ctaLabel} <Icon name="ArrowRight" />
+              </Link>
+            </article>
           </div>
         </div>
       </section>

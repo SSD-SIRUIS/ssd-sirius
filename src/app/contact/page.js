@@ -1,138 +1,91 @@
 import Icon from "@/components/Icon";
 import ContactForm from "@/components/ContactForm";
 import { getProjects, getSettings } from "@/lib/content";
-import { whatsappLink, MEETING } from "@/data/site";
+import { MEETING, whatsappLink } from "@/data/site";
 
 export const metadata = {
   title: "Contact",
   description:
-    "Contactez SSD Sirius Solutions Digitales : formulaire, e-mail, téléphone et WhatsApp. Basés à Bamako, nous accompagnons vos projets digitaux.",
+    "Parlez-nous de votre projet : rendez-vous en visio, WhatsApp, e-mail ou téléphone. SSD Sirius Solutions Digitales, entre Bamako et Paris.",
   alternates: { canonical: "/contact" },
 };
 
 export const revalidate = 300;
 
+function ContactRow({ icon, label, value, href, external }) {
+  const content = (
+    <>
+      <Icon name={icon} />
+      <span>
+        <span className="mono contact-row__label">{label}</span>
+        <span className="contact-row__value">{value}</span>
+      </span>
+      {href && <Icon name="ArrowUpRight" className="contact-row__go" />}
+    </>
+  );
+  return href ? (
+    <a className="contact-row" href={href} {...(external ? { target: "_blank", rel: "noreferrer" } : {})}>
+      {content}
+    </a>
+  ) : (
+    <div className="contact-row">{content}</div>
+  );
+}
+
 export default async function ContactPage() {
   const [projects, settings] = await Promise.all([getProjects(), getSettings()]);
   const { contact } = settings;
-  const tel = contact.phone.replace(/\s+/g, "");
+  const tel = (n) => `tel:${n.replace(/\s+/g, "")}`;
+  const wa = whatsappLink("Bonjour SSD Sirius, je souhaite discuter d’un projet.");
 
   return (
-    <>
-      <section className="page-hero">
-        <div className="container">
-          <span className="eyebrow">Contact</span>
-          <h1 className="display display--page page-hero__title">
-            Parlons de votre <span className="grad-text">projet</span>
-          </h1>
-          <p className="lead">{MEETING.long}</p>
+    <section className="hero">
+      <div className="container contact-layout">
+        <div>
+          <h1 className="title-page">Contact</h1>
+          <p className="text-lg" style={{ marginTop: 20 }}>
+            <span className="strong">Parlez-nous de votre projet.</span>{" "}
+            <span className="soft">
+              Pas de dossier à monter : un simple échange en visio suffit. Tout le reste, on s’en
+              occupe.
+            </span>
+          </p>
 
-          {MEETING.bookingUrl && (
-            <div className="hero__cta">
-              <a
-                href={MEETING.bookingUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="btn btn--primary"
-              >
+          <div className="btn-row" style={{ marginTop: 32 }}>
+            {MEETING.bookingUrl && (
+              <a href={MEETING.bookingUrl} target="_blank" rel="noreferrer" className="btn btn--primary">
                 {MEETING.bookingLabel}
                 <Icon name="ArrowUpRight" />
               </a>
-              <a
-                className="btn btn--ghost"
-                href={whatsappLink("Bonjour SSD Sirius, je souhaite discuter d'un projet.")}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Écrire sur WhatsApp
-                <Icon name="MessageCircle" />
-              </a>
-            </div>
-          )}
-        </div>
-      </section>
+            )}
+            <a href={wa} target="_blank" rel="noreferrer" className="btn btn--secondary">
+              Écrire sur WhatsApp
+            </a>
+          </div>
+          {MEETING.bookingUrl && <p className="hero__note">{MEETING.bookingHint}</p>}
 
-      <section className="section">
-        <div className="container">
-          <div className="contact-grid">
-            <ContactForm projects={projects} />
-
-            <div className="contact-cards">
-              {MEETING.bookingUrl && (
-                <a
-                  className="booking-card"
-                  href={MEETING.bookingUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <span className="icon-orbit">
-                    <Icon name="CalendarClock" />
-                  </span>
-                  <div>
-                    <h2 className="h3">Réserver un échange</h2>
-                    <p className="muted">{MEETING.bookingHint}</p>
-                    <span className="link-arrow">
-                      {MEETING.bookingLabel}
-                      <Icon name="ArrowUpRight" />
-                    </span>
-                  </div>
-                </a>
-              )}
-
-              <a className="panel contact-line" href={`mailto:${contact.email}`}>
-                <Icon name="Mail" />
-                <div>
-                  <span>E-mail</span>
-                  {contact.email}
-                </div>
-              </a>
-              <a className="panel contact-line" href={`tel:${tel}`}>
-                <Icon name="Phone" />
-                <div>
-                  <span>Téléphone</span>
-                  {contact.phone}
-                </div>
-              </a>
-              {contact.phoneAlt && (
-                <a className="panel contact-line" href={`tel:${contact.phoneAlt.replace(/\s+/g, "")}`}>
-                  <Icon name="Phone" />
-                  <div>
-                    <span>Second numéro</span>
-                    {contact.phoneAlt}
-                  </div>
-                </a>
-              )}
-              <a
-                className="panel contact-line"
-                href={whatsappLink("Bonjour SSD Sirius, je souhaite discuter d'un projet.")}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Icon name="MessageCircle" />
-                <div>
-                  <span>WhatsApp</span>
-                  Discuter maintenant
-                </div>
-              </a>
-              <div className="panel contact-line">
-                <Icon name="MapPin" />
-                <div>
-                  <span>Localisation</span>
-                  {(contact.cities || [contact.city]).join(" · ")}
-                </div>
-              </div>
-
-              <div className="panel" style={{ padding: 18 }}>
-                <p className="muted" style={{ fontSize: "0.88rem" }}>
-                  Basés entre Bamako et Paris, nous concevons, développons et publions des
-                  applications et produits digitaux sur mesure pour le Mali et l&apos;Afrique
-                  francophone.
-                </p>
-              </div>
-            </div>
+          <div className="contact-list">
+            <ContactRow icon="Mail" label="E-mail" value={contact.email} href={`mailto:${contact.email}`} />
+            <ContactRow icon="Phone" label="Téléphone" value={contact.phone} href={tel(contact.phone)} />
+            {contact.phoneAlt && (
+              <ContactRow icon="Phone" label="Second numéro" value={contact.phoneAlt} href={tel(contact.phoneAlt)} />
+            )}
+            <ContactRow icon="MessageCircle" label="WhatsApp" value="Discuter maintenant" href={wa} external />
+            <ContactRow
+              icon="MapPin"
+              label="Localisation"
+              value={(contact.cities || [contact.city]).join(" · ")}
+            />
           </div>
         </div>
-      </section>
-    </>
+
+        <div>
+          <p className="mono" style={{ marginBottom: 14 }}>
+            Ou écrivez-nous
+          </p>
+          <ContactForm projects={projects} />
+        </div>
+      </div>
+    </section>
   );
 }
