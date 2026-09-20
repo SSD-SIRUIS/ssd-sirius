@@ -1,16 +1,17 @@
-import { Outfit } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Starfield from "@/components/Starfield";
 import { themeInitScript } from "@/components/ThemeToggle";
-import { SITE } from "@/data/site";
+import { SITE, CONTACT } from "@/data/site";
 
-const outfit = Outfit({
+// Une seule famille pour tout le site : titres, texte, étiquettes, chiffres.
+// Inter en version variable — le système s'appuie sur des graisses
+// intermédiaires (450, 500, 560) que seule une fonte variable rend possibles.
+const inter = Inter({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-outfit",
-  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-sans",
 });
 
 export const metadata = {
@@ -45,8 +46,12 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: "#04050c",
-  colorScheme: "dark",
+  // Le site est sombre par défaut : la barre du navigateur suit.
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#08090a" },
+  ],
+  colorScheme: "dark light",
 };
 
 export default function RootLayout({ children }) {
@@ -56,14 +61,16 @@ export default function RootLayout({ children }) {
     name: SITE.legalName,
     url: SITE.url,
     description: SITE.description,
+    email: CONTACT.email,
+    telephone: CONTACT.phone,
     areaServed: "ML",
     slogan: SITE.tagline,
+    foundingDate: String(SITE.foundedYear),
   };
 
   return (
-    <html lang="fr" className={outfit.variable} data-theme="dark" suppressHydrationWarning>
+    <html lang="fr" data-theme="dark" className={inter.variable} suppressHydrationWarning>
       <head>
-        {/* Applique le thème mémorisé avant le premier rendu (évite le flash) */}
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body>
@@ -71,7 +78,6 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
-        <Starfield />
         <div className="app-shell">
           <Header />
           <main id="contenu">{children}</main>

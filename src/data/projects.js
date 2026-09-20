@@ -4,7 +4,7 @@
 //
 // FLASH MARKET = projet phare de SSD Sirius (produit interne, pas une commande client).
 // Contenu et stack technique fournis par l'équipe — ne pas embellir.
-// Les 3 autres entrées restent des placeholders à remplacer.
+// Seuls les projets réels restent publiés : Flash Market, Picasso Resolve et MaliLink.
 // ------------------------------------------------------------------
 
 // Passer à `false` pour revenir aux aperçus dégradés.
@@ -43,15 +43,15 @@ export const PROJECTS = [
     },
     credits: ["Sidi Oumar GANO", "Mohamed Lamine"],
     summary:
-      "La marketplace mobile pensée pour acheter, vendre et trouver des professionnels au Mali. Conçue et développée intégralement par SSD Sirius.",
+      "Marketplace mobile pour acheter, vendre et trouver des professionnels au Mali. Conçue et développée intégralement par SSD Sirius.",
     context:
-      "Flash Market met en relation particuliers, vendeurs et professionnels dans une expérience simple, rapide et adaptée aux usages locaux : interface en français, prix en FCFA, et échanges qui se poursuivent dans l'application ou via les coordonnées du vendeur.",
+      "Flash Market met en relation particuliers, vendeurs et professionnels : interface en français, prix en FCFA, échanges dans l'application ou via les coordonnées du vendeur.",
     problem:
       "Acheter et vendre localement passait par des canaux dispersés, sans recherche fiable, sans tri par proximité et sans vitrine durable pour les professionnels. Il fallait réunir la découverte, la mise en relation et la gestion d'une activité dans une seule application, utilisable sur des connexions modestes.",
     solution:
       "SSD Sirius a conçu, développé et publié Flash Market de bout en bout : application React Native / Expo en TypeScript, back-end Supabase (PostgreSQL, Auth, Realtime, Storage), politiques RLS pour isoler les données privées, notifications push, géolocalisation, interface d'administration et pages publiques — jusqu'aux builds et mises à jour EAS.",
     description:
-      "Flash Market démontre toute la palette technique de SSD Sirius sur le développement d'application : une base de code unique pour iOS et Android, un back-end complet avec sécurité au niveau des lignes, du temps réel, du paiement mobile pour la promotion d'annonces, et une chaîne de publication maîtrisée jusqu'aux stores.",
+      "Le projet couvre l'ensemble de la chaîne : une base de code unique pour iOS et Android, un back-end avec sécurité au niveau des lignes, de la synchronisation en temps réel, du paiement mobile pour la promotion d'annonces, et la publication sur les deux stores.",
     highlights: [
       {
         icon: "Smartphone",
@@ -163,13 +163,158 @@ export const PROJECTS = [
   },
 
   {
+    slug: "picasso-resolve",
+    title: "Picasso Resolve",
+    client_name: "Produit SaaS développé par SSD Sirius",
+    own_product: true,
+    type: "plateforme",
+    category: "SaaS & intelligence artificielle",
+    featured: true,
+    flagship: false,
+    status: "published",
+    sort_order: 2,
+    link_url: "https://picassoresolve.com",
+    link_label: "Découvrir Picasso Resolve",
+    cover: "picasso",
+    cover_url: "https://picassoresolve.com/landing/4k-1.jpg",
+    summary:
+      "Studio photo par intelligence artificielle : à partir d’une photo de produit brute, il génère des visuels destinés aux fiches e-commerce.",
+    context:
+      "Les e-commerçants ont besoin de visuels produits cohérents sans financer un shooting pour chaque référence.",
+    problem:
+      "Produire plusieurs mises en scène de qualité demande du matériel, du temps, des modèles et une direction artistique difficile à industrialiser.",
+    solution:
+      "Picasso Resolve analyse une photo de produit, prépare plusieurs scénarios visuels et génère un lot d’images pour une fiche e-commerce.",
+    description:
+      "De la page de présentation au studio de génération, Picasso Resolve est un produit SaaS complet, conçu, développé et mis en ligne par SSD Sirius.",
+    features: [
+      "Import d’une photo produit brute",
+      "Analyse du produit par intelligence artificielle",
+      "Génération de plusieurs directions visuelles",
+      "Prompts consultables et modifiables",
+      "Téléchargement des images en haute définition",
+      "Système de crédits intégré",
+    ],
+    technologies: ["Next.js", "Intelligence artificielle", "Gemini", "Replicate"],
+    metrics: [
+      { label: "Produit", value: "SaaS complet" },
+      { label: "Parcours", value: "Photo → visuels e-commerce" },
+    ],
+    screens: [
+      { url: "https://picassoresolve.com/landing/origine.jpg", tone: "picasso", label: "Photo produit brute" },
+      { url: "https://picassoresolve.com/landing/4k-1.jpg", tone: "picasso", label: "Vue principale générée" },
+      { url: "https://picassoresolve.com/landing/4k-2.jpg", tone: "picasso", label: "Mise en scène générée" },
+      { url: "https://picassoresolve.com/landing/manequin-1.jpg", tone: "picasso", label: "Visuel lifestyle généré" },
+    ],
+    gallery: [
+      { url: "https://picassoresolve.com/landing/origine.jpg", tone: "picasso", label: "Photo produit brute" },
+      { url: "https://picassoresolve.com/landing/4k-1.jpg", tone: "picasso", label: "Vue principale générée" },
+      { url: "https://picassoresolve.com/landing/4k-2.jpg", tone: "picasso", label: "Angle alternatif généré" },
+      { url: "https://picassoresolve.com/landing/manequin-1.jpg", tone: "picasso", label: "Visuel lifestyle généré" },
+    ],
+  },
+
+  // ------------------------------------------------------------------
+  // MALILINK — plateforme d'emploi (Mali + diaspora).
+  // Stack relevée sur le site en ligne : Next.js servi depuis Google Cloud
+  // Run. Les chiffres affichés sur malilink (offres, candidats, entreprises
+  // partenaires) et les logos d'institutions NE SONT PAS repris ici tant
+  // qu'ils n'ont pas été confirmés par l'équipe.
+  // ------------------------------------------------------------------
+  {
+    slug: "malilink",
+    title: "MaliLink",
+    client_name: "",
+    own_product: true,
+    type: "plateforme",
+    category: "Plateforme d'emploi",
+    featured: true,
+    flagship: false,
+    status: "published",
+    sort_order: 3,
+    link_url: "https://malilink-web-779884436442.europe-west1.run.app/",
+    link_label: "Ouvrir MaliLink",
+    cover: "market",
+    summary:
+      "Plateforme d'emploi ouverte au Mali et à la diaspora : les documents sont déposés une fois, puis réutilisés à chaque candidature.",
+    context:
+      "Produit interne de SSD Sirius, conçu, développé et mis en ligne par l'équipe, dans la continuité du travail mené sur Flash Market.",
+    problem:
+      "Chaque candidature suppose de rassembler et de renvoyer les mêmes pièces — CV, diplômes, acte de naissance — sans information fiable sur l'entreprise à l'autre bout.",
+    solution:
+      "Un espace de dépôt de documents réutilisable d'une candidature à l'autre, des offres filtrables par région, secteur et type de contrat, et une vérification des entreprises par NIF et RCCM.",
+    description:
+      "Les offres restent accessibles depuis l'étranger : un candidat de la diaspora postule dans les mêmes conditions qu'un candidat sur place.",
+    features: [
+      "Dépôt des documents une seule fois, réutilisables à chaque candidature",
+      "Candidature en sélectionnant les pièces déjà déposées",
+      "Recherche d'offres par région, secteur et type de contrat",
+      "Vérification des entreprises par NIF et RCCM",
+      "Candidatures ouvertes depuis l'étranger",
+      "Espaces distincts pour les candidats et les recruteurs",
+    ],
+    technologies: ["Next.js", "React", "Google Cloud Run"],
+    metrics: [
+      { label: "Couverture", value: "Mali + diaspora" },
+      { label: "Hébergement", value: "Google Cloud Run" },
+    ],
+    // Captures prises directement sur la version en ligne
+    // (voir public/realisations/malilink/README.md).
+    cover_url: "/realisations/malilink/01-accueil.jpg",
+    screens: [
+      {
+        url: "/realisations/malilink/01-accueil.jpg",
+        tone: "market",
+        label: "Accueil — recherche d'offres au Mali et depuis la diaspora",
+      },
+      {
+        url: "/realisations/malilink/02-candidature.jpg",
+        tone: "market",
+        label: "Parcours de candidature en trois étapes",
+      },
+      {
+        url: "/realisations/malilink/03-fonctionnalites.jpg",
+        tone: "market",
+        label: "Coffre-fort de documents et vérification des employeurs",
+      },
+      {
+        url: "/realisations/malilink/04-mobile.jpg",
+        tone: "market",
+        label: "Affichage mobile",
+      },
+    ],
+    gallery: [
+      {
+        url: "/realisations/malilink/01-accueil.jpg",
+        tone: "market",
+        label: "Accueil",
+      },
+      {
+        url: "/realisations/malilink/02-candidature.jpg",
+        tone: "market",
+        label: "Candidature en trois étapes",
+      },
+      {
+        url: "/realisations/malilink/03-fonctionnalites.jpg",
+        tone: "market",
+        label: "Coffre-fort et employeurs vérifiés",
+      },
+      {
+        url: "/realisations/malilink/04-mobile.jpg",
+        tone: "market",
+        label: "Affichage mobile",
+      },
+    ],
+  },
+
+  {
     slug: "plateforme-e-commerce",
     title: "Plateforme e-commerce",
     client_name: "Projet interne SSD Sirius",
     type: "plateforme",
     category: "E-commerce",
     featured: false,
-    status: "published",
+    status: "draft",
     sort_order: 2,
     link_url: "",
     cover: "commerce",
@@ -208,7 +353,7 @@ export const PROJECTS = [
     type: "site",
     category: "Performance & architecture",
     featured: false,
-    status: "published",
+    status: "draft",
     sort_order: 3,
     link_url: "",
     cover: "pay",
@@ -246,7 +391,7 @@ export const PROJECTS = [
     type: "site",
     category: "Web & conversion",
     featured: false,
-    status: "published",
+    status: "draft",
     sort_order: 4,
     link_url: "",
     cover: "market",

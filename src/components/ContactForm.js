@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import Icon from "@/components/Icon";
-
-const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+import { envoyerAFormspree, normaliserLead, validerLead } from "@/lib/lead";
 
 export default function ContactForm({ projects = [], defaultProject = "" }) {
   const [form, setForm] = useState({
@@ -20,32 +19,64 @@ export default function ContactForm({ projects = [], defaultProject = "" }) {
 
   const update = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
-  function validate() {
-    if (form.name.trim().length < 2) return "Merci d'indiquer votre nom.";
-    if (!EMAIL_RE.test(form.email)) return "L'adresse e-mail semble invalide.";
-    if (form.message.trim().length < 10)
-      return "Votre message doit contenir au moins 10 caractères.";
-    return "";
+  // Archivage dans Supabase pour /admin/leads. L'e-mail étant déjà parti,
+  // un échec ici ne regarde pas le visiteur : on n'attend même pas la réponse.
+  function archiverEnArrierePlan(donnees) {
+    fetch("/api/leads", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...donnees, archive_only: true }),
+      keepalive: true,
+    }).catch(() => {});
   }
 
   async function onSubmit(e) {
     e.preventDefault();
-    const v = validate();
-    if (v) {
-      setStatus("error");
-      setError(v);
+
+    // Honeypot : un robot remplit ce champ. On simule l'envoi sans rien faire.
+    if (form.website) {
+      setStatus("success");
       return;
     }
+
+    const lead = normaliserLead(form);
+    const probleme = validerLead(lead);
+    if (probleme) {
+      setStatus("error");
+      setError(probleme);
+      return;
+    }
+
     setStatus("loading");
     setError("");
+
+    let envoye = false;
     try {
-      const res = await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error || "Envoi impossible pour le moment.");
+      // Canal principal : envoi direct depuis le navigateur. C'est ce qui
+      // donne à Formspree le contexte dont son filtre anti-spam a besoin.
+      await envoyerAFormspree(lead);
+      envoye = true;
+      archiverEnArrierePlan(form);
+    } catch (errDirect) {
+      // Repli : la requête tierce a pu être bloquée (extension, réseau
+      // d'entreprise). La route serveur retente et archive.
+      try {
+        const res = await fetch("/api/leads", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.error || "Envoi impossible pour le moment.");
+        envoye = true;
+      } catch (errRepli) {
+        setStatus("error");
+        setError(errRepli.message);
+        return;
+      }
+    }
+
+    if (envoye) {
       setStatus("success");
       setForm((f) => ({
         ...f,
@@ -55,9 +86,6 @@ export default function ContactForm({ projects = [], defaultProject = "" }) {
         company: "",
         message: "",
       }));
-    } catch (err) {
-      setStatus("error");
-      setError(err.message);
     }
   }
 

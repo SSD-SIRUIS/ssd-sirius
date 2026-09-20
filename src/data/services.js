@@ -1,5 +1,8 @@
 // Expertises SSD Sirius — section /services et bloc home.
 // `icon` correspond à un nom d'icône lucide-react.
+//
+// TON : descriptif, jamais promotionnel. On décrit ce qui est fait et
+// comment, sans superlatif ni engagement de délai.
 
 export const SERVICES = [
   {
@@ -7,9 +10,9 @@ export const SERVICES = [
     icon: "ShoppingCart",
     title: "E-commerce",
     excerpt:
-      "Plateformes e-commerce modernes avec paiements intégrés et expérience utilisateur optimale.",
+      "Plateformes e-commerce avec paiements intégrés et administration autonome.",
     description:
-      "Nous concevons des boutiques en ligne pensées pour le marché africain : catalogue rapide, panier fluide, tunnel de commande court et paiement sécurisé. Chaque plateforme est administrable sans code et prête à évoluer.",
+      "Boutiques en ligne conçues pour le marché africain : catalogue, panier, tunnel de commande et paiement. L'administration se fait sans écrire de code.",
     points: [
       "Catalogue, panier et tunnel de commande optimisés mobile",
       "Paiement carte et Mobile Money",
@@ -22,9 +25,9 @@ export const SERVICES = [
     icon: "Wallet",
     title: "Mobile Money",
     excerpt:
-      "Intégration sécurisée des solutions de paiement mobile et services financiers.",
+      "Intégration des solutions de paiement mobile et des services financiers associés.",
     description:
-      "Nous intégrons les principaux services de paiement mobile de la région et sécurisons chaque transaction : initiation, callback, réconciliation et journalisation. L'objectif : encaisser de façon fiable, même en connexion instable.",
+      "Intégration des principaux services de paiement mobile de la région : initiation de transaction, callbacks, réconciliation et journalisation. Le parcours de paiement reste fonctionnel en connexion instable.",
     points: [
       "Intégration API des opérateurs Mobile Money",
       "Gestion des callbacks et des états de transaction",
@@ -39,7 +42,7 @@ export const SERVICES = [
     excerpt:
       "Applications iOS et Android sur mesure, développées, hébergées et publiées sur les stores.",
     description:
-      "Nous développons votre application de bout en bout : conception des parcours, développement iOS et Android, back-end et base de données, puis publication sur l'App Store et le Google Play Store. Vous validez, nous livrons — en général en moins d'un mois. Flash Market est notre référence sur ce terrain.",
+      "Développement d'applications de bout en bout : conception des parcours, développement iOS et Android, back-end et base de données, puis publication sur l'App Store et le Google Play Store. Flash Market a été construit selon ce périmètre.",
     points: [
       "Applications iOS et Android à partir d'une base de code unique",
       "Back-end, API et base de données entièrement pris en charge",
@@ -54,9 +57,9 @@ export const SERVICES = [
     icon: "Boxes",
     title: "API & Systèmes",
     excerpt:
-      "Intégration d'API et développement de systèmes robustes pour connecter vos services.",
+      "Intégration d'API et développement de systèmes pour connecter vos services.",
     description:
-      "Nous construisons et connectons des systèmes : API internes, passerelles vers des services externes, automatisations et bases de données bien modélisées. Une architecture pensée pour durer et monter en charge.",
+      "Construction et connexion de systèmes : API internes, passerelles vers des services externes, automatisations et modélisation de bases de données.",
     points: [
       "Conception et documentation d'API",
       "Intégrations tierces (paiement, SMS, logistique...)",
@@ -69,63 +72,63 @@ export const SERVICES = [
 export const DIFFERENTIATORS = [
   {
     icon: "PenTool",
-    title: "Conception sur mesure",
-    text: "Chaque projet est unique. Nous partons de votre métier, pas d'un template.",
+    title: "Développement sur mesure",
+    text: "Le point de départ est votre métier et vos usages, pas un modèle réutilisé.",
   },
   {
     icon: "Cpu",
-    title: "Technologies avancées",
-    text: "Des solutions fiables et évolutives, construites sur un socle moderne.",
+    title: "Socle technique",
+    text: "React Native, Next.js, PostgreSQL : des outils courants, documentés et maintenus.",
   },
   {
     icon: "ShieldCheck",
-    title: "Sécurité renforcée",
-    text: "Protection des données et performance garanties à chaque niveau.",
+    title: "Sécurité côté serveur",
+    text: "Les règles d'accès sont appliquées dans la base de données, pas seulement dans l'interface.",
   },
   {
     icon: "LifeBuoy",
-    title: "Accompagnement",
-    text: "Un interlocuteur à chaque étape de votre croissance.",
+    title: "Interlocuteur direct",
+    text: "Les deux personnes qui répondent sont celles qui conçoivent et développent.",
   },
 ];
 
 // Positionnement tarifaire et niveau d'exécution — section dédiée sur /services.
 export const VALUE_PROPOSITION = {
-  eyebrow: "Prix & niveau d'exécution",
-  title: "Un tarif accessible, une exécution de très haut niveau",
+  eyebrow: "Tarifs & niveau technique",
+  title: "Comment les tarifs sont fixés",
   intro:
-    "La qualité technique ne devrait pas être réservée aux grands budgets. Nous appliquons aux projets africains les standards des produits internationaux, à un prix pensé pour le marché local.",
+    "Les tarifs sont calibrés sur le marché local, pas sur les grilles européennes. Les choix d'architecture et de sécurité restent les mêmes quel que soit le budget.",
   columns: [
     {
       icon: "Wallet",
-      title: "Un prix abordable et raisonnable",
-      text: "Nos tarifs sont calibrés pour les entreprises, commerçants et organisations d'ici — pas alignés sur les grilles européennes.",
+      title: "Tarification",
+      text: "Le budget est établi à partir du périmètre réel du projet et annoncé avant le démarrage.",
       points: [
-        "Un tarif annoncé clairement, sans frais cachés",
-        "Un budget adapté à la taille réelle de votre projet",
-        "Paiement échelonné possible selon les étapes",
-        "Aucun coût de licence imposé : le produit vous appartient",
+        "Un montant annoncé avant le démarrage, sans frais ajoutés en cours de route",
+        "Un budget établi sur le périmètre réel du projet",
+        "Paiement échelonné par étapes possible",
+        "Aucune licence imposée : le produit et son code vous appartiennent",
       ],
     },
     {
       icon: "Cpu",
-      title: "Une réalisation technique de pointe",
-      text: "Les mêmes outils et les mêmes exigences que les produits internationaux, sans compromis sur l'architecture ni sur la sécurité.",
+      title: "Exécution technique",
+      text: "Les mêmes choix d'architecture et de sécurité s'appliquent sur tous les projets.",
       points: [
-        "Architecture moderne, pensée pour monter en charge",
-        "Sécurité au niveau de la base de données, pas seulement de l'interface",
-        "Performances soignées, y compris en connexion instable",
-        "Code maintenable et documenté, que vous gardez",
+        "Architecture conçue pour monter en charge",
+        "Règles d'accès appliquées au niveau de la base de données",
+        "Fonctionnement testé en connexion instable",
+        "Code documenté et transmis avec le projet",
       ],
     },
   ],
 };
 
 export const PROCESS = [
-  { step: "01", title: "Cadrage", text: "Nous clarifions le besoin métier, les objectifs et les priorités." },
-  { step: "02", title: "Conception", text: "Nous concevons les parcours, l'interface et l'architecture technique." },
-  { step: "03", title: "Développement", text: "Nous développons par itérations courtes, avec démonstrations régulières." },
-  { step: "04", title: "Livraison & suivi", text: "Nous déployons, formons vos équipes et assurons la maintenance." },
+  { step: "01", title: "Cadrage", text: "Clarification du besoin métier, des objectifs et des priorités." },
+  { step: "02", title: "Conception", text: "Définition des parcours, de l'interface et de l'architecture technique." },
+  { step: "03", title: "Développement", text: "Itérations courtes, avec une version démontrable à chaque cycle." },
+  { step: "04", title: "Livraison & suivi", text: "Déploiement, prise en main par vos équipes, puis maintenance." },
 ];
 
 export function getService(slug) {

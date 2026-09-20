@@ -1,27 +1,36 @@
 import Link from "next/link";
 import Icon from "@/components/Icon";
-import SiriusMark from "@/components/SiriusMark";
 
 export default function NotFound() {
   return (
-    <section className="section" style={{ minHeight: "70dvh", display: "grid", placeItems: "center" }}>
-      <div className="container text-center stack" style={{ "--gap": "18px", alignItems: "center" }}>
-        <SiriusMark size={72} />
-        <h1 className="display" style={{ fontSize: "clamp(2rem, 5vw, 3rem)" }}>
-          Page <span className="grad-text">introuvable</span>
-        </h1>
-        <p className="lead mx-auto">
-          Cette page a quitté son orbite. Revenez à l'accueil ou explorez nos réalisations.
-        </p>
-        <div style={{ display: "flex", gap: 14, flexWrap: "wrap", justifyContent: "center" }}>
-          <Link href="/" className="btn btn--primary">
-            Retour à l'accueil
-            <Icon name="ArrowRight" />
-          </Link>
-          <Link href="/realisations" className="btn btn--ghost">
-            Voir les réalisations
-            <Icon name="ArrowRight" />
-          </Link>
+    <section className="section" style={{ minHeight: "64dvh" }}>
+      <div className="container">
+        <div className="page-hero__grid">
+          <div className="section-head__meta">
+            <span className="index">404</span>
+            <span className="label">Page introuvable</span>
+          </div>
+
+          <div className="section-head__body">
+            <h1 className="display" style={{ maxWidth: "14ch" }}>
+              Cette page n&apos;existe pas.
+            </h1>
+            <p className="lead">
+              Le lien est peut-être obsolète, ou l&apos;adresse a été mal recopiée. Revenez à
+              l&apos;accueil ou parcourez nos réalisations.
+            </p>
+
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 16 }}>
+              <Link href="/" className="btn btn--primary">
+                Retour à l&apos;accueil
+                <Icon name="ArrowUpRight" />
+              </Link>
+              <Link href="/realisations" className="btn btn--ghost">
+                Voir les réalisations
+                <Icon name="ArrowUpRight" />
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </section>

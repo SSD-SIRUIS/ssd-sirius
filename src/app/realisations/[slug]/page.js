@@ -93,50 +93,63 @@ export default async function ProjectPage({ params }) {
             <span>{project.title}</span>
           </nav>
 
-          <span className="eyebrow">
-            {project.flagship ? "Projet phare — " : ""}
-            {TYPE_LABEL[project.type] || "Projet"}
-            {project.category ? ` — ${project.category}` : ""}
-          </span>
-          <div className="project-title-row">
-            {project.logo_url && (
-              <img
-                src={project.logo_url}
-                alt={`Logo ${project.title}`}
-                className="project-logo"
-                width={72}
-                height={72}
-              />
-            )}
-            <h1 className="display page-hero__title" style={{ fontSize: "clamp(2rem, 4.6vw, 3rem)", margin: 0 }}>
-              {project.title}
-            </h1>
-          </div>
-          <p className="lead">{project.summary}</p>
+          <div className="page-hero__grid">
+            <div className="section-head__meta">
+              <span className="label">
+                {TYPE_LABEL[project.type] || "Projet"}
+              </span>
+              {project.category && <span className="label">{project.category}</span>}
+              {project.flagship && (
+                <span className="badge-flagship" style={{ alignSelf: "flex-start" }}>
+                  <Icon name="Star" />
+                  Projet phare
+                </span>
+              )}
+            </div>
 
-          <div className="tag-row" style={{ marginTop: 22 }}>
-            {project.own_product && <span className="tag">Produit SSD Sirius</span>}
-            {project.client_name && <span className="tag">Client : {project.client_name}</span>}
-            {project.platforms?.map((p) => (
-              <span key={p} className="tag">{p}</span>
-            ))}
-            {project.technologies?.slice(0, 6).map((t) => (
-              <span key={t} className="tag">{t}</span>
-            ))}
-          </div>
+            <div className="section-head__body">
+              <div className="project-title-row">
+                {project.logo_url && (
+                  <img
+                    src={project.logo_url}
+                    alt={`Logo ${project.title}`}
+                    className="project-logo"
+                    width={72}
+                    height={72}
+                  />
+                )}
+                <h1 className="display" style={{ margin: 0 }}>
+                  {project.title}
+                </h1>
+              </div>
 
-          {project.link_url && (
-            <a
-              href={project.link_url}
-              target="_blank"
-              rel="noreferrer"
-              className="btn btn--primary"
-              style={{ marginTop: 26 }}
-            >
-              {project.link_label || "Voir la réalisation en ligne"}
-              <Icon name="ArrowUpRight" />
-            </a>
-          )}
+              <p className="lead">{project.summary}</p>
+
+              <div className="tag-row">
+                {project.own_product && <span className="tag">Produit SSD Sirius</span>}
+                {project.client_name && <span className="tag">Client : {project.client_name}</span>}
+                {project.platforms?.map((platform) => (
+                  <span key={platform} className="tag">{platform}</span>
+                ))}
+                {project.technologies?.slice(0, 6).map((tech) => (
+                  <span key={tech} className="tag">{tech}</span>
+                ))}
+              </div>
+
+              {project.link_url && (
+                <a
+                  href={project.link_url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn btn--primary"
+                  style={{ alignSelf: "flex-start" }}
+                >
+                  {project.link_label || "Voir la réalisation en ligne"}
+                  <Icon name="ArrowUpRight" />
+                </a>
+              )}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -173,7 +186,7 @@ export default async function ProjectPage({ params }) {
         <section className="section section--tight">
           <div className="container">
             <div className="section-head">
-              <span className="eyebrow">Ce que démontre ce projet</span>
+              <span className="eyebrow">Points techniques</span>
             </div>
             <div className="grid grid-3">
               {project.highlights.map((h) => (
@@ -237,7 +250,6 @@ export default async function ProjectPage({ params }) {
                   <ul className="feature-list">
                     {(g.items || []).map((it) => (
                       <li key={it}>
-                        <Icon name="Check" width={16} height={16} />
                         <span>{it}</span>
                       </li>
                     ))}
@@ -261,7 +273,7 @@ export default async function ProjectPage({ params }) {
                       name="Check"
                       width={18}
                       height={18}
-                      style={{ color: "var(--violet-bright)", flexShrink: 0, marginTop: 3 }}
+                      style={{ color: "var(--accent)", flexShrink: 0, marginTop: 3 }}
                     />
                     <span className="muted">{f}</span>
                   </div>
@@ -316,7 +328,6 @@ export default async function ProjectPage({ params }) {
               <ul className="feature-list feature-list--lg" style={{ marginTop: 22 }}>
                 {project.principles.map((p) => (
                   <li key={p}>
-                    <Icon name="Sparkles" width={16} height={16} />
                     <span>{p}</span>
                   </li>
                 ))}

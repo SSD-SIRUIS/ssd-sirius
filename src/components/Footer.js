@@ -14,7 +14,7 @@ export default async function Footer() {
         <div className="site-footer__grid">
           <div className="footer-col footer-col--brand">
             <Link href="/" className="brand" aria-label="SSD Sirius — accueil">
-              <SiriusMark size={40} />
+              <SiriusMark size={34} />
               <span className="brand__text">
                 <span className="brand__name">Sirius</span>
                 <span className="brand__sub">Solutions Digitales</span>

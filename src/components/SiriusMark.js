@@ -1,9 +1,8 @@
-// Symbole Sirius réutilisable : anneau dégradé + étoile à 4 branches + halo.
-// `variant="visual"` produit la grande version animée (hero).
+// Symbole Sirius — version géométrique plate.
+// Un carré au filet, une étoile à quatre branches à arêtes droites.
+// Aucun dégradé, aucun halo : le signe tient par sa construction.
 
-export default function SiriusMark({ size = 40, withGlow = true, className = "", title = "SSD Sirius" }) {
-  const gid = `sirius-grad-${size}`;
-  const sid = `sirius-soft-${size}`;
+export default function SiriusMark({ size = 36, className = "", title = "SSD Sirius", withGlow = false }) {
   return (
     <svg
       width={size}
@@ -12,49 +11,20 @@ export default function SiriusMark({ size = 40, withGlow = true, className = "",
       role="img"
       aria-label={title}
       className={className}
+      data-glow={withGlow ? "" : undefined}
     >
-      <defs>
-        <linearGradient id={gid} x1="12" y1="16" x2="88" y2="84" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#4f7cff" />
-          <stop offset="0.55" stopColor="#7c5cff" />
-          <stop offset="1" stopColor="#b06bff" />
-        </linearGradient>
-        <radialGradient id={sid} cx="50%" cy="50%" r="50%">
-          <stop offset="0" stopColor="#ffffff" stopOpacity="0.9" />
-          <stop offset="1" stopColor="#ffffff" stopOpacity="0" />
-        </radialGradient>
-      </defs>
-
-      {withGlow && <circle cx="50" cy="50" r="30" fill={`url(#${sid})`} opacity="0.5" />}
-
-      <circle
-        cx="50"
-        cy="50"
-        r="34"
-        fill="none"
-        stroke={`url(#${gid})`}
-        strokeWidth="4"
-      />
-
-      {/* Étoile à quatre branches */}
-      <path
-        d="M50 12 C52 34 66 48 88 50 C66 52 52 66 50 88 C48 66 34 52 12 50 C34 48 48 34 50 12 Z"
-        fill="#ffffff"
-      />
+      <rect x="2" y="2" width="96" height="96" fill="none" stroke="currentColor" strokeWidth="5" />
+      {/* Étoile à quatre branches, arêtes rectilignes */}
+      <path d="M50 16 L61 39 L84 50 L61 61 L50 84 L39 61 L16 50 L39 39 Z" fill="currentColor" />
     </svg>
   );
 }
 
+// Grand visuel de marque : le signe, posé sur un cadre, sans animation.
 export function SiriusVisual() {
   return (
     <div className="sirius-visual" aria-hidden="true">
-      <div className="sirius-visual__glow" />
-      <div className="sirius-visual__orbit" />
-      <div className="sirius-visual__orbit" />
-      <div className="sirius-visual__orbit" />
-      <div className="sirius-visual__core">
-        <SiriusMark size={180} />
-      </div>
+      <SiriusMark size={160} />
     </div>
   );
 }

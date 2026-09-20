@@ -4,6 +4,7 @@
 // par lucide-react : elles sont définies en SVG inline ci-dessous.
 
 import {
+  ArrowDown,
   ArrowLeft,
   ArrowRight,
   ArrowUpRight,
@@ -20,6 +21,7 @@ import {
   ExternalLink,
   FolderKanban,
   Globe,
+  GraduationCap,
   Inbox,
   Layers,
   LayoutDashboard,
@@ -92,6 +94,7 @@ const Instagram = (props) => (
 );
 
 const REGISTRY = {
+  ArrowDown,
   ArrowLeft,
   ArrowRight,
   ArrowUpRight,
@@ -109,6 +112,7 @@ const REGISTRY = {
   Facebook,
   FolderKanban,
   Globe,
+  GraduationCap,
   Inbox,
   Instagram,
   Layers,

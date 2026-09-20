@@ -1,79 +1,86 @@
 // Informations publiques de repli (utilisées si la table `settings` Supabase est vide
 // ou si Supabase n'est pas configuré). Les valeurs d'environnement priment.
+//
+// TON ÉDITORIAL — règle unique, valable pour tout ce fichier et pour les pages :
+// on présente, on ne convainc pas. Pas de promesse, pas de superlatif, pas de
+// formule qui cherche l'adhésion (« vous validez, on livre », « aucune zone
+// d'ombre », « de très haut niveau »). On énonce ce qui existe et ce qui est fait.
 
 export const SITE = {
   name: "SSD Sirius",
   legalName: "SSD Sirius Solutions Digitales",
   tagline: "Conçu au Mali. Pensé pour l'Afrique.",
-  promise:
-    "Vous validez, on livre : conception, développement, base de données, paiements et publication sur les stores.",
+  // Périmètre d'intervention, énoncé comme un fait — pas comme un engagement.
+  scope:
+    "conception, développement, base de données, paiements et publication sur les stores",
   description:
-    "SSD Sirius Solutions Digitales conçoit, développe et publie des applications et produits digitaux sur mesure — base de données, paiements Mobile Money, App Store et Play Store inclus.",
+    "SSD Sirius Solutions Digitales conçoit, développe et publie des applications et produits digitaux sur mesure : base de données, paiements Mobile Money, App Store et Play Store.",
   // Domaine public officiel. Surchargeable via NEXT_PUBLIC_SITE_URL au build.
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://sirius-mali.tech",
   locale: "fr_FR",
+  foundedYear: 2024,
 };
 
 // Contenu du hero de la page d'accueil.
 export const HERO = {
-  eyebrow: "SSD Sirius Solutions Digitales",
-  titleLead: "Votre application conceptualisée et",
-  titleAccent: "disponible en 1 mois",
-  subtitle:
-    "Nous concevons, développons et publions votre application — base de données, paiements Mobile Money, App Store et Play Store inclus. Vous validez, on s'occupe de tout le reste.",
+  label: "Agence de développement web & mobile",
+  place: "Bamako · Paris",
+  lines: ["Sites", "Apps", "Logiciels"], // les points sont ajoutés par la CSS
+  lead:
+    "SSD Sirius conçoit, développe et met en ligne des produits numériques sur mesure. Trois sont actuellement en production : une marketplace mobile, un studio photo par intelligence artificielle et une plateforme d’emploi.",
 };
 
-// Message de conversion : pas de devis ni d'estimation à remplir.
-// Le visiteur nous parle de son projet, on s'occupe du reste.
+// Prise de contact. Description du déroulé, sans argumentaire.
 export const MEETING = {
-  ctaLabel: "Discutons de votre projet",
-  altLabel: "Parlez-nous de votre projet",
-  short: "Parlez-nous de votre projet. Tout le reste, on s'en occupe.",
-  long: "Pas de dossier à monter ni de formulaire interminable. Parlez-nous de votre projet — un simple échange en visio suffit — et tout le reste, on s'en occupe : conception, développement, base de données, paiements et mise en ligne sur les stores.",
+  ctaLabel: "Parler de votre projet",
+  altLabel: "Nous présenter votre projet",
+  short:
+    "Présentez-nous votre projet en quelques lignes. Nous revenons vers vous avec un périmètre, un délai et un budget.",
+  long: "Présentez-nous votre projet, par écrit ou lors d'un échange en visio : ce que vous souhaitez construire, pour quels usages et dans quel délai. Nous revenons vers vous avec un périmètre, un calendrier et un budget.",
   // Lien de réservation Google Agenda (visio Meet).
   // Tant qu'il est vide, les boutons renvoient vers /contact.
   bookingUrl:
     process.env.NEXT_PUBLIC_BOOKING_URL || "https://calendar.app.google/fhvf1aoL6gvsn7Kz7",
   bookingLabel: "Choisir un créneau",
-  bookingHint: "Choisissez l'horaire qui vous arrange, le lien visio arrive automatiquement.",
+  bookingHint: "Le créneau choisi génère automatiquement un lien visio.",
 };
 
-// Engagements concrets mis en avant sur la home.
+// Ce que couvre une intervention. Descriptif, pas d'engagement chiffré.
 export const GUARANTEES = [
   {
-    icon: "Rocket",
-    title: "Des premiers résultats dès la 1re semaine",
-    text: "Une version démontrable de votre projet et un premier retour concret dès les premiers jours.",
+    icon: "PenTool",
+    title: "Développement sur mesure",
+    text: "Chaque projet part du métier et des usages visés, pas d'un modèle préexistant.",
   },
   {
     icon: "RefreshCw",
-    title: "Un suivi régulier",
-    text: "Un point d'avancement journalier ou hebdomadaire selon le projet, avec un interlocuteur dédié.",
-  },
-  {
-    icon: "PenTool",
-    title: "Des solutions 100 % sur mesure",
-    text: "On part de votre métier et de vos objectifs, jamais d'un template générique.",
-  },
-  {
-    icon: "BadgeCheck",
-    title: "La publication sur les stores incluse",
-    text: "Mise en ligne sur l'App Store et le Google Play Store gérée entièrement par nos soins.",
+    title: "Itérations courtes",
+    text: "Le travail avance par cycles courts, avec des versions démontrables à chaque étape.",
   },
   {
     icon: "Database",
-    title: "Toute la technique gérée",
-    text: "Base de données, API, paiements, hébergement et maintenance : c'est notre part.",
+    title: "Base de données et API",
+    text: "Modélisation, API, authentification et hébergement font partie du périmètre.",
   },
   {
-    icon: "Clock",
-    title: "Votre application livrée en moins d'un mois",
-    text: "Vous n'avez qu'à valider et à lancer votre activité. Avec Sirius, c'est carré.",
+    icon: "Wallet",
+    title: "Paiements Mobile Money",
+    text: "Intégration des opérateurs, gestion des callbacks et réconciliation des transactions.",
+  },
+  {
+    icon: "BadgeCheck",
+    title: "Publication sur les stores",
+    text: "Mise en ligne sur l'App Store et le Google Play Store, builds et mises à jour compris.",
+  },
+  {
+    icon: "LifeBuoy",
+    title: "Suivi après mise en ligne",
+    text: "Maintenance, corrections et évolutions une fois le produit en production.",
   },
 ];
 
 export const CONTACT = {
-  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "sidigano8@gmail.com",
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "contact@sirius-mali.tech",
   // Numéro principal : appels + WhatsApp
   phone: process.env.NEXT_PUBLIC_CONTACT_PHONE || "+33 6 98 43 36 02",
   // Second numéro joignable
@@ -86,21 +93,81 @@ export const CONTACT = {
   },
 };
 
-// Aucun réseau social pour l'instant : les icônes restent masquées
-// tant que ces champs sont vides.
+// ------------------------------------------------------------------
+// Équipe — affichée sur /a-propos et en version courte sur la home.
+// Les photos vivent dans public/equipe/.
+// Les deux associés suivent le même cursus : cycle ingénieur à EFREI Paris,
+// spécialité cybersécurité, avec un profil d'ingénieur logiciel généraliste
+// (back-end, front-end, mobile). Ne pas réduire l'un à la cybersécurité
+// et l'autre au développement : le profil est le même, les rôles diffèrent.
+// ------------------------------------------------------------------
+export const TEAM = [
+  {
+    name: "Sidi Oumar Gano",
+    role: "Cofondateur",
+    focus: "Produit & développement",
+    school: "EFREI Paris",
+    education: "Élève-ingénieur à EFREI Paris — cycle ingénieur, spécialité cybersécurité",
+    photo: "/equipe/sidi-oumar-gano.jpg",
+    linkedin: "https://www.linkedin.com/in/sidi-gano/",
+    bio: "Ingénieur logiciel, spécialisé en cybersécurité. Sur les produits SSD Sirius : conception produit, architecture applicative et développement mobile. Il a mené Flash Market de la base de données à la publication sur les stores.",
+  },
+  {
+    name: "Mohamed Lamine Koné",
+    role: "Cofondateur",
+    focus: "Ingénierie & plateformes",
+    school: "EFREI Paris",
+    education: "Élève-ingénieur à EFREI Paris — cycle ingénieur, spécialité cybersécurité",
+    photo: "/equipe/mohamed-lamine.jpg",
+    linkedin: "https://www.linkedin.com/in/mlkon%C3%A9-3ac5/",
+    bio: "Ingénieur logiciel, spécialisé en cybersécurité. Sur les produits SSD Sirius : développement web, back-end et infrastructure. Il construit les plateformes, les API et la chaîne de mise en production.",
+  },
+];
+
+// ------------------------------------------------------------------
+// Informations légales de l'entité qui édite le site.
+// Source : certificat d'immatriculation INSTAT / API-Mali du 04/06/2025.
+//
+// À NOTER : la personne morale s'appelle SHEPHERD. « SSD Sirius Solutions
+// Digitales » est le nom commercial sous lequel elle exerce — c'est lui qui
+// s'affiche partout sur le site, et c'est normal. Seule la page des mentions
+// légales doit nommer l'entité immatriculée.
+//
+// L'adresse complète du siège figure au certificat : KOKO, rue 268, porte 14.
+// Seuls la localité et la commune sont publiés ici : pour une entreprise
+// individuelle, le siège est souvent le domicile du dirigeant, et une adresse
+// publiée est une adresse indexée. Compléter `address` si la mention complète
+// est souhaitée.
+// ------------------------------------------------------------------
+export const LEGAL = {
+  entity: "SHEPHERD",
+  tradeName: "SSD Sirius Solutions Digitales",
+  form: "Entreprise individuelle",
+  manager: "Mohamed Lamine Koné",
+  // Le responsable de l'entreprise individuelle est de droit directeur de la publication.
+  publicationDirector: "Mohamed Lamine Koné",
+  rccm: "MA.BKO.2025.A.5032",
+  rccmDate: "2 juin 2025",
+  nina: "32509196496135C",
+  activity: "Commerce général ; prestation de services",
+  address: "Niamakoro, Commune VI, Bamako, Mali",
+  country: "Mali",
+};
+
+// Réseaux de l'entreprise : les icônes restent masquées tant que ces champs sont vides.
 export const SOCIAL = {
   linkedin: "",
   facebook: "",
   instagram: "",
 };
 
-// Indicateurs affichés sur la home — uniquement des valeurs vérifiables.
-// Laisser vide (`[]`) tant que les chiffres ne sont pas confirmés.
+// Indicateurs affichés sur la home — uniquement des faits vérifiables,
+// jamais un délai ou un pourcentage présenté comme un engagement.
 export const STATS = [
-  { label: "Application livrée sur les stores", value: "iOS + Android", icon: "Smartphone" },
-  { label: "Paiement Mobile Money", value: "Multi-pays", icon: "Wallet" },
-  { label: "Délai de mise en ligne", value: "< 1 mois", icon: "Clock" },
-  { label: "Technique prise en charge", value: "100 %", icon: "Database" },
+  { label: "Produits en production", value: "03" },
+  { label: "Plateformes", value: "iOS · Android · Web" },
+  { label: "Implantation", value: "Bamako · Paris" },
+  { label: "Création", value: "2024" },
 ];
 
 export const NAV = [

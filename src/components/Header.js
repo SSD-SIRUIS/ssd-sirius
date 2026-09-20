@@ -31,7 +31,7 @@ export default function Header() {
     <header className="site-header" data-scrolled={scrolled}>
       <div className="container site-header__inner">
         <Link href="/" className="brand" aria-label="SSD Sirius — accueil">
-          <SiriusMark size={38} />
+          <SiriusMark size={30} />
           <span className="brand__text">
             <span className="brand__name">Sirius</span>
             <span className="brand__sub">Solutions Digitales</span>
@@ -53,7 +53,7 @@ export default function Header() {
         <div className="site-header__actions">
           <ThemeToggle />
           <Link href="/contact" className="btn btn--primary btn--sm">
-            Nous contacter
+            Démarrer un projet
             <Icon name="ArrowRight" />
           </Link>
         </div>
@@ -82,7 +82,7 @@ export default function Header() {
             </Link>
           ))}
           <Link href="/contact" className="btn btn--primary btn--block">
-            Nous contacter
+            Démarrer un projet
             <Icon name="ArrowRight" />
           </Link>
         </div>

@@ -17,90 +17,115 @@ export const revalidate = 300;
 export default function ServicesPage() {
   return (
     <>
+      {/* ------------------------------------------------------ Hero */}
       <section className="page-hero">
         <div className="container">
-          <span className="eyebrow">Nos expertises</span>
-          <h1 className="display page-hero__title" style={{ fontSize: "clamp(2.2rem, 5vw, 3.4rem)" }}>
-            Ce que nous savons <span className="grad-text">construire</span>
-          </h1>
-          <p className="lead">
-            Du cadrage au déploiement, nous concevons des solutions fiables, adaptées au marché
-            malien et pensées pour évoluer.
-          </p>
+          <div className="page-hero__grid">
+            <div className="section-head__meta">
+              <span className="label">Nos expertises</span>
+            </div>
+            <div className="section-head__body">
+              <h1 className="display" style={{ maxWidth: "15ch" }}>
+                Ce que nous savons construire.
+              </h1>
+              <p className="lead">
+                Quatre domaines d&apos;intervention, du cadrage au déploiement.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
+      {/* -------------------------------------------------- Expertises */}
       <section className="section">
-        <div className="container stack" style={{ "--gap": "clamp(20px, 3vw, 32px)" }}>
-          {SERVICES.map((s, i) => (
+        <div className="container">
+          <div className="section-head">
+            <div className="section-head__meta">
+              <span className="index">01</span>
+              <span className="label">Domaines</span>
+            </div>
+            <div className="section-head__body">
+              <h2 className="h2">Quatre domaines d&apos;intervention.</h2>
+            </div>
+          </div>
+
+          {SERVICES.map((service, i) => (
             <Reveal
-              key={s.slug}
-              id={s.slug}
-              className="panel"
-              style={{ padding: "clamp(24px, 4vw, 44px)", scrollMarginTop: 100 }}
+              key={service.slug}
+              id={service.slug}
+              className="section-head"
+              style={{
+                scrollMarginTop: 100,
+                marginBottom: i === SERVICES.length - 1 ? 0 : "clamp(40px, 5vw, 72px)",
+              }}
             >
-              <div className="grid grid-2" style={{ gap: "clamp(20px, 4vw, 44px)", alignItems: "start" }}>
-                <div className="stack" style={{ "--gap": "16px" }}>
-                  <span className="icon-orbit">
-                    <Icon name={s.icon} />
-                  </span>
-                  <h2 className="h2" style={{ fontSize: "clamp(1.4rem, 2.6vw, 1.9rem)" }}>
-                    {s.title}
-                  </h2>
-                  <p className="muted">{s.description}</p>
-                  <div style={{ display: "flex", gap: 22, flexWrap: "wrap" }}>
-                    <Link href="/contact" className="link-arrow">
-                      {MEETING.ctaLabel}
-                      <Icon name="ArrowRight" />
-                    </Link>
-                    {s.proof && (
-                      <Link href={s.proof.href} className="link-arrow">
-                        {s.proof.label}
-                        <Icon name="ArrowUpRight" />
-                      </Link>
-                    )}
-                  </div>
-                </div>
-                <ul className="stack" style={{ "--gap": "10px", listStyle: "none" }}>
-                  {s.points.map((p) => (
-                    <li key={p} style={{ display: "flex", gap: 12 }}>
-                      <Icon name="Check" width={18} height={18} style={{ color: "var(--violet-bright)", flexShrink: 0, marginTop: 3 }} />
-                      <span className="muted">{p}</span>
+              <div className="section-head__meta">
+                <span className="index index--sm">{String(i + 1).padStart(2, "0")}</span>
+                <span className="icon-orbit">
+                  <Icon name={service.icon} />
+                </span>
+              </div>
+
+              <div className="section-head__body">
+                <h3 className="h2" style={{ fontSize: "clamp(1.5rem, 3vw, 2.4rem)" }}>
+                  {service.title}
+                </h3>
+                <p className="muted" style={{ maxWidth: "60ch" }}>
+                  {service.description}
+                </p>
+
+                <ul className="feature-list">
+                  {service.points.map((point) => (
+                    <li key={point}>
+                      <span>{point}</span>
                     </li>
                   ))}
                 </ul>
+
+                <div style={{ display: "flex", gap: 24, flexWrap: "wrap", marginTop: 4 }}>
+                  <Link href="/contact" className="link-arrow">
+                    {MEETING.ctaLabel}
+                    <Icon name="ArrowUpRight" />
+                  </Link>
+                  {service.proof && (
+                    <Link href={service.proof.href} className="link-arrow">
+                      {service.proof.label}
+                      <Icon name="ArrowUpRight" />
+                    </Link>
+                  )}
+                </div>
               </div>
             </Reveal>
           ))}
         </div>
       </section>
 
+      {/* ------------------------------------------- Prix & exécution */}
       <section className="section section--tight" id="tarifs">
         <div className="container">
           <div className="section-head">
-            <span className="eyebrow">{VALUE_PROPOSITION.eyebrow}</span>
-            <h2 className="h2">{VALUE_PROPOSITION.title}</h2>
-            <p className="lead">{VALUE_PROPOSITION.intro}</p>
+            <div className="section-head__meta">
+              <span className="index">02</span>
+              <span className="label">{VALUE_PROPOSITION.eyebrow}</span>
+            </div>
+            <div className="section-head__body">
+              <h2 className="h2">{VALUE_PROPOSITION.title}</h2>
+              <p className="lead">{VALUE_PROPOSITION.intro}</p>
+            </div>
           </div>
 
           <div className="grid grid-2">
-            {VALUE_PROPOSITION.columns.map((c, i) => (
-              <Reveal
-                key={c.title}
-                delay={i * 80}
-                className="panel"
-                style={{ padding: "clamp(24px, 3.5vw, 36px)" }}
-              >
+            {VALUE_PROPOSITION.columns.map((column, i) => (
+              <Reveal key={column.title} delay={i * 80} className="card">
                 <span className="icon-orbit">
-                  <Icon name={c.icon} />
+                  <Icon name={column.icon} />
                 </span>
-                <h3 className="h3" style={{ margin: "18px 0 10px" }}>{c.title}</h3>
-                <p className="muted" style={{ marginBottom: 20 }}>{c.text}</p>
+                <h3 className="h3">{column.title}</h3>
+                <p className="muted">{column.text}</p>
                 <ul className="feature-list">
-                  {c.points.map((p) => (
-                    <li key={p}>
-                      <Icon name="Check" width={16} height={16} />
-                      <span>{p}</span>
+                  {column.points.map((point) => (
+                    <li key={point}>
+                      <span>{point}</span>
                     </li>
                   ))}
                 </ul>
@@ -110,28 +135,37 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      {/* ---------------------------------------------------- Méthode */}
       <section className="section section--tight">
         <div className="container">
           <div className="section-head">
-            <span className="eyebrow">Notre approche</span>
-            <h2 className="h2">Une méthode simple et lisible</h2>
+            <div className="section-head__meta">
+              <span className="index">03</span>
+              <span className="label">Notre approche</span>
+            </div>
+            <div className="section-head__body">
+              <h2 className="h2">Le déroulé d&apos;un projet.</h2>
+            </div>
           </div>
+
           <div className="steps">
-            {PROCESS.map((p) => (
-              <div className="panel step" key={p.step}>
-                <span className="step__num">{p.step}</span>
-                <h3 className="h3" style={{ margin: "10px 0 8px" }}>{p.title}</h3>
-                <p className="muted">{p.text}</p>
-              </div>
+            {PROCESS.map((step, i) => (
+              <Reveal className="step" key={step.step} delay={i * 60}>
+                <span className="step__num">{step.step}</span>
+                <h3 className="h3">{step.title}</h3>
+                <p className="muted">{step.text}</p>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       <CTA
-        title="Parlons-en de vive voix"
-        text={MEETING.long}
+        label="04 / Contact"
+        title="Parlons-en de vive voix."
+        text={MEETING.short}
         primary={{ href: "/contact", label: MEETING.ctaLabel }}
+        secondary={{ href: "/realisations", label: "Voir les réalisations" }}
       />
     </>
   );

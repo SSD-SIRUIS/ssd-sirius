@@ -10,7 +10,7 @@ import { MEETING } from "@/data/site";
 export const metadata = {
   title: "Réalisations",
   description:
-    "Portfolio SSD Sirius : Flash Market (application e-commerce), plateformes et sites web. Besoin métier, conception, technologies et résultat pour chaque projet.",
+    "Portfolio SSD Sirius : Flash Market, Picasso Resolve et MaliLink. Besoin métier, conception, technologies et résultat pour chaque projet.",
   alternates: { canonical: "/realisations" },
 };
 
@@ -23,89 +23,109 @@ export default async function RealisationsPage() {
 
   return (
     <>
+      {/* ------------------------------------------------------ Hero */}
       <section className="page-hero">
         <div className="container">
-          <span className="eyebrow">Portfolio</span>
-          <h1 className="display page-hero__title" style={{ fontSize: "clamp(2.2rem, 5vw, 3.4rem)" }}>
-            Nos <span className="grad-text">réalisations</span>
-          </h1>
-          <p className="lead">
-            Chaque projet raconte une histoire : besoin métier, conception, technologie et résultat.
-          </p>
+          <div className="page-hero__grid">
+            <div className="section-head__meta">
+              <span className="label">Portfolio</span>
+            </div>
+            <div className="section-head__body">
+              <h1 className="display" style={{ maxWidth: "14ch" }}>
+                Ce que nous avons construit.
+              </h1>
+              <p className="lead">
+                Trois produits en production. Pour chacun : le besoin de départ, la
+                conception, l&apos;exécution technique et le résultat en ligne.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
+      {/* -------------------------------------------------- Projet phare */}
       {flagship && (
         <section className="section section--tight">
           <div className="container">
-            <Reveal className="flagship">
-              <div className="flagship__grid">
-                <div className="stack" style={{ "--gap": "16px" }}>
-                  <span className="badge-flagship">
-                    <Icon name="Star" />
-                    Projet phare
-                  </span>
-                  <h2 className="h2" style={{ fontSize: "clamp(1.7rem, 3.2vw, 2.4rem)" }}>
-                    {flagship.title}
-                  </h2>
-                  {flagship.platforms?.length > 0 && (
-                    <div className="platform-badges">
-                      {flagship.platforms.map((p) => (
-                        <span key={p} className="tag">{p}</span>
-                      ))}
-                    </div>
-                  )}
-                  <p className="muted">{flagship.summary}</p>
-                  <div className="tag-row">
-                    {flagship.technologies.slice(0, 5).map((t) => (
-                      <span key={t} className="tag">{t}</span>
+            <div className="section-head">
+              <div className="section-head__meta">
+                <span className="index">01</span>
+                <span className="label">Projet phare</span>
+              </div>
+              <div className="section-head__body">
+                <h2 className="h2">{flagship.title}</h2>
+                <p className="lead">{flagship.summary}</p>
+
+                {flagship.platforms?.length > 0 && (
+                  <div className="platform-badges">
+                    {flagship.platforms.map((platform) => (
+                      <span key={platform} className="tag">
+                        {platform}
+                      </span>
                     ))}
                   </div>
-                  <Link href={`/realisations/${flagship.slug}`} className="btn btn--primary">
-                    Découvrir le projet
-                    <Icon name="ArrowRight" />
-                  </Link>
+                )}
+
+                <div className="tag-row">
+                  {flagship.technologies.slice(0, 5).map((tech) => (
+                    <span key={tech} className="tag">
+                      {tech}
+                    </span>
+                  ))}
                 </div>
 
-                <div>
-                  {flagship.screens?.length > 0 ? (
-                    <div className="screens-row">
-                      {flagship.screens.slice(0, 4).map((s, i) => (
-                        <div className="screen-item" key={i}>
-                          <MockShot tone={s.tone} label={s.label} phone src={s.url} />
-                          <span>{s.label}</span>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <MockShot
-                      {...(flagship.cover_url ? { src: flagship.cover_url } : { tone: flagship.cover })}
-                      label={flagship.title}
-                      phone={flagship.type === "application"}
-                    />
-                  )}
-                </div>
+                <Link
+                  href={`/realisations/${flagship.slug}`}
+                  className="btn btn--primary"
+                  style={{ alignSelf: "flex-start" }}
+                >
+                  Découvrir le projet
+                  <Icon name="ArrowUpRight" />
+                </Link>
               </div>
-            </Reveal>
+            </div>
+
+            {flagship.screens?.length > 0 ? (
+              <div className="screens-row">
+                {flagship.screens.slice(0, 4).map((screen, i) => (
+                  <Reveal className="screen-item" key={i} delay={i * 60}>
+                    <MockShot tone={screen.tone} label={screen.label} phone src={screen.url} />
+                    <span>{screen.label}</span>
+                  </Reveal>
+                ))}
+              </div>
+            ) : (
+              <MockShot
+                {...(flagship.cover_url ? { src: flagship.cover_url } : { tone: flagship.cover })}
+                label={flagship.title}
+                phone={flagship.type === "application"}
+              />
+            )}
           </div>
         </section>
       )}
 
+      {/* ------------------------------------------------ Autres projets */}
       <section className="section section--tight">
         <div className="container">
           {rest.length === 0 ? (
-            <p className="muted">D'autres réalisations seront bientôt publiées.</p>
+            <p className="muted">D&apos;autres réalisations seront bientôt publiées.</p>
           ) : (
             <>
-              {flagship && (
-                <div className="section-head">
-                  <span className="eyebrow">Autres projets</span>
+              <div className="section-head">
+                <div className="section-head__meta">
+                  <span className="index">{flagship ? "02" : "01"}</span>
+                  <span className="label">{flagship ? "Autres projets" : "Projets"}</span>
                 </div>
-              )}
+                <div className="section-head__body">
+                  <h2 className="h2">Le reste du portfolio.</h2>
+                </div>
+              </div>
+
               <div className="grid grid-3">
-                {rest.map((p, i) => (
-                  <Reveal key={p.slug} delay={i * 60}>
-                    <ProjectCard project={p} />
+                {rest.map((project, i) => (
+                  <Reveal key={project.slug} delay={i * 60}>
+                    <ProjectCard project={project} />
                   </Reveal>
                 ))}
               </div>
@@ -115,8 +135,9 @@ export default async function RealisationsPage() {
       </section>
 
       <CTA
+        label="03 / Contact"
         title="Un projet similaire ?"
-        text={MEETING.long}
+        text={MEETING.short}
         primary={{ href: "/contact", label: MEETING.ctaLabel }}
         secondary={{ href: "/services", label: "Voir nos expertises" }}
       />

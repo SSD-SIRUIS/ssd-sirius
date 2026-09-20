@@ -1,277 +1,335 @@
 import Link from "next/link";
 import Icon from "@/components/Icon";
 import Reveal from "@/components/Reveal";
-import CTA from "@/components/CTA";
-import ProjectCard from "@/components/ProjectCard";
-import ServiceCard from "@/components/ServiceCard";
-import MockShot from "@/components/MockShot";
-import SpaceScene from "@/components/SpaceScene";
-import { getProjects, getSettings } from "@/lib/content";
-import { SERVICES, DIFFERENTIATORS } from "@/data/services";
-import { HERO, GUARANTEES, MEETING } from "@/data/site";
+import TeamGrid from "@/components/TeamGrid";
+import { getProjects } from "@/lib/content";
+import { PROJECTS } from "@/data/projects";
+import { HERO, STATS, MEETING, SITE } from "@/data/site";
+import { PROCESS } from "@/data/services";
+import styles from "./page.module.css";
 
 export const revalidate = 300;
 
-const USE_CASES = [
-  { icon: "Smartphone", label: "Applications mobiles" },
-  { icon: "ShoppingCart", label: "Commerce en ligne" },
-  { icon: "Store", label: "Marketplaces" },
-  { icon: "Wallet", label: "Mobile Money" },
-  { icon: "Boxes", label: "API & systèmes" },
-  { icon: "Globe", label: "Présence web" },
+export const metadata = {
+  title: "Agence de développement web et mobile au Mali",
+  description:
+    "Agence de développement web et mobile à Bamako et Paris. SSD Sirius conçoit, développe et met en ligne sites web, applications mobiles et logiciels SaaS sur mesure.",
+  alternates: { canonical: "/" },
+};
+
+const CAPABILITIES = [
+  {
+    number: "01",
+    title: "Sites web professionnels",
+    text: "Sites vitrines et plateformes de marque, avec une structure pensée pour le référencement naturel.",
+  },
+  {
+    number: "02",
+    title: "Applications web métier",
+    text: "Outils de gestion, portails et plateformes construits autour de vos processus existants.",
+  },
+  {
+    number: "03",
+    title: "Logiciels SaaS",
+    text: "Produits en ligne, de la définition fonctionnelle au paiement et au déploiement.",
+  },
+  {
+    number: "04",
+    title: "Applications mobiles",
+    text: "Applications iOS et Android à partir d'une base de code unique, publiées sur les deux stores.",
+  },
 ];
 
+// Ordre d'affichage du portfolio. Les données Supabase priment,
+// le fichier local sert de repli.
+const PORTFOLIO_ORDER = ["flash-market", "picasso-resolve", "malilink"];
+
+function mergePortfolio(remoteProjects) {
+  return PORTFOLIO_ORDER.map(
+    (slug) =>
+      remoteProjects.find((project) => project.slug === slug) ||
+      PROJECTS.find((project) => project.slug === slug)
+  ).filter(Boolean);
+}
+
+/** Visuel propre à chaque réalisation : trois écrans, un avant/après, ou un aplat. */
+function WorkVisual({ project }) {
+  if (project.slug === "flash-market") {
+    const screens = (project.screens || []).filter((s) => s.url).slice(0, 3);
+    if (screens.length) {
+      return (
+        <div className={styles.workPhones}>
+          {screens.map((screen) => (
+            <div className={styles.workPhone} key={screen.url}>
+              <img src={screen.url} alt={screen.label} loading="lazy" />
+            </div>
+          ))}
+        </div>
+      );
+    }
+  }
+
+  if (project.slug === "picasso-resolve") {
+    return (
+      <div className={styles.workCompare}>
+        <div className={styles.workCompareItem}>
+          <figure>
+            <img
+              src="https://picassoresolve.com/landing/origine.jpg"
+              alt="Photo produit brute, avant traitement"
+              loading="lazy"
+            />
+          </figure>
+          <figcaption>Avant</figcaption>
+        </div>
+        <div className={styles.workCompareItem}>
+          <figure>
+            <img
+              src="https://picassoresolve.com/landing/4k-1.jpg"
+              alt="Visuel e-commerce généré par Picasso Resolve"
+              loading="lazy"
+            />
+          </figure>
+          <figcaption>Après</figcaption>
+        </div>
+      </div>
+    );
+  }
+
+  const cover = project.cover_url || (project.screens || []).find((s) => s.url)?.url;
+  if (cover) {
+    return (
+      <div className={styles.workShot}>
+        <img src={cover} alt={`Aperçu de ${project.title}`} loading="lazy" />
+      </div>
+    );
+  }
+
+  return (
+    <div className={styles.workPlaceholder}>
+      <span>{project.title} — visuels à venir</span>
+    </div>
+  );
+}
+
 export default async function HomePage() {
-  const [projects, settings] = await Promise.all([getProjects(), getSettings()]);
-  const flagship = projects.find((p) => p.flagship) || projects[0];
-  const rest = projects.filter((p) => p.slug !== flagship?.slug);
-  const stats = settings.stats || [];
+  const projects = mergePortfolio(await getProjects());
 
   return (
     <>
-      {/* ---------------- Hero ---------------- */}
-      <section className="hero">
+      {/* ---------------------------------------------------- Hero */}
+      <section className={styles.hero}>
         <div className="container">
-          <div className="hero__grid">
-            <div>
-              <span className="eyebrow">{HERO.eyebrow}</span>
-              <h1 className="display hero__title">
-                {HERO.titleLead} <span className="grad-text">{HERO.titleAccent}</span>.
-              </h1>
-              <p className="lead">{HERO.subtitle}</p>
-              <div className="hero__cta">
-                <Link href="/contact" className="btn btn--primary">
-                  {MEETING.ctaLabel}
-                  <Icon name="ArrowRight" />
-                </Link>
-                <Link href="/realisations" className="btn btn--ghost">
-                  Découvrir nos réalisations
-                  <Icon name="ArrowRight" />
-                </Link>
-              </div>
-              <p className="hero__note">
-                <Icon name="Sparkles" />
-                Ni devis à remplir, ni dossier à monter — parlez-nous de votre projet, on
-                s&apos;occupe du reste.
-              </p>
-            </div>
+          <div className={styles.heroInner}>
+            <span className={styles.heroBadge}>
+              <span className={styles.heroDot} aria-hidden="true" />
+              {HERO.label}
+              <span className={styles.heroBadgeDiv} aria-hidden="true" />
+              <span className={styles.heroBadgePlace}>{HERO.place}</span>
+            </span>
 
-            <div className="hero__scene">
-              <SpaceScene />
+            <h1 className={styles.heroTitle}>
+              {HERO.lines.map((line) => (
+                <span key={line}>{line}</span>
+              ))}
+            </h1>
+
+            <p className={styles.heroLead}>{HERO.lead}</p>
+
+            <div className={styles.heroActions}>
+              <Link href="/contact" className="btn btn--primary">
+                {MEETING.ctaLabel}
+                <Icon name="ArrowUpRight" />
+              </Link>
+              <Link href="#realisations" className="btn btn--ghost">
+                Voir les réalisations
+                <Icon name="ArrowDown" />
+              </Link>
             </div>
           </div>
 
-          <div className="proofbar">
-            {DIFFERENTIATORS.map((d) => (
-              <div className="proofbar__item" key={d.title}>
-                <Icon name={d.icon} />
-                <div>
-                  <strong>{d.title}</strong>
-                  <span>{d.text}</span>
-                </div>
+          <div className={styles.heroStats}>
+            {STATS.map((stat) => (
+              <div className={styles.heroStat} key={stat.label}>
+                <span className={styles.heroStatValue}>{stat.value}</span>
+                <span className={styles.heroStatLabel}>{stat.label}</span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ---------------- Projet phare : Flash Market ---------------- */}
-      {flagship && (
-        <section className="section" id="flash-market">
-          <div className="container">
-            <Reveal className="flagship">
-              <div className="flagship__grid">
-                <div className="stack" style={{ "--gap": "16px" }}>
-                  <span className="badge-flagship">
-                    <Icon name="Star" />
-                    Projet phare
-                  </span>
-                  <h2 className="h2" style={{ fontSize: "clamp(1.7rem, 3.2vw, 2.4rem)" }}>
-                    {flagship.title}
-                  </h2>
-                  {flagship.platforms?.length > 0 && (
-                    <div className="platform-badges">
-                      {flagship.platforms.map((p) => (
-                        <span key={p} className="tag">{p}</span>
+      {/* -------------------------------------------- Réalisations */}
+      <section className={styles.workSection} id="realisations">
+        <div className="container">
+          <div className="section-head">
+            <div className="section-head__meta">
+              <span className="index">01</span>
+              <span className="label">Réalisations</span>
+            </div>
+            <div className="section-head__body">
+              <h2 className="h2">Trois produits en production.</h2>
+              <p className="lead">
+                Flash Market, Picasso Resolve et MaliLink. Conception, développement et mise
+                en ligne assurés par l&apos;équipe.
+              </p>
+            </div>
+          </div>
+
+          <div className={styles.workList}>
+            {projects.map((project, i) => (
+              <Reveal
+                as="article"
+                className={styles.work}
+                key={project.slug}
+                data-flip={i % 2 === 1 ? "true" : "false"}
+              >
+                <div className={styles.workIndex}>
+                  <span className={styles.workNum}>{String(i + 1).padStart(2, "0")}</span>
+                  <span className="label">{project.category}</span>
+                </div>
+
+                <div className={styles.workCopy}>
+                  <h3 className={styles.workTitle}>{project.title}</h3>
+                  <p className={styles.workSummary}>{project.summary}</p>
+
+                  <div className={styles.workMeta}>
+                    {(project.platforms?.length ? project.platforms : project.technologies || [])
+                      .slice(0, 4)
+                      .map((item) => (
+                        <span key={item}>{item}</span>
                       ))}
-                    </div>
-                  )}
-                  <p className="muted">{flagship.summary}</p>
-                  <div className="tag-row">
-                    {flagship.technologies.slice(0, 5).map((t) => (
-                      <span key={t} className="tag">{t}</span>
-                    ))}
                   </div>
-                  <Link href={`/realisations/${flagship.slug}`} className="btn btn--primary">
-                    Découvrir le projet
-                    <Icon name="ArrowRight" />
+
+                  <Link href={`/realisations/${project.slug}`} className="link-arrow">
+                    Voir le projet
+                    <Icon name="ArrowUpRight" />
                   </Link>
                 </div>
 
-                <div>
-                  {flagship.screens?.length > 0 ? (
-                    <div className="screens-row">
-                      {flagship.screens.slice(0, 4).map((s, i) => (
-                        <div className="screen-item" key={i}>
-                          <MockShot tone={s.tone} label={s.label} phone src={s.url} />
-                          <span>{s.label}</span>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <MockShot
-                      {...(flagship.cover_url ? { src: flagship.cover_url } : { tone: flagship.cover })}
-                      label={flagship.title}
-                      phone={flagship.type === "application"}
-                    />
-                  )}
+                <div className={styles.workVisual}>
+                  <WorkVisual project={project} />
                 </div>
-              </div>
-            </Reveal>
-          </div>
-        </section>
-      )}
-
-      {/* ---------------- Services ---------------- */}
-      <section className="section" id="services">
-        <div className="container">
-          <div className="section-head">
-            <span className="eyebrow">Nos services</span>
-            <h2 className="h2">
-              Des solutions digitales adaptées à <span className="grad-text">vos besoins</span>.
-            </h2>
-            <p className="lead">
-              Nous transformons vos idées en produits digitaux performants, sécurisés et évolutifs.
-            </p>
-          </div>
-
-          <div className="grid grid-4">
-            {SERVICES.map((s, i) => (
-              <Reveal key={s.slug} delay={i * 60}>
-                <ServiceCard service={s} href={`/services#${s.slug}`} />
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ---------------- Engagements ---------------- */}
-      <section className="section section--tight" id="engagements">
+      {/* ------------------------------------------------ Expertises */}
+      <section className={styles.capabilities}>
         <div className="container">
           <div className="section-head">
-            <span className="eyebrow">Nos engagements</span>
-            <h2 className="h2">
-              Ce que <span className="grad-text">Sirius</span> garantit
-            </h2>
-            <p className="lead">
-              Vous n'avez qu'à valider et à lancer votre activité. Le reste, c'est notre travail.
-            </p>
+            <div className="section-head__meta">
+              <span className="index">02</span>
+              <span className="label">Expertises</span>
+            </div>
+            <div className="section-head__body">
+              <h2 className="h2">Conception et développement de solutions sur mesure.</h2>
+            </div>
           </div>
 
-          <div className="grid grid-3">
-            {GUARANTEES.map((g, i) => (
-              <Reveal key={g.title} delay={i * 50} className="card">
-                <span className="icon-orbit">
-                  <Icon name={g.icon} />
-                </span>
-                <h3 className="h3">{g.title}</h3>
-                <p className="muted">{g.text}</p>
+          <div className={styles.capabilityList}>
+            {CAPABILITIES.map((capability) => (
+              <div className={styles.capability} key={capability.number}>
+                <span className={styles.capabilityNum}>{capability.number}</span>
+                <h3 className={styles.capabilityTitle}>{capability.title}</h3>
+                <p className={styles.capabilityText}>{capability.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* --------------------------------------------------- Méthode */}
+      <section className={styles.method}>
+        <div className="container">
+          <div className="section-head">
+            <div className="section-head__meta">
+              <span className="index">03</span>
+              <span className="label">Méthode</span>
+            </div>
+            <div className="section-head__body">
+              <h2 className="h2">Quatre étapes, du cadrage à la mise en ligne.</h2>
+            </div>
+          </div>
+
+          <div className="steps">
+            {PROCESS.map((step, i) => (
+              <Reveal className="step" key={step.step} delay={i * 60}>
+                <span className="step__num">{step.step}</span>
+                <h3 className="h3">{step.title}</h3>
+                <p className="muted">{step.text}</p>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ---------------- Autres réalisations ---------------- */}
-      {rest.length > 0 && (
-        <section className="section" id="realisations">
-          <div className="container">
-            <div
-              className="section-head"
-              style={{
-                maxWidth: "none",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "flex-end",
-                flexWrap: "wrap",
-                gap: 20,
-              }}
-            >
-              <div className="stack" style={{ "--gap": "14px" }}>
-                <span className="eyebrow">Réalisations</span>
-                <h2 className="h2">
-                  D'autres <span className="grad-text">projets</span> signés Sirius.
-                </h2>
+      {/* ---------------------------------------------------- Équipe */}
+      <section className={styles.team}>
+        <div className="container">
+          <div className="section-head">
+            <div className="section-head__meta">
+              <span className="index">04</span>
+              <span className="label">Équipe</span>
+            </div>
+            <div className="section-head__body">
+              <h2 className="h2">Deux associés, ingénieurs logiciels.</h2>
+              <p className="lead">
+                Tous deux en cycle ingénieur à EFREI Paris, spécialité cybersécurité. Ils
+                conçoivent et développent l&apos;ensemble des produits présentés ici.
+              </p>
+            </div>
+          </div>
+
+          <TeamGrid />
+
+          <div style={{ marginTop: "clamp(32px, 4vw, 56px)" }}>
+            <Link href="/a-propos" className="link-arrow">
+              En savoir plus sur nous
+              <Icon name="ArrowUpRight" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* -------------------------------------------------- Clôture */}
+      <section className={styles.closing}>
+        <div className="container">
+          <div className={styles.closingGrid}>
+            <span className={styles.closingLabel}>05 / Contact</span>
+            <div className={styles.closingBody}>
+              <h2 className={styles.closingTitle}>
+                Nous présenter votre projet
+              </h2>
+              <p className="lead">{MEETING.short}</p>
+              <div className={styles.closingActions}>
+                <Link href="/contact" className="btn btn--primary">
+                  {MEETING.ctaLabel}
+                  <Icon name="ArrowUpRight" />
+                </Link>
+                {MEETING.bookingUrl && (
+                  <a
+                    href={MEETING.bookingUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn btn--ghost"
+                  >
+                    {MEETING.bookingLabel}
+                    <Icon name="CalendarClock" />
+                  </a>
+                )}
               </div>
-              <Link href="/realisations" className="btn btn--ghost">
-                Voir tous les projets
-                <Icon name="ArrowRight" />
-              </Link>
+              <div className={styles.closingMeta}>
+                <span>Bamako · Paris</span>
+                <span>Depuis {SITE.foundedYear}</span>
+                <span>Trois produits en production</span>
+              </div>
             </div>
-
-            <div className="grid grid-3">
-              {rest.map((p, i) => (
-                <Reveal key={p.slug} delay={i * 60}>
-                  <ProjectCard project={p} />
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ---------------- Indicateurs ---------------- */}
-      {stats.length > 0 && (
-        <section className="section section--tight">
-          <div className="container">
-            <div className="stats">
-              {stats.map((s) => (
-                <div className="stats__item" key={s.label}>
-                  {s.icon && <Icon name={s.icon} />}
-                  <span className="stats__value">{s.value}</span>
-                  <span className="stats__label">{s.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ---------------- Secteurs / cas d'usage ---------------- */}
-      <section className="section section--tight">
-        <div className="container">
-          <p className="eyebrow" style={{ justifyContent: "center", marginBottom: 26 }}>
-            Ce que nous construisons
-          </p>
-          <div className="trust">
-            {USE_CASES.map((u) => (
-              <span className="trust__logo" key={u.label}>
-                <Icon name={u.icon} />
-                {u.label}
-              </span>
-            ))}
           </div>
         </div>
       </section>
-
-      {/* ---------------- Mission ---------------- */}
-      <section className="section">
-        <div className="container">
-          <div className="mission">
-            <span className="eyebrow" style={{ justifyContent: "center" }}>
-              Notre mission
-            </span>
-            <h2 className="h2">Conçu au Mali. Pensé pour l'Afrique.</h2>
-            <p className="lead mx-auto" style={{ marginTop: 16 }}>
-              Nous construisons des produits digitaux qui tiennent compte des réalités locales :
-              usages mobiles, connexions instables, paiement Mobile Money et besoin d'autonomie
-              pour les équipes.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <CTA />
     </>
   );
 }

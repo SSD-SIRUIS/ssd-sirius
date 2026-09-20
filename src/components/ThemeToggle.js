@@ -5,7 +5,9 @@ import { useEffect, useState } from "react";
 export const THEME_KEY = "sirius-theme";
 
 // Script injecté avant le rendu pour éviter le flash de thème au chargement.
-export const themeInitScript = `(function(){try{var t=localStorage.getItem('${THEME_KEY}');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();`;
+// Le sombre est l'identité du site : on ne retombe sur le clair que si le
+// visiteur l'a explicitement choisi, jamais sur simple préférence système.
+export const themeInitScript = `(function(){try{var t=localStorage.getItem('${THEME_KEY}');if(t!=='light'&&t!=='dark'){t='dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();`;
 
 function applyTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);

@@ -1,5 +1,5 @@
 import { getSettings } from "@/lib/content";
-import { SITE } from "@/data/site";
+import { SITE, LEGAL } from "@/data/site";
 
 export const metadata = {
   title: "Mentions légales",
@@ -11,7 +11,7 @@ export const metadata = {
 export const revalidate = 300;
 
 export default async function MentionsPage() {
-  const { contact, company } = await getSettings();
+  const { contact } = await getSettings();
 
   return (
     <section className="section" style={{ paddingTop: "clamp(80px, 12vw, 140px)" }}>
@@ -24,27 +24,33 @@ export default async function MentionsPage() {
         <div className="prose">
           <h2>Éditeur du site</h2>
           <p>
-            {company.name}. Adresse : {contact.city}. Contact : {contact.email} — {contact.phone}.
+            Le site est édité par <strong>{LEGAL.entity}</strong>, {LEGAL.form.toLowerCase()}{" "}
+            immatriculée au registre du commerce et du crédit mobilier de Bamako le{" "}
+            {LEGAL.rccmDate} sous le numéro {LEGAL.rccm}, numéro d&apos;immatriculation
+            national (NINA) {LEGAL.nina}. Activité déclarée : {LEGAL.activity}.
           </p>
           <p>
-            <em>
-              Informations à compléter : forme juridique, numéro d'immatriculation, capital,
-              directeur de la publication.
-            </em>
+            {LEGAL.entity} exerce sous le nom commercial <strong>{LEGAL.tradeName}</strong>.
+            Siège social : {LEGAL.address}.
+          </p>
+          <p>
+            Responsable de l&apos;entreprise et directeur de la publication :{" "}
+            {LEGAL.publicationDirector}. Contact : {contact.email} — {contact.phone}.
           </p>
 
           <h2>Hébergement</h2>
           <p>
-            Application déployée sous conteneur Docker sur Google Cloud Run (Google Cloud Platform).
-            Données applicatives gérées via Supabase.
+            Application déployée sous conteneur Docker sur Google Cloud Run, service de Google
+            Cloud Platform — Google Ireland Limited, Gordon House, Barrow Street, Dublin 4,
+            Irlande. Données applicatives gérées via Supabase.
           </p>
 
           <h2>Propriété intellectuelle</h2>
           <p>
             L'ensemble des contenus de ce site (textes, visuels, logo Sirius, code) est la propriété
-            de {company.name}, sauf mention contraire. Toute reproduction sans autorisation est
-            interdite. Les projets présentés dans le portfolio restent la propriété de leurs
-            commanditaires respectifs et sont publiés avec leur accord.
+            de {LEGAL.entity} ({LEGAL.tradeName}), sauf mention contraire. Toute reproduction sans autorisation est
+            interdite. Les produits présentés dans le portfolio sont des produits internes
+            de {LEGAL.tradeName}.
           </p>
 
           <h2>Données personnelles</h2>
@@ -71,7 +77,7 @@ export default async function MentionsPage() {
         </div>
 
         <p className="muted" style={{ marginTop: 40, fontSize: "0.82rem" }}>
-          Dernière mise à jour : à compléter — {SITE.legalName}.
+          Dernière mise à jour : septembre 2026 — {SITE.legalName}.
         </p>
       </div>
     </section>
