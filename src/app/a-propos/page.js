@@ -1,6 +1,7 @@
 import Icon from "@/components/Icon";
 import CTA from "@/components/CTA";
 import IsoFigure from "@/components/IsoFigure";
+import TeamGrid from "@/components/TeamGrid";
 import { DIFFERENTIATORS } from "@/data/services";
 import { SITE } from "@/data/site";
 
@@ -74,6 +75,20 @@ export default function AProposPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="section section--line" id="equipe">
+        <div className="container">
+          <div className="section-head">
+            <h2 className="title-1">
+              <span className="strong">L’équipe.</span>{" "}
+              <span className="soft">
+                Les deux personnes qui conçoivent, développent et publient vos produits.
+              </span>
+            </h2>
+          </div>
+          <TeamGrid />
         </div>
       </section>
 

@@ -83,7 +83,7 @@ export const GUARANTEES = [
 ];
 
 export const CONTACT = {
-  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "sidigano8@gmail.com",
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "contact@sirius-mali.tech",
   // Numéro principal : appels + WhatsApp
   phone: process.env.NEXT_PUBLIC_CONTACT_PHONE || "+33 6 98 43 36 02",
   // Second numéro joignable
@@ -94,6 +94,67 @@ export const CONTACT = {
   get city() {
     return this.cities.join(" · ");
   },
+};
+
+// ------------------------------------------------------------------
+// Équipe — affichée sur /a-propos et en version courte sur la home.
+// Les photos vivent dans public/equipe/.
+// Les deux associés suivent le même cursus : cycle ingénieur à EFREI Paris,
+// spécialité cybersécurité, avec un profil d'ingénieur logiciel généraliste
+// (back-end, front-end, mobile). Ne pas réduire l'un à la cybersécurité
+// et l'autre au développement : le profil est le même, les rôles diffèrent.
+// ------------------------------------------------------------------
+export const TEAM = [
+  {
+    name: "Sidi Oumar Gano",
+    role: "Cofondateur",
+    focus: "Produit & développement",
+    school: "EFREI Paris",
+    education: "Élève-ingénieur à EFREI Paris — cycle ingénieur, spécialité cybersécurité",
+    photo: "/equipe/sidi-oumar-gano.jpg",
+    linkedin: "https://www.linkedin.com/in/sidi-gano/",
+    bio: "Ingénieur logiciel, spécialisé en cybersécurité. Sur les produits SSD Sirius : conception produit, architecture applicative et développement mobile. Il a mené Flash Market de la base de données à la publication sur les stores.",
+  },
+  {
+    name: "Mohamed Lamine Koné",
+    role: "Cofondateur",
+    focus: "Ingénierie & plateformes",
+    school: "EFREI Paris",
+    education: "Élève-ingénieur à EFREI Paris — cycle ingénieur, spécialité cybersécurité",
+    photo: "/equipe/mohamed-lamine.jpg",
+    linkedin: "https://www.linkedin.com/in/mlkon%C3%A9-3ac5/",
+    bio: "Ingénieur logiciel, spécialisé en cybersécurité. Sur les produits SSD Sirius : développement web, back-end et infrastructure. Il construit les plateformes, les API et la chaîne de mise en production.",
+  },
+];
+
+// ------------------------------------------------------------------
+// Informations légales de l'entité qui édite le site.
+// Source : certificat d'immatriculation INSTAT / API-Mali du 04/06/2025.
+//
+// À NOTER : la personne morale s'appelle SHEPHERD. « SSD Sirius Solutions
+// Digitales » est le nom commercial sous lequel elle exerce — c'est lui qui
+// s'affiche partout sur le site, et c'est normal. Seule la page des mentions
+// légales doit nommer l'entité immatriculée.
+//
+// L'adresse complète du siège figure au certificat : KOKO, rue 268, porte 14.
+// Seuls la localité et la commune sont publiés ici : pour une entreprise
+// individuelle, le siège est souvent le domicile du dirigeant, et une adresse
+// publiée est une adresse indexée. Compléter `address` si la mention complète
+// est souhaitée.
+// ------------------------------------------------------------------
+export const LEGAL = {
+  entity: "SHEPHERD",
+  tradeName: "SSD Sirius Solutions Digitales",
+  form: "Entreprise individuelle",
+  manager: "Mohamed Lamine Koné",
+  // Le responsable de l'entreprise individuelle est de droit directeur de la publication.
+  publicationDirector: "Mohamed Lamine Koné",
+  rccm: "MA.BKO.2025.A.5032",
+  rccmDate: "2 juin 2025",
+  nina: "32509196496135C",
+  activity: "Commerce général ; prestation de services",
+  address: "Niamakoro, Commune VI, Bamako, Mali",
+  country: "Mali",
 };
 
 // Aucun réseau social pour l'instant : les icônes restent masquées

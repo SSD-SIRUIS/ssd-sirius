@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import Icon from "@/components/Icon";
-
-const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+import { envoyerAFormspree, normaliserLead, validerLead } from "@/lib/lead";
 
 export default function ContactForm({ projects = [], defaultProject = "" }) {
   const [form, setForm] = useState({
@@ -20,45 +19,62 @@ export default function ContactForm({ projects = [], defaultProject = "" }) {
 
   const update = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
-  function validate() {
-    if (form.name.trim().length < 2) return "Merci d'indiquer votre nom.";
-    if (!EMAIL_RE.test(form.email)) return "L'adresse e-mail semble invalide.";
-    if (form.message.trim().length < 10)
-      return "Votre message doit contenir au moins 10 caractères.";
-    return "";
+  // Archivage dans Supabase pour /admin/leads. L'e-mail étant déjà parti,
+  // un échec ici ne regarde pas le visiteur : on n'attend même pas la réponse.
+  function archiverEnArrierePlan(donnees) {
+    fetch("/api/leads", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...donnees, archive_only: true }),
+      keepalive: true,
+    }).catch(() => {});
   }
 
   async function onSubmit(e) {
     e.preventDefault();
-    const v = validate();
-    if (v) {
-      setStatus("error");
-      setError(v);
+
+    // Honeypot : un robot remplit ce champ. On simule l'envoi sans rien faire.
+    if (form.website) {
+      setStatus("success");
       return;
     }
+
+    const lead = normaliserLead(form);
+    const probleme = validerLead(lead);
+    if (probleme) {
+      setStatus("error");
+      setError(probleme);
+      return;
+    }
+
     setStatus("loading");
     setError("");
+
     try {
-      const res = await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error || "Envoi impossible pour le moment.");
-      setStatus("success");
-      setForm((f) => ({
-        ...f,
-        name: "",
-        email: "",
-        phone: "",
-        company: "",
-        message: "",
-      }));
-    } catch (err) {
-      setStatus("error");
-      setError(err.message);
+      // Canal principal : envoi direct depuis le navigateur. C'est ce qui
+      // donne à Formspree le contexte dont son filtre anti-spam a besoin.
+      await envoyerAFormspree(lead);
+      archiverEnArrierePlan(form);
+    } catch {
+      // Repli : la requête tierce a pu être bloquée (extension, réseau
+      // d'entreprise). La route serveur retente et archive.
+      try {
+        const res = await fetch("/api/leads", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.error || "Envoi impossible pour le moment.");
+      } catch (errRepli) {
+        setStatus("error");
+        setError(errRepli.message);
+        return;
+      }
     }
+
+    setStatus("success");
+    setForm((f) => ({ ...f, name: "", email: "", phone: "", company: "", message: "" }));
   }
 
   if (status === "success") {
@@ -67,7 +83,8 @@ export default function ContactForm({ projects = [], defaultProject = "" }) {
         <Icon name="CheckCircle2" />
         <h3 className="title-3">Demande envoyée</h3>
         <p className="muted">
-          Merci, votre message est bien arrivé. L'équipe SSD Sirius vous recontacte rapidement.
+          Merci, votre message est bien arrivé. L&apos;équipe SSD Sirius vous recontacte
+          rapidement.
         </p>
         <button
           type="button"
@@ -104,17 +121,16 @@ export default function ContactForm({ projects = [], defaultProject = "" }) {
       <div className="form-row">
         <div className="field">
           <label htmlFor="cf-phone">Téléphone</label>
-          <input
-            id="cf-phone"
-            type="tel"
-            value={form.phone}
-            onChange={update("phone")}
-            autoComplete="tel"
-          />
+          <input id="cf-phone" type="tel" value={form.phone} onChange={update("phone")} autoComplete="tel" />
         </div>
         <div className="field">
           <label htmlFor="cf-company">Entreprise / organisation</label>
-          <input id="cf-company" value={form.company} onChange={update("company")} autoComplete="organization" />
+          <input
+            id="cf-company"
+            value={form.company}
+            onChange={update("company")}
+            autoComplete="organization"
+          />
         </div>
       </div>
 
@@ -177,10 +193,7 @@ export default function ContactForm({ projects = [], defaultProject = "" }) {
 
       <p className="form-legal">
         Vos informations servent uniquement à traiter votre demande. Voir les{" "}
-        <a href="/mentions-legales">
-          mentions légales
-        </a>
-        .
+        <a href="/mentions-legales">mentions légales</a>.
       </p>
     </form>
   );

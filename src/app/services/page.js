@@ -71,10 +71,7 @@ export default function ServicesPage() {
         <div className="container">
           <div className="section-head">
             <span className="mono">{VALUE_PROPOSITION.eyebrow}</span>
-            <h2 className="title-1">
-              <span className="strong">Un tarif accessible.</span>{" "}
-              <span className="soft">Une exécution de très haut niveau.</span>
-            </h2>
+            <h2 className="title-1">{VALUE_PROPOSITION.title}</h2>
             <p className="text-md">{VALUE_PROPOSITION.intro}</p>
           </div>
 

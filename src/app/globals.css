@@ -1034,6 +1034,72 @@ h4 {
 .story__media--empty:hover { border-color: var(--text-4); color: var(--text); }
 .story .link-more { margin-top: 14px; }
 
+/* ------------------------------------------------------ Équipe ---- */
+.team {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border-block: 1px solid var(--line);
+}
+
+.team__member {
+  display: grid;
+  grid-template-columns: 148px minmax(0, 1fr);
+  gap: clamp(18px, 2.4vw, 28px);
+  padding: clamp(24px, 3vw, 32px) clamp(20px, 2.6vw, 32px);
+  background: var(--bg);
+  min-width: 0;
+}
+
+.team__photo {
+  overflow: hidden;
+  border-radius: var(--r-md);
+  background: var(--bg-2);
+  aspect-ratio: 4 / 5;
+}
+
+.team__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1);
+  transition: filter 0.3s var(--ease);
+}
+
+.team__member:hover .team__photo img { filter: grayscale(0); }
+
+.team__body { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.team__bio { font-size: 14.5px; line-height: 1.55; color: var(--text-3); margin-top: 4px; }
+
+.team__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 20px;
+  margin-top: auto;
+  padding-top: 14px;
+}
+
+.team__school {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 7px;
+  font-size: 13px;
+  color: var(--text-4);
+}
+
+.team__school svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 3px; }
+
+@media (max-width: 960px) {
+  .team { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .team__member { grid-template-columns: 1fr; }
+  .team__photo { max-width: 180px; }
+}
+
 /* ------------------------------------- Maquettes de captures ---- */
 .mock {
   position: relative;
