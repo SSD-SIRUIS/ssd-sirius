@@ -16,6 +16,23 @@ export default function Header() {
     setOpen(false);
   }, [pathname]);
 
+  // Menu ouvert : on fige la page derrière. Sans cela, un doigt posé à côté
+  // du panneau fait défiler le contenu masqué, et on rouvre sur une page qui
+  // a bougé. Échap ferme aussi, pour les claviers externes et le bureau.
+  useEffect(() => {
+    if (!open) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = previous;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
   const isActive = (href) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
   return (

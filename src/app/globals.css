@@ -1677,3 +1677,230 @@ a.card:hover { border-color: var(--line-3); }
   }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* ============================================ Tactile & mobile ---- */
+/* Cette section ne concerne que l'usage au doigt. Elle est placée en fin
+   de feuille parce qu'elle corrige : elle ne redéfinit pas le système,
+   elle rattrape ce qu'une souris rend invisible. Un poste de bureau n'en
+   voit rien, à l'exception des cibles élargies. */
+
+/* Le halo gris que le navigateur peint au tap double le retour visuel
+   qu'on définit nous-mêmes, avec un temps de retard. */
+html { -webkit-tap-highlight-color: transparent; }
+
+/* -- Encoches et barre d'accueil ------------------------------------
+   La marge système s'ajoute à la gouttière au lieu de la remplacer :
+   en paysage sur un téléphone à encoche, le texte passerait sinon
+   dessous. `max()` garde la gouttière normale quand il n'y a pas
+   d'encoche, donc rien ne bouge sur les autres appareils. */
+.container {
+  padding-left: max(var(--gutter), env(safe-area-inset-left));
+  padding-right: max(var(--gutter), env(safe-area-inset-right));
+}
+
+/* -- Survol collant --------------------------------------------------
+   Sur un écran tactile, :hover se déclenche au tap et persiste jusqu'au
+   tap suivant : le bouton qu'on vient de quitter reste allumé. On neutralise
+   chaque effet de survol et on le remplace par un retour à l'appui, le seul
+   geste que le doigt perçoit réellement. */
+@media (hover: none) {
+  .btn:hover svg,
+  .link-more:hover svg { transform: none; }
+  .btn--primary:hover { background: var(--btn-bg); }
+  .btn--secondary:hover,
+  .btn--ghost:hover { background: var(--surface); border-color: var(--line-2); }
+  .link-more:hover { color: var(--text-3); }
+  .nav a:hover { color: var(--text-3); }
+  .nav a[aria-current="page"]:hover { color: var(--text); }
+  .theme-toggle:hover,
+  .nav-toggle:hover { background: transparent; color: var(--text-3); }
+  .chip-link:hover { border-color: var(--line-2); color: var(--text-3); }
+  .tabs button:hover { color: var(--text-3); }
+  .tabs button[aria-pressed="true"]:hover { color: var(--text); }
+  .story:hover .story__media img { transform: none; }
+  .story__media--empty:hover { border-color: var(--line-3); color: var(--text-3); }
+  .crumbs a:hover { color: inherit; }
+  .footer-col a:hover { color: var(--text-3); }
+  a.contact-row:hover .contact-row__go { transform: none; color: var(--text-4); }
+  a.card:hover { border-color: var(--line); }
+  .admin-side a:hover { background: none; color: var(--text-3); }
+  .admin-side a[aria-current="page"]:hover { background: var(--bg-hover); color: var(--text); }
+  .data-table tr:hover td { background: none; }
+
+  /* Les portraits d'équipe sont en niveaux de gris et ne reviennent en
+     couleur qu'au survol : sans souris, ils restaient gris pour toujours.
+     Au doigt, la couleur est donc l'état par défaut. */
+  .team__photo img { filter: grayscale(0); }
+
+  /* Retour à l'appui. Court et sans rebond : au-delà de ~120 ms, le doigt
+     perçoit un décalage entre son geste et la réponse de l'écran. */
+  .btn {
+    transition: transform 0.1s var(--ease), background 0.16s var(--ease),
+      border-color 0.16s var(--ease), color 0.16s var(--ease), opacity 0.16s var(--ease);
+  }
+  .btn:active { transform: scale(0.97); }
+
+  /* 40px se tape, 44 se vise sans regarder. Les petits boutons gagnent de
+     la hauteur sans changer de rôle typographique. */
+  .btn { height: 44px; }
+  .btn--sm { height: 36px; }
+  a.card:active { border-color: var(--line-3); }
+  .chip-link:active { border-color: var(--line-3); }
+  .theme-toggle:active,
+  .nav-toggle:active { background: var(--bg-hover); }
+  .gallery__item:active { opacity: 0.72; }
+
+  /* -- Cibles tactiles ------------------------------------------------
+     44px est le minimum confortable au pouce ; les deux icônes de
+     l'en-tête en font 32. On élargit la zone sensible par un pseudo-élément
+     plutôt que la boîte, pour ne pas déformer l'en-tête. */
+  .theme-toggle,
+  .nav-toggle { position: relative; }
+  .theme-toggle::after,
+  .nav-toggle::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 44px;
+    height: 44px;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* -- Défilement latéral ----------------------------------------------
+   Ces zones débordent volontairement. Au doigt il leur faut l'inertie iOS,
+   l'arrêt de la propagation au parent (sinon la page entière part de côté
+   en fin de course) et des rails d'aimantation pour que le geste s'arrête
+   sur un élément entier plutôt qu'au milieu. La barre de défilement est
+   masquée : elle est inutile au doigt et coupe le bas des cartes. */
+.board-wrap,
+.windows,
+.admin-side {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.board-wrap::-webkit-scrollbar,
+.windows::-webkit-scrollbar,
+.admin-side::-webkit-scrollbar { display: none; }
+
+@media (max-width: 1080px) {
+  .windows { scroll-snap-type: x proximity; scroll-padding-left: var(--gutter); }
+  .windows > * { scroll-snap-align: start; }
+}
+
+/* -- Menu mobile ------------------------------------------------------
+   Le panneau peut dépasser l'écran sur un petit téléphone : on le borne à
+   la hauteur visible et on contient son défilement, pour que le doigt fasse
+   défiler le menu et non la page derrière. */
+.mobile-nav {
+  max-height: calc(100dvh - 64px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-left: max(var(--gutter), env(safe-area-inset-left));
+  padding-right: max(var(--gutter), env(safe-area-inset-right));
+  padding-bottom: max(24px, env(safe-area-inset-bottom));
+  animation: nav-in 0.18s var(--ease);
+}
+
+@keyframes nav-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* -- Visionneuse ------------------------------------------------------
+   Le bouton « Fermer » est en position absolue : sans réserve en haut,
+   il chevauche la capture sur un écran étroit. */
+@media (max-width: 640px) {
+  .lightbox { padding: 68px 16px max(20px, env(safe-area-inset-bottom)); }
+  .lightbox__close {
+    top: max(14px, env(safe-area-inset-top));
+    right: 14px;
+    height: 40px;
+    padding: 0 16px;
+  }
+  .lightbox__inner--phone { width: min(320px, 84vw); }
+  .lightbox__caption { font-size: 12.5px; }
+}
+
+/* -- Lecture ----------------------------------------------------------
+   15px se lit bien à 60 cm sur un écran de bureau, moins bien à bout de
+   bras sur un téléphone. Seul le texte qui hérite grossit : les titres
+   sont en rem et gardent leur échelle. 16px sur les champs est par ailleurs
+   le seuil en dessous duquel iOS zoome tout seul au focus. */
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  input, textarea, select { font-size: 16px; }
+
+  /* Évite les titres qui laissent un mot seul sur la dernière ligne —
+     fréquent sur trois ou quatre lignes de large. */
+  .title-hero, .title-page, .title-1, .title-2, .title-3 { text-wrap: balance; }
+  .lead, .prose p { text-wrap: pretty; }
+
+  /* L'ancre d'un lien interne se logeait sous l'en-tête collant. */
+  [id] { scroll-margin-top: 76px; }
+}
+
+/* -- Cibles trop petites ----------------------------------------------
+   Mesuré au navigateur à 375px : liens secondaires 22px de haut, filtres
+   30px, fil d'Ariane 18px, alors que le pouce vise ~44px. On agrandit la
+   zone sensible par du remplissage compensé par une marge négative de même
+   valeur : la zone grandit, la mise en page ne bouge pas d'un pixel.
+
+   La limite n'est pas la taille mais l'espace disponible : on ne peut
+   gagner que la moitié de l'écart qui sépare deux cibles, sinon elles se
+   recouvrent et le doigt déclenche la mauvaise. Là où l'écart était trop
+   serré — pied de page (10px) et filtres (6px) — on écarte d'abord. */
+@media (hover: none) {
+  /* 16px d'écart mesuré : +8px de chaque côté, soit 38px de haut. */
+  .link-more {
+    padding-block: 8px;
+    margin-block: -8px;
+  }
+
+  /* Écart porté de 10 à 24px, ce qui libère les 11px nécessaires. */
+  .footer-col { gap: 24px; }
+  .footer-col a {
+    padding-block: 11px;
+    margin-block: -11px;
+  }
+
+  /* Idem pour les filtres : 6px d'interligne ne laissaient rien. */
+  .tabs { row-gap: 16px; }
+  .tabs button {
+    padding-block: 11px;
+    margin-block: -7px;
+  }
+
+  /* Ces deux-là avaient 84px de libre : ils vont directement à 44px. */
+  .crumbs a {
+    padding-block: 13px;
+    margin-block: -13px;
+  }
+
+  /* Le logo est en flex dans l'en-tête : le remplissage y déplacerait la
+     barre entière. On étend la zone sur toute la largeur du logo, en hauteur
+     seulement, sans toucher à la boîte. */
+  .brand { position: relative; }
+  .brand::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 44px;
+    transform: translateY(-50%);
+  }
+}
+
+/* Derniers liens sous le seuil, tous largement dégagés (79px et plus de
+   libre) : ils passent directement à 44px. Sur un lien en ligne, le
+   remplissage vertical agrandit la zone sensible sans toucher à la hauteur
+   de ligne — aucune compensation n'est nécessaire. */
+@media (hover: none) {
+  .footer-bottom a { padding-block: 14px; }
+  .meta__row a { padding-block: 13px; }
+  .chip-link { min-height: 44px; }
+}
