@@ -50,12 +50,14 @@ export default function ContactForm({ projects = [], defaultProject = "" }) {
     setStatus("loading");
     setError("");
 
+    let envoye = false;
     try {
       // Canal principal : envoi direct depuis le navigateur. C'est ce qui
       // donne à Formspree le contexte dont son filtre anti-spam a besoin.
       await envoyerAFormspree(lead);
+      envoye = true;
       archiverEnArrierePlan(form);
-    } catch {
+    } catch (errDirect) {
       // Repli : la requête tierce a pu être bloquée (extension, réseau
       // d'entreprise). La route serveur retente et archive.
       try {
@@ -66,6 +68,7 @@ export default function ContactForm({ projects = [], defaultProject = "" }) {
         });
         const data = await res.json().catch(() => ({}));
         if (!res.ok) throw new Error(data.error || "Envoi impossible pour le moment.");
+        envoye = true;
       } catch (errRepli) {
         setStatus("error");
         setError(errRepli.message);
@@ -73,23 +76,35 @@ export default function ContactForm({ projects = [], defaultProject = "" }) {
       }
     }
 
-    setStatus("success");
-    setForm((f) => ({ ...f, name: "", email: "", phone: "", company: "", message: "" }));
+    if (envoye) {
+      setStatus("success");
+      setForm((f) => ({
+        ...f,
+        name: "",
+        email: "",
+        phone: "",
+        company: "",
+        message: "",
+      }));
+    }
   }
 
   if (status === "success") {
     return (
-      <div className="panel panel--pad success" role="status">
-        <Icon name="CheckCircle2" />
-        <h3 className="title-3">Demande envoyée</h3>
-        <p className="muted">
-          Merci, votre message est bien arrivé. L&apos;équipe SSD Sirius vous recontacte
-          rapidement.
+      <div className="panel" style={{ padding: 28 }}>
+        <span className="icon-orbit">
+          <Icon name="CheckCircle2" />
+        </span>
+        <h3 className="h3" style={{ marginTop: 16 }}>
+          Demande envoyée
+        </h3>
+        <p className="muted" style={{ marginTop: 8 }}>
+          Merci, votre message est bien arrivé. L'équipe SSD Sirius vous recontacte rapidement.
         </p>
         <button
           type="button"
-          className="btn btn--secondary btn--sm"
-          style={{ marginTop: 8 }}
+          className="btn btn--ghost btn--sm"
+          style={{ marginTop: 18 }}
           onClick={() => setStatus("idle")}
         >
           Envoyer une autre demande
@@ -99,14 +114,14 @@ export default function ContactForm({ projects = [], defaultProject = "" }) {
   }
 
   return (
-    <form className="panel panel--pad" onSubmit={onSubmit} noValidate>
+    <form className="panel" style={{ padding: "clamp(20px, 3vw, 32px)" }} onSubmit={onSubmit} noValidate>
       <div className="form-row">
         <div className="field">
-          <label htmlFor="cf-name">Nom complet</label>
+          <label htmlFor="cf-name">Nom complet *</label>
           <input id="cf-name" value={form.name} onChange={update("name")} autoComplete="name" required />
         </div>
         <div className="field">
-          <label htmlFor="cf-email">E-mail</label>
+          <label htmlFor="cf-email">E-mail *</label>
           <input
             id="cf-email"
             type="email"
@@ -121,16 +136,17 @@ export default function ContactForm({ projects = [], defaultProject = "" }) {
       <div className="form-row">
         <div className="field">
           <label htmlFor="cf-phone">Téléphone</label>
-          <input id="cf-phone" type="tel" value={form.phone} onChange={update("phone")} autoComplete="tel" />
+          <input
+            id="cf-phone"
+            type="tel"
+            value={form.phone}
+            onChange={update("phone")}
+            autoComplete="tel"
+          />
         </div>
         <div className="field">
           <label htmlFor="cf-company">Entreprise / organisation</label>
-          <input
-            id="cf-company"
-            value={form.company}
-            onChange={update("company")}
-            autoComplete="organization"
-          />
+          <input id="cf-company" value={form.company} onChange={update("company")} autoComplete="organization" />
         </div>
       </div>
 
@@ -149,7 +165,7 @@ export default function ContactForm({ projects = [], defaultProject = "" }) {
       )}
 
       <div className="field">
-        <label htmlFor="cf-message">Votre projet</label>
+        <label htmlFor="cf-message">Votre projet *</label>
         <textarea
           id="cf-message"
           value={form.message}
@@ -191,9 +207,12 @@ export default function ContactForm({ projects = [], defaultProject = "" }) {
         )}
       </button>
 
-      <p className="form-legal">
+      <p className="muted" style={{ fontSize: "0.78rem", marginTop: 14 }}>
         Vos informations servent uniquement à traiter votre demande. Voir les{" "}
-        <a href="/mentions-legales">mentions légales</a>.
+        <a href="/mentions-legales" style={{ textDecoration: "underline" }}>
+          mentions légales
+        </a>
+        .
       </p>
     </form>
   );

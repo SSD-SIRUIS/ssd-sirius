@@ -10,20 +10,32 @@ import { NAV } from "@/data/site";
 
 export default function Header() {
   const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
-  const isActive = (href) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
+  const isActive = (href) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header className="site-header">
+    <header className="site-header" data-scrolled={scrolled}>
       <div className="container site-header__inner">
         <Link href="/" className="brand" aria-label="SSD Sirius — accueil">
-          <SiriusMark size={20} />
-          <span className="brand__name">Sirius</span>
+          <SiriusMark size={30} />
+          <span className="brand__text">
+            <span className="brand__name">Sirius</span>
+            <span className="brand__sub">Solutions Digitales</span>
+          </span>
         </Link>
 
         <nav className="nav" aria-label="Navigation principale">
@@ -38,28 +50,28 @@ export default function Header() {
           ))}
         </nav>
 
-        <span className="nav-sep" aria-hidden="true" />
-
         <div className="site-header__actions">
           <ThemeToggle />
           <Link href="/contact" className="btn btn--primary btn--sm">
-            Nous contacter
+            Démarrer un projet
+            <Icon name="ArrowRight" />
           </Link>
-          <button
-            type="button"
-            className="nav-toggle"
-            aria-expanded={open}
-            aria-controls="mobile-nav"
-            aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
-            onClick={() => setOpen((v) => !v)}
-          >
-            <Icon name={open ? "X" : "Menu"} width={18} height={18} />
-          </button>
         </div>
+
+        <button
+          type="button"
+          className="nav-toggle"
+          aria-expanded={open}
+          aria-controls="mobile-nav"
+          aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
+          onClick={() => setOpen((v) => !v)}
+        >
+          <Icon name={open ? "X" : "Menu"} width={20} height={20} />
+        </button>
       </div>
 
       {open && (
-        <nav className="mobile-nav" id="mobile-nav" aria-label="Navigation mobile">
+        <div className="mobile-nav" id="mobile-nav">
           {NAV.map((item) => (
             <Link
               key={item.href}
@@ -70,9 +82,10 @@ export default function Header() {
             </Link>
           ))}
           <Link href="/contact" className="btn btn--primary btn--block">
-            Nous contacter
+            Démarrer un projet
+            <Icon name="ArrowRight" />
           </Link>
-        </nav>
+        </div>
       )}
     </header>
   );

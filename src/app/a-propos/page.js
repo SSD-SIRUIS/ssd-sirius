@@ -1,123 +1,199 @@
+import Link from "next/link";
 import Icon from "@/components/Icon";
+import Reveal from "@/components/Reveal";
 import CTA from "@/components/CTA";
-import IsoFigure from "@/components/IsoFigure";
 import TeamGrid from "@/components/TeamGrid";
 import { DIFFERENTIATORS } from "@/data/services";
-import { SITE } from "@/data/site";
+import { SITE, TEAM, STATS } from "@/data/site";
 
 export const metadata = {
   title: "À propos",
   description:
-    "SSD Sirius Solutions Digitales : structure technologique basée entre Bamako et Paris, qui conçoit, développe et publie des applications et produits digitaux sur mesure.",
+    "Qui est SSD Sirius : deux associés entre Bamako et Paris qui conçoivent, développent et publient des produits numériques sur mesure pour le Mali et l'Afrique francophone.",
   alternates: { canonical: "/a-propos" },
 };
 
 export const revalidate = 300;
 
 const VALUES = [
-  { icon: "PenTool", title: "Exigence", text: "Nous soignons l’exécution, du parcours utilisateur jusqu’au déploiement." },
-  { icon: "ShieldCheck", title: "Fiabilité", text: "Des solutions sécurisées, testées et pensées pour durer." },
-  { icon: "Globe", title: "Ancrage local", text: "Nous concevons pour les usages réels du Mali et de l’Afrique francophone." },
-  { icon: "LifeBuoy", title: "Proximité", text: "Un interlocuteur disponible et un accompagnement dans la durée." },
+  {
+    icon: "PenTool",
+    title: "Exécution",
+    text: "Le même soin est porté au parcours utilisateur et au déploiement.",
+  },
+  {
+    icon: "ShieldCheck",
+    title: "Fiabilité",
+    text: "Les règles d'accès sont appliquées en base, les parcours critiques sont testés.",
+  },
+  {
+    icon: "Globe",
+    title: "Ancrage local",
+    text: "Les produits sont conçus pour les usages du Mali et de l'Afrique francophone.",
+  },
+  {
+    icon: "LifeBuoy",
+    title: "Interlocuteur direct",
+    text: "L'échange se fait avec les personnes qui conçoivent et développent le produit.",
+  },
 ];
 
 export default function AProposPage() {
   return (
     <>
-      <section className="hero">
+      {/* ------------------------------------------------------ Hero */}
+      <section className="page-hero">
         <div className="container">
-          <h1 className="title-page">À propos</h1>
-          <p className="title-hero" style={{ marginTop: 32 }}>
-            <span className="strong">Une structure technologique, entre Bamako et Paris.</span>{" "}
-            <span className="soft">
-              Nous transformons une idée métier en produit digital fiable, moderne et évolutif —
-              puis nous le mettons en ligne.
-            </span>
-          </p>
-        </div>
-      </section>
+          <div className="page-hero__grid">
+            <div className="section-head__meta">
+              <span className="label">À propos</span>
+            </div>
+            <div className="section-head__body">
+              <h1 className="display" style={{ maxWidth: "16ch" }}>
+                Deux associés, entre Bamako et Paris.
+              </h1>
+              <p className="lead">
+                {SITE.legalName} conçoit, développe et publie des applications et des produits
+                digitaux sur mesure. Le périmètre couvre {SITE.scope}.
+              </p>
+            </div>
+          </div>
 
-      <section className="section section--line">
-        <div className="container">
-          <div className="feature-head">
-            <h2 className="title-1">Notre vision</h2>
-            <p className="text-lg">
-              Le numérique doit être un levier concret de croissance pour les entreprises
-              africaines, pas une couche de complexité. Les standards des meilleurs produits
-              internationaux ont leur place ici, à un prix pensé pour le marché local.
-            </p>
-          </div>
-          <div className="feature-head" style={{ marginTop: "clamp(56px, 8vw, 96px)" }}>
-            <h2 className="title-1">Notre approche</h2>
-            <p className="text-lg">
-              Nous partons du besoin réel, concevons des parcours simples, développons par
-              itérations courtes et livrons des produits que vos équipes pilotent en autonomie.
-              Mobile d’abord, performance et sécurité à chaque étape.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="section section--line">
-        <div className="container">
-          <div className="section-head">
-            <h2 className="title-1">
-              <span className="strong">Nos valeurs.</span>{" "}
-              <span className="soft">Ce qui guide chaque ligne de code.</span>
-            </h2>
-          </div>
-          <div className="cells cells--4">
-            {VALUES.map((v) => (
-              <div className="cell" key={v.title}>
-                <Icon name={v.icon} className="cell__icon" />
-                <h3>{v.title}</h3>
-                <p>{v.text}</p>
+          <div className="proofbar" style={{ marginTop: "clamp(40px, 5vw, 72px)" }}>
+            {STATS.map((stat) => (
+              <div className="proofbar__item" key={stat.label}>
+                <strong className="stats__value">{stat.value}</strong>
+                <span className="stats__label">{stat.label}</span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section section--line" id="equipe">
+      {/* ---------------------------------------------------- Équipe */}
+      <section className="section">
         <div className="container">
           <div className="section-head">
-            <h2 className="title-1">
-              <span className="strong">L’équipe.</span>{" "}
-              <span className="soft">
-                Les deux personnes qui conçoivent, développent et publient vos produits.
-              </span>
-            </h2>
-          </div>
-          <TeamGrid />
-        </div>
-      </section>
-
-      <section className="section section--line">
-        <div className="container">
-          <div className="feature-head" style={{ alignItems: "center" }}>
-            <div>
-              <h2 className="title-1">{SITE.tagline}</h2>
-              <ul className="checklist" style={{ marginTop: 32 }}>
-                {DIFFERENTIATORS.map((d) => (
-                  <li key={d.title}>
-                    <Icon name="Check" />
-                    <span>
-                      <span className="strong">{d.title}.</span>{" "}
-                      <span className="muted">{d.text}</span>
-                    </span>
-                  </li>
-                ))}
-              </ul>
+            <div className="section-head__meta">
+              <span className="index">01</span>
+              <span className="label">L&apos;équipe</span>
             </div>
-            <figure className="fig" style={{ minHeight: 320 }}>
-              <figcaption className="mono fig__label">FIG 1.0 — Sirius</figcaption>
-              <IsoFigure variant="layers" />
-            </figure>
+            <div className="section-head__body">
+              <h2 className="h2">Qui sommes-nous&nbsp;?</h2>
+              <p className="lead">
+                Deux associés, ingénieurs logiciels en cycle ingénieur à EFREI Paris,
+                spécialité cybersécurité. Ils conçoivent, développent et déploient
+                l&apos;ensemble des projets.
+              </p>
+            </div>
+          </div>
+
+          <TeamGrid members={TEAM} />
+        </div>
+      </section>
+
+      {/* --------------------------------------------- Vision & méthode */}
+      <section className="section section--tight">
+        <div className="container">
+          <div className="section-head">
+            <div className="section-head__meta">
+              <span className="index">02</span>
+              <span className="label">Notre position</span>
+            </div>
+            <div className="section-head__body">
+              <h2 className="h2">Vision et approche.</h2>
+            </div>
+          </div>
+
+          <div className="grid grid-2">
+            <Reveal className="card">
+              <span className="label">Vision</span>
+              <h3 className="h3">Des standards techniques internationaux, des tarifs locaux</h3>
+              <p className="muted">
+                Les mêmes choix d&apos;architecture, de sécurité et de performance que sur les
+                produits internationaux, appliqués aux projets menés ici, avec une
+                tarification calibrée sur le marché local.
+              </p>
+            </Reveal>
+
+            <Reveal className="card" delay={80}>
+              <span className="label">Approche</span>
+              <h3 className="h3">Partir du besoin réel, avancer par itérations courtes</h3>
+              <p className="muted">
+                Les parcours sont conçus avant d&apos;être développés, le travail avance par
+                cycles courts avec une version démontrable à chaque étape, et le produit
+                livré est pilotable par vos équipes. Mobile d&apos;abord, y compris en
+                connexion instable.
+              </p>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      <CTA />
+      {/* ---------------------------------------------------- Valeurs */}
+      <section className="section section--tight">
+        <div className="container">
+          <div className="section-head">
+            <div className="section-head__meta">
+              <span className="index">03</span>
+              <span className="label">Nos valeurs</span>
+            </div>
+            <div className="section-head__body">
+              <h2 className="h2">{SITE.tagline}</h2>
+            </div>
+          </div>
+
+          <div className="grid grid-4">
+            {VALUES.map((value, i) => (
+              <Reveal key={value.title} delay={i * 60} className="card">
+                <span className="icon-orbit">
+                  <Icon name={value.icon} />
+                </span>
+                <h3 className="h3">{value.title}</h3>
+                <p className="muted">{value.text}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ------------------------------------------------ Différence */}
+      <section className="section section--tight">
+        <div className="container">
+          <div className="section-head">
+            <div className="section-head__meta">
+              <span className="index">04</span>
+              <span className="label">Notre approche</span>
+            </div>
+            <div className="section-head__body">
+              <h2 className="h2">Comment nous travaillons.</h2>
+            </div>
+          </div>
+
+          <div className="proofbar">
+            {DIFFERENTIATORS.map((item) => (
+              <div className="proofbar__item" key={item.title}>
+                <Icon name={item.icon} />
+                <strong>{item.title}</strong>
+                <span>{item.text}</span>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ marginTop: "clamp(32px, 4vw, 56px)" }}>
+            <Link href="/realisations" className="link-arrow">
+              Voir ce que nous avons construit
+              <Icon name="ArrowUpRight" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <CTA
+        label="05 / Contact"
+        title="Nous présenter votre projet"
+        secondary={{ href: "/services", label: "Voir nos expertises" }}
+      />
     </>
   );
 }

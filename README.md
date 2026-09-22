@@ -1,8 +1,7 @@
 # SSD Sirius — Site vitrine
 
 Site vitrine premium de **SSD Sirius Solutions Digitales** : présentation de l'agence,
-portfolio de réalisations et prise de contact. Esthétique sobre et monochrome (fond quasi noir,
-lignes d’un pixel, titres serrés), avec un thème clair qui inverse texte et fond.
+portfolio de réalisations et prise de contact. Univers visuel sombre, spatial et technologique.
 
 ## Stack
 
@@ -13,7 +12,7 @@ lignes d’un pixel, titres serrés), avec un thème clair qui inverse texte et 
 | Styles | CSS vanilla unique (`src/app/globals.css`) + variables CSS |
 | Icônes | `lucide-react` |
 | Backend | Supabase (Postgres + Auth + Storage) — **optionnel** |
-| Polices | Inter + Geist Mono (`next/font/google`) |
+| Police | Google Fonts — Outfit (`next/font`) |
 | Déploiement | Docker multi-stage → Google Cloud Run (port 8080) |
 
 Sans Supabase configuré, le site fonctionne avec des **données de démonstration locales**
@@ -89,7 +88,7 @@ Le `Dockerfile` multi-stage produit une image minimale à partir de la sortie `s
 ```
 src/
 ├── app/                 # pages (App Router) + admin + api/leads + sitemap/robots
-├── components/          # Header, Footer, SiriusMark, IsoFigure, Mockups, ProjectCard, ContactForm...
+├── components/          # Header, Footer, SiriusMark, Starfield, ProjectCard, ContactForm...
 ├── lib/                 # supabase.js, content.js (Supabase → repli local), useSession.js
 └── data/                # site.js, services.js, projects.js (repli local)
 supabase_init.sql        # schéma + RLS + storage (copie dans supabase/migrations/)

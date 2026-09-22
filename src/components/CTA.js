@@ -2,38 +2,42 @@ import Link from "next/link";
 import Icon from "@/components/Icon";
 import { MEETING } from "@/data/site";
 
-// Appel à l'action de fin de page : titre en deux tons, puis deux boutons.
-// Pas de devis ni d'estimation : on propose simplement d'en parler.
+// Bloc de conversion réutilisable en fin de page.
+// Composition alignée au filet, jamais centrée : même grammaire que la home.
 export default function CTA({
-  title = "Parlez-nous de votre projet.",
-  text = "Tout le reste, on s’en occupe — conception, développement, paiements et publication sur les stores.",
+  label = "Contact",
+  title = "Nous présenter votre projet",
+  text = MEETING.short,
   primary = { href: "/contact", label: MEETING.ctaLabel },
-  secondary = MEETING.bookingUrl
-    ? { href: MEETING.bookingUrl, label: MEETING.bookingLabel, external: true }
-    : { href: "/realisations", label: "Voir nos réalisations" },
+  secondary = { href: "/realisations", label: "Voir les réalisations" },
 }) {
   return (
-    <section className="cta-final">
+    <section className="section section--tight section--invert">
       <div className="container">
-        <h2 className="title-1" style={{ maxWidth: 900 }}>
-          <span className="strong">{title}</span> <span className="soft">{text}</span>
-        </h2>
-        <div className="btn-row">
-          <Link href={primary.href} className="btn btn--primary">
-            {primary.label}
-            <Icon name="ArrowRight" />
-          </Link>
-          {secondary &&
-            (secondary.external ? (
-              <a href={secondary.href} target="_blank" rel="noreferrer" className="btn btn--secondary">
-                {secondary.label}
+        <div className="section-head" style={{ marginBottom: 0 }}>
+          <div className="section-head__meta">
+            <span className="label">{label}</span>
+          </div>
+
+          <div className="section-head__body">
+            <h2 className="h2" style={{ maxWidth: "18ch" }}>
+              {title}
+            </h2>
+            <p className="lead">{text}</p>
+
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 8 }}>
+              <Link href={primary.href} className="btn btn--primary">
+                {primary.label}
                 <Icon name="ArrowUpRight" />
-              </a>
-            ) : (
-              <Link href={secondary.href} className="btn btn--secondary">
-                {secondary.label}
               </Link>
-            ))}
+              {secondary && (
+                <Link href={secondary.href} className="btn btn--ghost">
+                  {secondary.label}
+                  <Icon name="ArrowUpRight" />
+                </Link>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </section>

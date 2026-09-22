@@ -1,23 +1,32 @@
 # Captures MaliLink
 
-Captures réalisées le 6 septembre 2026 depuis le site en ligne
-(https://malilink-web-779884436442.europe-west1.run.app), en 1440x900.
+Prises sur la version en ligne
+(`https://malilink-web-779884436442.europe-west1.run.app/`), en Chrome headless,
+viewport 1440 × 900 en DPR 2, puis recadrées en fenêtres 16/10 et exportées en
+JPEG progressif (qualité 82, largeur 1600).
 
-| Fichier | Écran |
+| Fichier | Contenu |
 | --- | --- |
-| `01-accueil.jpg` | Accueil — « L'emploi au Mali, repensé » |
-| `02-processus.jpg` | Postuler en 3 étapes |
-| `03-fonctionnalites.jpg` | Coffre-fort, diaspora, employeurs vérifiés |
-| `04-inscription.jpg` | Création de compte — candidat ou recruteur |
+| `01-accueil.jpg` | Accueil et accroche |
+| `02-candidature.jpg` | Parcours de candidature en trois étapes |
+| `03-fonctionnalites.jpg` | Coffre-fort de documents, diaspora, employeurs vérifiés |
+| `04-mobile.jpg` | Affichage mobile (414 × 896, DPR 3) |
 
-## Deux captures volontairement écartées
+## Ce qui n'a volontairement pas été capturé
 
-- **La bande de statistiques** de la page d'accueil (« 2 400+ offres publiées,
-  15 000+ candidats inscrits, 350+ entreprises partenaires ») et la rangée
-  « Ils nous font confiance » (ministères, BDM-SA, BNDA, Orabank).
-  Ces chiffres et ces logos ne sont pas vérifiables depuis l'extérieur, et la
-  page `/jobs` affiche « 0 offre publiée ». Les reprendre dans le portfolio de
-  Sirius reviendrait à republier ces affirmations sous notre propre marque.
-- **La page `/jobs`**, actuellement vide (« Aucune offre trouvée »).
+La page en ligne affiche aussi une bande de logos d'institutions (ministères,
+banques, grandes entreprises) sous le titre « Ils nous font confiance », des
+compteurs (offres publiées, candidats inscrits, entreprises partenaires) et des
+témoignages nominatifs.
 
-À recapturer quand des offres réelles seront en ligne.
+Ces éléments ne sont pas repris sur le site vitrine tant que l'équipe ne les a
+pas confirmés : republier des logos d'institutions comme références, ou des
+chiffres d'audience, engage SSD Sirius. Si ces données sont réelles, ajouter les
+captures correspondantes et les métriques dans `src/data/projects.js`.
+
+## Refaire les captures
+
+Les captures se refont avec Chrome headless piloté en CDP : navigation sur
+l'URL, neutralisation des animations d'apparition, capture pleine page
+(`Page.captureScreenshot` avec `captureBeyondViewport`), puis découpe en
+fenêtres de 900 px CSS de haut aux offsets des sections.

@@ -1,8 +1,8 @@
-// Symbole Sirius : anneau et étoile à quatre branches.
-// Monochrome, il prend la couleur du texte (currentColor) et s'adapte
-// donc tout seul aux thèmes clair et sombre.
+// Symbole Sirius — version géométrique plate.
+// Un carré au filet, une étoile à quatre branches à arêtes droites.
+// Aucun dégradé, aucun halo : le signe tient par sa construction.
 
-export default function SiriusMark({ size = 20, title = "SSD Sirius", className = "" }) {
+export default function SiriusMark({ size = 36, className = "", title = "SSD Sirius", withGlow = false }) {
   return (
     <svg
       width={size}
@@ -11,12 +11,20 @@ export default function SiriusMark({ size = 20, title = "SSD Sirius", className 
       role="img"
       aria-label={title}
       className={className}
+      data-glow={withGlow ? "" : undefined}
     >
-      <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" strokeWidth="8" />
-      <path
-        d="M50 14 C52.6 37 63 47.4 86 50 C63 52.6 52.6 63 50 86 C47.4 63 37 52.6 14 50 C37 47.4 47.4 37 50 14 Z"
-        fill="currentColor"
-      />
+      <rect x="2" y="2" width="96" height="96" fill="none" stroke="currentColor" strokeWidth="5" />
+      {/* Étoile à quatre branches, arêtes rectilignes */}
+      <path d="M50 16 L61 39 L84 50 L61 61 L50 84 L39 61 L16 50 L39 39 Z" fill="currentColor" />
     </svg>
+  );
+}
+
+// Grand visuel de marque : le signe, posé sur un cadre, sans animation.
+export function SiriusVisual() {
+  return (
+    <div className="sirius-visual" aria-hidden="true">
+      <SiriusMark size={160} />
+    </div>
   );
 }
