@@ -2,9 +2,14 @@
 // Données des réalisations (repli local).
 // Utilisées quand Supabase n'est pas configuré ou ne renvoie rien.
 //
-// FLASH MARKET = projet phare de SSD Sirius (produit interne, pas une commande client).
-// Contenu et stack technique fournis par l'équipe — ne pas embellir.
-// Seuls les projets réels restent publiés : Flash Market, Picasso Resolve et MaliLink.
+// Projets réels de SSD Sirius :
+//   1. FLASH MARKET (projet phare) — marketplace mobile iOS / Android
+//   2. MALILINK — plateforme d’emploi web
+// Contenu et stack fournis par l’équipe ou vérifiés sur le site en ligne.
+//
+// Les 3 entrées suivantes (plateforme-e-commerce, passerelle-paiement,
+// marketplace-locale) sont encore des PLACEHOLDERS : à remplacer par de vrais
+// projets ou à supprimer avant une diffusion commerciale large.
 // ------------------------------------------------------------------
 
 // Passer à `false` pour revenir aux aperçus dégradés.
@@ -22,6 +27,8 @@ const flashShot = (file, tone, label) => ({
 export const PROJECTS = [
   {
     slug: "flash-market",
+    headline: "Une application complète, publiée sur iOS et Android",
+    card_tone: "linear-gradient(140deg, #22a653 0%, #0f6b33 100%)",
     title: "Flash Market",
     client_name: "",
     own_product: true,
@@ -43,15 +50,15 @@ export const PROJECTS = [
     },
     credits: ["Sidi Oumar GANO", "Mohamed Lamine"],
     summary:
-      "Marketplace mobile pour acheter, vendre et trouver des professionnels au Mali. Conçue et développée intégralement par SSD Sirius.",
+      "La marketplace mobile pensée pour acheter, vendre et trouver des professionnels au Mali. Conçue et développée intégralement par SSD Sirius.",
     context:
-      "Flash Market met en relation particuliers, vendeurs et professionnels : interface en français, prix en FCFA, échanges dans l'application ou via les coordonnées du vendeur.",
+      "Flash Market met en relation particuliers, vendeurs et professionnels dans une expérience simple, rapide et adaptée aux usages locaux : interface en français, prix en FCFA, et échanges qui se poursuivent dans l'application ou via les coordonnées du vendeur.",
     problem:
       "Acheter et vendre localement passait par des canaux dispersés, sans recherche fiable, sans tri par proximité et sans vitrine durable pour les professionnels. Il fallait réunir la découverte, la mise en relation et la gestion d'une activité dans une seule application, utilisable sur des connexions modestes.",
     solution:
       "SSD Sirius a conçu, développé et publié Flash Market de bout en bout : application React Native / Expo en TypeScript, back-end Supabase (PostgreSQL, Auth, Realtime, Storage), politiques RLS pour isoler les données privées, notifications push, géolocalisation, interface d'administration et pages publiques — jusqu'aux builds et mises à jour EAS.",
     description:
-      "Le projet couvre l'ensemble de la chaîne : une base de code unique pour iOS et Android, un back-end avec sécurité au niveau des lignes, de la synchronisation en temps réel, du paiement mobile pour la promotion d'annonces, et la publication sur les deux stores.",
+      "Flash Market démontre toute la palette technique de SSD Sirius sur le développement d'application : une base de code unique pour iOS et Android, un back-end complet avec sécurité au niveau des lignes, du temps réel, du paiement mobile pour la promotion d'annonces, et une chaîne de publication maîtrisée jusqu'aux stores.",
     highlights: [
       {
         icon: "Smartphone",
@@ -163,147 +170,230 @@ export const PROJECTS = [
   },
 
   {
-    slug: "picasso-resolve",
-    title: "Picasso Resolve",
-    client_name: "Produit SaaS développé par SSD Sirius",
-    own_product: true,
-    type: "plateforme",
-    category: "SaaS & intelligence artificielle",
-    featured: true,
-    flagship: false,
-    status: "published",
-    sort_order: 2,
-    link_url: "https://picassoresolve.com",
-    link_label: "Découvrir Picasso Resolve",
-    cover: "picasso",
-    cover_url: "https://picassoresolve.com/landing/4k-1.jpg",
-    summary:
-      "Studio photo par intelligence artificielle : à partir d’une photo de produit brute, il génère des visuels destinés aux fiches e-commerce.",
-    context:
-      "Les e-commerçants ont besoin de visuels produits cohérents sans financer un shooting pour chaque référence.",
-    problem:
-      "Produire plusieurs mises en scène de qualité demande du matériel, du temps, des modèles et une direction artistique difficile à industrialiser.",
-    solution:
-      "Picasso Resolve analyse une photo de produit, prépare plusieurs scénarios visuels et génère un lot d’images pour une fiche e-commerce.",
-    description:
-      "De la page de présentation au studio de génération, Picasso Resolve est un produit SaaS complet, conçu, développé et mis en ligne par SSD Sirius.",
-    features: [
-      "Import d’une photo produit brute",
-      "Analyse du produit par intelligence artificielle",
-      "Génération de plusieurs directions visuelles",
-      "Prompts consultables et modifiables",
-      "Téléchargement des images en haute définition",
-      "Système de crédits intégré",
-    ],
-    technologies: ["Next.js", "Intelligence artificielle", "Gemini", "Replicate"],
-    metrics: [
-      { label: "Produit", value: "SaaS complet" },
-      { label: "Parcours", value: "Photo → visuels e-commerce" },
-    ],
-    screens: [
-      { url: "https://picassoresolve.com/landing/origine.jpg", tone: "picasso", label: "Photo produit brute" },
-      { url: "https://picassoresolve.com/landing/4k-1.jpg", tone: "picasso", label: "Vue principale générée" },
-      { url: "https://picassoresolve.com/landing/4k-2.jpg", tone: "picasso", label: "Mise en scène générée" },
-      { url: "https://picassoresolve.com/landing/manequin-1.jpg", tone: "picasso", label: "Visuel lifestyle généré" },
-    ],
-    gallery: [
-      { url: "https://picassoresolve.com/landing/origine.jpg", tone: "picasso", label: "Photo produit brute" },
-      { url: "https://picassoresolve.com/landing/4k-1.jpg", tone: "picasso", label: "Vue principale générée" },
-      { url: "https://picassoresolve.com/landing/4k-2.jpg", tone: "picasso", label: "Angle alternatif généré" },
-      { url: "https://picassoresolve.com/landing/manequin-1.jpg", tone: "picasso", label: "Visuel lifestyle généré" },
-    ],
-  },
-
-  // ------------------------------------------------------------------
-  // MALILINK — plateforme d'emploi (Mali + diaspora).
-  // Stack relevée sur le site en ligne : Next.js servi depuis Google Cloud
-  // Run. Les chiffres affichés sur malilink (offres, candidats, entreprises
-  // partenaires) et les logos d'institutions NE SONT PAS repris ici tant
-  // qu'ils n'ont pas été confirmés par l'équipe.
-  // ------------------------------------------------------------------
-  {
     slug: "malilink",
+    headline: "La plateforme qui connecte les talents maliens aux recruteurs",
+    card_image: "/realisations/malilink/01-accueil.jpg",
     title: "MaliLink",
     client_name: "",
     own_product: true,
     type: "plateforme",
     category: "Plateforme d'emploi",
     featured: true,
-    flagship: false,
+    status: "published",
+    sort_order: 2,
+    link_url: "https://malilink-web-779884436442.europe-west1.run.app",
+    link_label: "Voir MaliLink en ligne",
+    cover: "market",
+    cover_url: "/realisations/malilink/01-accueil.jpg",
+    platforms: ["Web", "Mobile & desktop"],
+    summary:
+      "La plateforme d'emploi qui connecte les talents maliens — et la diaspora — aux entreprises qui recrutent. Conçue et développée par SSD Sirius.",
+    context:
+      "Au Mali, chercher un emploi passe encore largement par le bouche-à-oreille, les groupes de discussion et des annonces dispersées. MaliLink rassemble l'offre et la demande sur une plateforme unique, en français, ouverte aux candidats du pays comme de la diaspora.",
+    problem:
+      "Trois obstacles à lever : des offres éparpillées et invérifiables, un dossier de candidature à reconstituer à chaque fois (CV, diplômes, acte de naissance), et une inscription qui suppose une adresse e-mail que tout le monde n'utilise pas au quotidien.",
+    solution:
+      "SSD Sirius a conçu et développé MaliLink de bout en bout : une inscription par numéro de téléphone (l'e-mail reste optionnel), un coffre-fort de documents réutilisable qui rend chaque candidature instantanée, des employeurs vérifiés par NIF et RCCM, et une recherche filtrée par région, secteur et type de contrat — diaspora incluse.",
+    description:
+      "L'architecture sépare l'interface et les données : un front Next.js prérendu pour la vitesse, et une API dédiée, chacun déployé comme un service indépendant sur Google Cloud Run. Les deux peuvent évoluer et monter en charge séparément.",
+    highlights: [
+      {
+        icon: "Smartphone",
+        title: "Inscription par téléphone",
+        text: "Le numéro sert d'identifiant, l'e-mail reste optionnel : un parcours pensé pour les usages réels au Mali.",
+      },
+      {
+        icon: "ShieldCheck",
+        title: "Coffre-fort de documents",
+        text: "CV, diplômes et acte de naissance déposés une seule fois, réutilisés à chaque candidature.",
+      },
+      {
+        icon: "BadgeCheck",
+        title: "Employeurs vérifiés",
+        text: "Les entreprises sont validées par NIF et RCCM avant de pouvoir publier une offre.",
+      },
+      {
+        icon: "Globe",
+        title: "Mali & diaspora",
+        text: "Les talents maliens de l'étranger postulent depuis leur pays de résidence.",
+      },
+      {
+        icon: "Users",
+        title: "Deux espaces distincts",
+        text: "Un parcours candidat et un parcours recruteur, chacun avec ses propres écrans et ses propres droits.",
+      },
+      {
+        icon: "Boxes",
+        title: "Front et API séparés",
+        text: "Deux services Cloud Run indépendants : l'interface et les données évoluent séparément.",
+      },
+    ],
+    featureGroups: [
+      {
+        label: "Pour les candidats",
+        items: [
+          "Inscription en 2 minutes avec le numéro de téléphone comme identifiant",
+          "Coffre-fort sécurisé pour CV, diplômes et pièces justificatives",
+          "Candidature en un clic depuis les documents déjà déposés",
+          "Recherche filtrée par région, secteur et type de contrat",
+          "Offres accessibles depuis l'étranger pour la diaspora",
+        ],
+      },
+      {
+        label: "Pour les recruteurs",
+        items: [
+          "Espace recruteur distinct dès la création du compte",
+          "Vérification de l'entreprise par NIF et RCCM",
+          "Publication et gestion des offres d'emploi",
+          "Réception des candidatures avec les pièces jointes",
+        ],
+      },
+      {
+        label: "Plateforme",
+        items: [
+          "Interface entièrement en français",
+          "Couverture des régions du Mali et option diaspora",
+          "Pages prérendues pour un affichage rapide en connexion modeste",
+          "Front et API déployés comme deux services indépendants",
+        ],
+      },
+    ],
+    screens: [
+      { url: "/realisations/malilink/01-accueil.jpg", tone: "market", label: "Accueil — l'emploi au Mali, repensé" },
+      { url: "/realisations/malilink/02-processus.jpg", tone: "market-2", label: "Postuler en trois étapes" },
+      { url: "/realisations/malilink/03-fonctionnalites.jpg", tone: "market-3", label: "Coffre-fort, diaspora et employeurs vérifiés" },
+      { url: "/realisations/malilink/04-inscription.jpg", tone: "dark", label: "Création de compte candidat ou recruteur" },
+    ],
+    techGroups: [
+      { label: "Interface web", items: ["Next.js", "React", "Rendu prérendu (ISR)"] },
+      { label: "Back-end", items: ["API dédiée", "Service indépendant"] },
+      { label: "Infrastructure", items: ["Google Cloud Run", "Conteneurs", "europe-west1"] },
+    ],
+    technologies: ["Next.js", "React", "API dédiée", "Google Cloud Run"],
+    metrics: [
+      { label: "Architecture", value: "Front + API séparés" },
+      { label: "Identifiant", value: "Numéro de téléphone" },
+      { label: "Portée", value: "Mali + diaspora" },
+    ],
+  },
+
+  {
+    slug: "plateforme-e-commerce",
+    headline: "Une boutique en ligne pensée pour le mobile et le paiement local",
+    card_tone: "#4f52d9",
+    title: "Plateforme e-commerce",
+    client_name: "Projet interne SSD Sirius",
+    type: "plateforme",
+    category: "E-commerce",
+    featured: false,
     status: "published",
     sort_order: 3,
-    link_url: "https://malilink-web-779884436442.europe-west1.run.app/",
-    link_label: "Ouvrir MaliLink",
-    cover: "market",
+    link_url: "",
+    cover: "commerce",
     summary:
-      "Plateforme d'emploi ouverte au Mali et à la diaspora : les documents sont déposés une fois, puis réutilisés à chaque candidature.",
+      "Une expérience d'achat fluide et sécurisée, conçue pour le marché africain.",
     context:
-      "Produit interne de SSD Sirius, conçu, développé et mis en ligne par l'équipe, dans la continuité du travail mené sur Flash Market.",
+      "Permettre à des commerçants de vendre en ligne sans dépendre d'une place de marché tierce, avec un paiement adapté aux usages locaux.",
     problem:
-      "Chaque candidature suppose de rassembler et de renvoyer les mêmes pièces — CV, diplômes, acte de naissance — sans information fiable sur l'entreprise à l'autre bout.",
+      "Les solutions existantes sont lentes sur mobile, complexes à administrer et mal intégrées aux moyens de paiement locaux.",
     solution:
-      "Un espace de dépôt de documents réutilisable d'une candidature à l'autre, des offres filtrables par région, secteur et type de contrat, et une vérification des entreprises par NIF et RCCM.",
-    description:
-      "Les offres restent accessibles depuis l'étranger : un candidat de la diaspora postule dans les mêmes conditions qu'un candidat sur place.",
+      "Une plateforme e-commerce sur mesure : catalogue rapide, tunnel de commande court, paiement carte et Mobile Money, back-office simple pour produits, stocks et commandes.",
     features: [
-      "Dépôt des documents une seule fois, réutilisables à chaque candidature",
-      "Candidature en sélectionnant les pièces déjà déposées",
-      "Recherche d'offres par région, secteur et type de contrat",
-      "Vérification des entreprises par NIF et RCCM",
-      "Candidatures ouvertes depuis l'étranger",
-      "Espaces distincts pour les candidats et les recruteurs",
+      "Catalogue et fiches produits optimisés mobile",
+      "Panier et tunnel de commande en 3 étapes",
+      "Paiement carte et Mobile Money",
+      "Back-office produits, stocks et commandes",
+      "Tableau de bord des ventes et exports",
     ],
-    technologies: ["Next.js", "React", "Google Cloud Run"],
+    technologies: ["Next.js", "Node.js", "PostgreSQL", "Mobile Money", "Docker"],
     metrics: [
-      { label: "Couverture", value: "Mali + diaspora" },
-      { label: "Hébergement", value: "Google Cloud Run" },
-    ],
-    // Captures prises directement sur la version en ligne
-    // (voir public/realisations/malilink/README.md).
-    cover_url: "/realisations/malilink/01-accueil.jpg",
-    screens: [
-      {
-        url: "/realisations/malilink/01-accueil.jpg",
-        tone: "market",
-        label: "Accueil — recherche d'offres au Mali et depuis la diaspora",
-      },
-      {
-        url: "/realisations/malilink/02-candidature.jpg",
-        tone: "market",
-        label: "Parcours de candidature en trois étapes",
-      },
-      {
-        url: "/realisations/malilink/03-fonctionnalites.jpg",
-        tone: "market",
-        label: "Coffre-fort de documents et vérification des employeurs",
-      },
-      {
-        url: "/realisations/malilink/04-mobile.jpg",
-        tone: "market",
-        label: "Affichage mobile",
-      },
+      { label: "Paiement", value: "Carte + Mobile Money" },
+      { label: "Cible", value: "Mobile-first" },
     ],
     gallery: [
-      {
-        url: "/realisations/malilink/01-accueil.jpg",
-        tone: "market",
-        label: "Accueil",
-      },
-      {
-        url: "/realisations/malilink/02-candidature.jpg",
-        tone: "market",
-        label: "Candidature en trois étapes",
-      },
-      {
-        url: "/realisations/malilink/03-fonctionnalites.jpg",
-        tone: "market",
-        label: "Coffre-fort et employeurs vérifiés",
-      },
-      {
-        url: "/realisations/malilink/04-mobile.jpg",
-        tone: "market",
-        label: "Affichage mobile",
-      },
+      { tone: "commerce", label: "Page d'accueil boutique" },
+      { tone: "commerce-2", label: "Fiche produit" },
+      { tone: "commerce-3", label: "Tunnel de paiement" },
+      { tone: "dark", label: "Back-office commandes" },
+    ],
+  },
+
+  {
+    slug: "passerelle-paiement",
+    headline: "Une passerelle qui centralise les encaissements Mobile Money",
+    card_tone: "linear-gradient(180deg, #6f93dd 0%, #9b86dc 100%)",
+    title: "Passerelle de paiement",
+    client_name: "Projet interne SSD Sirius",
+    type: "site",
+    category: "Performance & architecture",
+    featured: false,
+    status: "published",
+    sort_order: 4,
+    link_url: "",
+    cover: "pay",
+    summary:
+      "Une architecture robuste pour encaisser de façon fiable, même en connexion instable.",
+    context: "Centraliser les encaissements Mobile Money de plusieurs services derrière une seule intégration.",
+    problem:
+      "Chaque service réintégrait les opérateurs de paiement à sa manière, sans réconciliation ni visibilité commune.",
+    solution:
+      "Une passerelle : API unique d'initiation de paiement, gestion des callbacks, reprise sur incident, réconciliation automatique et tableau de bord des transactions.",
+    features: [
+      "API unique d'initiation de paiement",
+      "Gestion des callbacks et des états de transaction",
+      "Reprise automatique sur incident réseau",
+      "Réconciliation et rapprochement comptable",
+      "Tableau de bord des encaissements et alertes",
+    ],
+    technologies: ["Node.js", "PostgreSQL", "Redis", "Docker", "Google Cloud Run"],
+    metrics: [
+      { label: "Intégration", value: "API unifiée multi-opérateurs" },
+      { label: "Fiabilité", value: "Reprise sur incident" },
+    ],
+    gallery: [
+      { tone: "pay", label: "Tableau de bord transactions" },
+      { tone: "pay-2", label: "Détail d'une transaction" },
+      { tone: "pay-3", label: "Réconciliation" },
+      { tone: "dark", label: "Journal et alertes" },
+    ],
+  },
+
+  {
+    slug: "marketplace-locale",
+    headline: "De la recherche au contact vendeur en deux clics",
+    card_tone: "#1c1d20",
+    title: "Marketplace locale",
+    client_name: "Projet interne SSD Sirius",
+    type: "site",
+    category: "Web & conversion",
+    featured: false,
+    status: "published",
+    sort_order: 5,
+    link_url: "",
+    cover: "market",
+    summary:
+      "Un site pensé pour la conversion : parcours court, recherche efficace, mise en relation rapide.",
+    context: "Mettre en relation vendeurs et acheteurs d'une même ville, avec une navigation claire et un temps de chargement minimal.",
+    problem: "Trop d'étapes entre la recherche et le contact vendeur, et une expérience peu lisible sur petit écran.",
+    solution:
+      "Refonte de l'architecture de l'information et des parcours : recherche filtrée, fiches lisibles, contact vendeur en un geste, interface entièrement responsive.",
+    features: [
+      "Recherche filtrée par catégorie et localisation",
+      "Fiches annonces lisibles et rapides",
+      "Contact vendeur direct (WhatsApp / téléphone)",
+      "Espace vendeur pour publier et gérer les annonces",
+      "Design responsive du mobile au desktop",
+    ],
+    technologies: ["Next.js", "Supabase", "PostgreSQL", "CSS", "Vercel"],
+    metrics: [
+      { label: "Parcours", value: "Recherche → contact en 2 clics" },
+      { label: "Responsive", value: "Mobile → desktop" },
+    ],
+    gallery: [
+      { tone: "market", label: "Accueil et recherche" },
+      { tone: "market-2", label: "Résultats filtrés" },
+      { tone: "market-3", label: "Fiche annonce" },
+      { tone: "dark", label: "Espace vendeur" },
     ],
   },
 ];

@@ -1,81 +1,84 @@
 // Informations publiques de repli (utilisées si la table `settings` Supabase est vide
 // ou si Supabase n'est pas configuré). Les valeurs d'environnement priment.
-//
-// TON ÉDITORIAL — règle unique, valable pour tout ce fichier et pour les pages :
-// on présente, on ne convainc pas. Pas de promesse, pas de superlatif, pas de
-// formule qui cherche l'adhésion (« vous validez, on livre », « aucune zone
-// d'ombre », « de très haut niveau »). On énonce ce qui existe et ce qui est fait.
 
 export const SITE = {
   name: "SSD Sirius",
   legalName: "SSD Sirius Solutions Digitales",
   tagline: "Conçu au Mali. Pensé pour l'Afrique.",
-  // Périmètre d'intervention, énoncé comme un fait — pas comme un engagement.
-  scope:
-    "conception, développement, base de données, paiements et publication sur les stores",
+  promise:
+    "Vous validez, on livre : conception, développement, base de données, paiements et publication sur les stores.",
   description:
-    "SSD Sirius Solutions Digitales conçoit, développe et publie des applications et produits digitaux sur mesure : base de données, paiements Mobile Money, App Store et Play Store.",
+    "SSD Sirius Solutions Digitales conçoit, développe et publie des applications et produits digitaux sur mesure — base de données, paiements Mobile Money, App Store et Play Store inclus.",
   // Domaine public officiel. Surchargeable via NEXT_PUBLIC_SITE_URL au build.
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://sirius-mali.tech",
   locale: "fr_FR",
-  foundedYear: 2024,
 };
 
-// Contenu du hero de la page d'accueil.
+// Hero de la page d’accueil — titre en deux tons : la phrase forte,
+// puis la suite en gris.
 export const HERO = {
-  label: "Agence de développement web & mobile",
-  place: "Bamako · Paris",
-  lines: ["Sites", "Apps", "Logiciels"], // les points sont ajoutés par la CSS
-  lead:
-    "SSD Sirius conçoit, développe et met en ligne des produits numériques sur mesure. Trois sont actuellement en production : une marketplace mobile, un studio photo par intelligence artificielle et une plateforme d’emploi.",
+  announce: { tag: "Nouveau", label: "MaliLink, la plateforme d’emploi du Mali", href: "/realisations/malilink" },
+  strong: "Votre application conceptualisée et disponible en 1 mois.",
+  soft: "Nous concevons, développons et publions votre produit — base de données, paiements Mobile Money, App Store et Play Store inclus.",
+  note: "Ni devis à remplir, ni dossier à monter. Parlez-nous de votre projet, on s’occupe du reste.",
 };
 
-// Prise de contact. Description du déroulé, sans argumentaire.
+// Les trois temps d’un projet, illustrés en fil de fer sous le hero.
+export const FIGURES = [
+  { variant: "layers", label: "FIG 0.1 — Conception" },
+  { variant: "modules", label: "FIG 0.2 — Développement" },
+  { variant: "releases", label: "FIG 0.3 — Publication" },
+];
+
+// Technologies réellement utilisées sur nos projets (Flash Market, MaliLink).
+export const TECH = ["React Native", "Next.js", "Expo", "Supabase", "PostgreSQL", "Google Cloud", "Mobile Money"];
+
+// Message de conversion : pas de devis ni d'estimation à remplir.
+// Le visiteur nous parle de son projet, on s'occupe du reste.
 export const MEETING = {
-  ctaLabel: "Parler de votre projet",
-  altLabel: "Nous présenter votre projet",
-  short:
-    "Présentez-nous votre projet en quelques lignes. Nous revenons vers vous avec un périmètre, un délai et un budget.",
-  long: "Présentez-nous votre projet, par écrit ou lors d'un échange en visio : ce que vous souhaitez construire, pour quels usages et dans quel délai. Nous revenons vers vous avec un périmètre, un calendrier et un budget.",
+  ctaLabel: "Discutons de votre projet",
+  altLabel: "Parlez-nous de votre projet",
+  short: "Parlez-nous de votre projet. Tout le reste, on s'en occupe.",
+  long: "Pas de dossier à monter ni de formulaire interminable. Parlez-nous de votre projet — un simple échange en visio suffit — et tout le reste, on s'en occupe : conception, développement, base de données, paiements et mise en ligne sur les stores.",
   // Lien de réservation Google Agenda (visio Meet).
   // Tant qu'il est vide, les boutons renvoient vers /contact.
   bookingUrl:
     process.env.NEXT_PUBLIC_BOOKING_URL || "https://calendar.app.google/fhvf1aoL6gvsn7Kz7",
   bookingLabel: "Choisir un créneau",
-  bookingHint: "Le créneau choisi génère automatiquement un lien visio.",
+  bookingHint: "Choisissez l'horaire qui vous arrange, le lien visio arrive automatiquement.",
 };
 
-// Ce que couvre une intervention. Descriptif, pas d'engagement chiffré.
+// Engagements concrets mis en avant sur la home.
 export const GUARANTEES = [
   {
-    icon: "PenTool",
-    title: "Développement sur mesure",
-    text: "Chaque projet part du métier et des usages visés, pas d'un modèle préexistant.",
+    icon: "Rocket",
+    title: "Des premiers résultats dès la 1re semaine",
+    text: "Une version démontrable de votre projet et un premier retour concret dès les premiers jours.",
   },
   {
     icon: "RefreshCw",
-    title: "Itérations courtes",
-    text: "Le travail avance par cycles courts, avec des versions démontrables à chaque étape.",
+    title: "Un suivi régulier",
+    text: "Un point d'avancement journalier ou hebdomadaire selon le projet, avec un interlocuteur dédié.",
   },
   {
-    icon: "Database",
-    title: "Base de données et API",
-    text: "Modélisation, API, authentification et hébergement font partie du périmètre.",
-  },
-  {
-    icon: "Wallet",
-    title: "Paiements Mobile Money",
-    text: "Intégration des opérateurs, gestion des callbacks et réconciliation des transactions.",
+    icon: "PenTool",
+    title: "Des solutions 100 % sur mesure",
+    text: "On part de votre métier et de vos objectifs, jamais d'un template générique.",
   },
   {
     icon: "BadgeCheck",
-    title: "Publication sur les stores",
-    text: "Mise en ligne sur l'App Store et le Google Play Store, builds et mises à jour compris.",
+    title: "La publication sur les stores incluse",
+    text: "Mise en ligne sur l'App Store et le Google Play Store gérée entièrement par nos soins.",
   },
   {
-    icon: "LifeBuoy",
-    title: "Suivi après mise en ligne",
-    text: "Maintenance, corrections et évolutions une fois le produit en production.",
+    icon: "Database",
+    title: "Toute la technique gérée",
+    text: "Base de données, API, paiements, hébergement et maintenance : c'est notre part.",
+  },
+  {
+    icon: "Clock",
+    title: "Votre application livrée en moins d'un mois",
+    text: "Vous n'avez qu'à valider et à lancer votre activité. Avec Sirius, c'est carré.",
   },
 ];
 
@@ -154,27 +157,28 @@ export const LEGAL = {
   country: "Mali",
 };
 
-// Réseaux de l'entreprise : les icônes restent masquées tant que ces champs sont vides.
+// Aucun réseau social pour l'instant : les icônes restent masquées
+// tant que ces champs sont vides.
 export const SOCIAL = {
   linkedin: "",
   facebook: "",
   instagram: "",
 };
 
-// Indicateurs affichés sur la home — uniquement des faits vérifiables,
-// jamais un délai ou un pourcentage présenté comme un engagement.
+// Indicateurs affichés sur la home — uniquement des valeurs vérifiables.
+// Laisser vide (`[]`) tant que les chiffres ne sont pas confirmés.
 export const STATS = [
-  { label: "Produits en production", value: "03" },
-  { label: "Plateformes", value: "iOS · Android · Web" },
-  { label: "Implantation", value: "Bamako · Paris" },
-  { label: "Création", value: "2024" },
+  { label: "Application livrée sur les stores", value: "iOS + Android", icon: "Smartphone" },
+  { label: "Paiement Mobile Money", value: "Multi-pays", icon: "Wallet" },
+  { label: "Délai de mise en ligne", value: "< 1 mois", icon: "Clock" },
+  { label: "Technique prise en charge", value: "100 %", icon: "Database" },
 ];
 
 export const NAV = [
-  { href: "/", label: "Accueil" },
   { href: "/services", label: "Services" },
   { href: "/realisations", label: "Réalisations" },
   { href: "/a-propos", label: "À propos" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export function whatsappLink(message) {

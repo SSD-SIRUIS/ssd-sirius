@@ -6,46 +6,34 @@ import { TEAM } from "@/data/site";
 // l'information vérifiable, pas d'un effet de style.
 export default function TeamGrid({ members = TEAM }) {
   return (
-    <div className="team-grid">
-      {members.map((member) => (
-        <article className="team-member" key={member.name}>
-          <div className="team-member__photo">
+    <div className="team">
+      {members.map((m) => (
+        <article className="team__member" key={m.name}>
+          <div className="team__photo">
             <img
-              src={member.photo}
-              alt={`Portrait de ${member.name}, ${member.role} de SSD Sirius`}
+              src={m.photo}
+              alt={`Portrait de ${m.name}, ${m.role} de SSD Sirius`}
               width={800}
               height={1000}
               loading="lazy"
             />
           </div>
-
-          <div className="team-member__body">
-            <div className="team-member__head">
-              <h3 className="team-member__name">{member.name}</h3>
-              <span className="pill">{member.role}</span>
-            </div>
-
-            <p className="team-member__focus">{member.focus}</p>
-            <p className="team-member__bio">{member.bio}</p>
-
-            <div className="team-member__foot">
-              {member.education && (
-                <span className="team-member__school">
+          <div className="team__body">
+            <h3 className="title-3">{m.name}</h3>
+            <p className="mono">
+              {m.role} · {m.focus}
+            </p>
+            <p className="team__bio">{m.bio}</p>
+            <div className="team__foot">
+              {m.education && (
+                <span className="team__school">
                   <Icon name="GraduationCap" />
-                  {member.education}
+                  {m.education}
                 </span>
               )}
-
-              {member.linkedin && (
-                <a
-                  className="link-arrow"
-                  href={member.linkedin}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={`Profil LinkedIn de ${member.name}`}
-                >
-                  LinkedIn
-                  <Icon name="ArrowUpRight" />
+              {m.linkedin && (
+                <a className="link-more" href={m.linkedin} target="_blank" rel="noreferrer">
+                  LinkedIn <Icon name="ArrowUpRight" />
                 </a>
               )}
             </div>

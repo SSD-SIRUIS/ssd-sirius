@@ -1,17 +1,23 @@
-import { Inter } from "next/font/google";
+import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { themeInitScript } from "@/components/ThemeToggle";
-import { SITE, CONTACT } from "@/data/site";
+import { SITE } from "@/data/site";
 
-// Une seule famille pour tout le site : titres, texte, étiquettes, chiffres.
-// Inter en version variable — le système s'appuie sur des graisses
-// intermédiaires (450, 500, 560) que seule une fonte variable rend possibles.
+// Inter : la typographie de référence de l esthétique retenue.
+// Police variable : toutes les graisses intermédiaires (510, 590…) sont disponibles.
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-sans",
+  variable: "--font-inter",
+});
+
+// Chasse fixe pour les étiquettes techniques (FIG 0.1, identifiants, légendes).
+const mono = Geist_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-mono",
 });
 
 export const metadata = {
@@ -46,12 +52,10 @@ export const metadata = {
 };
 
 export const viewport = {
-  // Le site est sombre par défaut : la barre du navigateur suit.
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
     { media: "(prefers-color-scheme: dark)", color: "#08090a" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
   ],
-  colorScheme: "dark light",
 };
 
 export default function RootLayout({ children }) {
@@ -61,16 +65,14 @@ export default function RootLayout({ children }) {
     name: SITE.legalName,
     url: SITE.url,
     description: SITE.description,
-    email: CONTACT.email,
-    telephone: CONTACT.phone,
     areaServed: "ML",
     slogan: SITE.tagline,
-    foundingDate: String(SITE.foundedYear),
   };
 
   return (
-    <html lang="fr" data-theme="dark" className={inter.variable} suppressHydrationWarning>
+    <html lang="fr" className={`${inter.variable} ${mono.variable}`} data-theme="dark" suppressHydrationWarning>
       <head>
+        {/* Applique le thème mémorisé avant le premier rendu (évite le flash) */}
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body>
