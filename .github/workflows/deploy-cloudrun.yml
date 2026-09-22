@@ -1,5 +1,6 @@
-# Déploiement manuel sur Google Cloud Run.
-# Déclenchement : onglet Actions → "Deploy to Cloud Run" → Run workflow.
+# Déploiement sur Google Cloud Run.
+# Déclenchement : automatique à chaque push sur `main`, ou à la main depuis
+# l'onglet Actions → "Deploy to Cloud Run" → Run workflow.
 #
 # Secrets à définir (Settings → Secrets and variables → Actions) :
 #   GCP_PROJECT_ID           ex. ssd-sirius-prod
@@ -14,7 +15,14 @@
 name: Deploy to Cloud Run
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
+
+# Un seul déploiement à la fois : un nouveau push annule celui en cours.
+concurrency:
+  group: deploy-cloudrun
+  cancel-in-progress: true
 
 jobs:
   deploy:
