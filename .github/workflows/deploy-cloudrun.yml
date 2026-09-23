@@ -3,14 +3,15 @@
 # l'onglet Actions → "Deploy to Cloud Run" → Run workflow.
 #
 # Secrets à définir (Settings → Secrets and variables → Actions) :
-#   GCP_PROJECT_ID           ex. ssd-sirius-prod
-#   GCP_REGION               ex. europe-west1
-#   GCP_SA_KEY               clé JSON d'un compte de service (roles: Cloud Run Admin,
-#                            Service Account User, Artifact Registry Writer, Cloud Build Editor)
-#   NEXT_PUBLIC_SUPABASE_URL
+#   GCP_PROJECT_ID           sacred-epigram-507517-c3
+#   GCP_REGION               europe-west1
+#   GCP_SA_KEY               clé JSON du compte de service github-deploy (rôles : Cloud Run
+#                            Admin, Service Account User, Cloud Build Editor, Artifact
+#                            Registry Writer, Storage Admin, Service Usage Consumer)
+#   NEXT_PUBLIC_SUPABASE_URL https://kbvyzihoegjkwvuvtppp.supabase.co (base de l'entreprise)
 #   NEXT_PUBLIC_SUPABASE_ANON_KEY
 #   SUPABASE_SERVICE_ROLE_KEY
-#   NEXT_PUBLIC_SITE_URL     ex. https://ssd-sirius.com
+#   NEXT_PUBLIC_SITE_URL     https://sirius-mali.tech
 
 name: Deploy to Cloud Run
 
@@ -28,6 +29,28 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      # Arrêt immédiat si un secret manque : sans ce contrôle, une valeur vide
+      # serait poussée telle quelle sur le service en production.
+      - name: Vérification des secrets
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+          GCP_REGION: ${{ secrets.GCP_REGION }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
+        run: |
+          missing=""
+          for name in GCP_SA_KEY GCP_PROJECT_ID GCP_REGION NEXT_PUBLIC_SUPABASE_URL \
+                      NEXT_PUBLIC_SUPABASE_ANON_KEY SUPABASE_SERVICE_ROLE_KEY NEXT_PUBLIC_SITE_URL; do
+            [ -z "${!name}" ] && missing="$missing $name"
+          done
+          if [ -n "$missing" ]; then
+            echo "::error::Secrets manquants :$missing"
+            exit 1
+          fi
+
       - uses: actions/checkout@v4
 
       - id: auth
@@ -37,6 +60,8 @@ jobs:
 
       - uses: google-github-actions/setup-gcloud@v2
 
+      # --update-env-vars (et non --set-env-vars) : seules ces variables sont
+      # écrites, celles ajoutées à la main sur le service sont conservées.
       - name: Deploy
         run: |
           gcloud run deploy ssd-sirius \
@@ -45,4 +70,4 @@ jobs:
             --region "${{ secrets.GCP_REGION }}" \
             --port 8080 \
             --allow-unauthenticated \
-            --set-env-vars "NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }},NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }},SUPABASE_SERVICE_ROLE_KEY=${{ secrets.SUPABASE_SERVICE_ROLE_KEY }},NEXT_PUBLIC_SITE_URL=${{ secrets.NEXT_PUBLIC_SITE_URL }}"
+            --update-env-vars "NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }},NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }},SUPABASE_SERVICE_ROLE_KEY=${{ secrets.SUPABASE_SERVICE_ROLE_KEY }},NEXT_PUBLIC_SITE_URL=${{ secrets.NEXT_PUBLIC_SITE_URL }}"
