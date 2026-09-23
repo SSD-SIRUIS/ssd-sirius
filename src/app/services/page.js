@@ -7,7 +7,7 @@ import { MEETING } from "@/data/site";
 export const metadata = {
   title: "Services",
   description:
-    "E-commerce, paiement Mobile Money, applications web et mobiles, API et systèmes : les expertises de SSD Sirius, à un tarif accessible et avec une exécution de très haut niveau.",
+    "Développement d’applications mobiles iOS et Android, plateformes web, e-commerce, intégration des paiements Mobile Money (Orange Money), API et intelligence artificielle : les services de SSD Sirius, au Mali et à Paris.",
   alternates: { canonical: "/services" },
 };
 

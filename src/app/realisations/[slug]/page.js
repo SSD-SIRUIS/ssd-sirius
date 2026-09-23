@@ -24,18 +24,36 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const project = await getProject(slug);
-  if (!project) return { title: "Réalisation introuvable" };
+  if (!project) return { title: "Réalisation introuvable", robots: { index: false } };
+  const title = project.category ? `${project.title} — ${project.category}` : project.title;
+  const description = project.summary || project.solution?.slice(0, 155);
+  const image = shareImage(project);
   return {
-    title: project.title,
-    description: project.summary || project.solution?.slice(0, 155),
+    title,
+    description,
+    keywords: [project.title, project.category, ...(project.technologies || [])].filter(Boolean),
     alternates: { canonical: `/realisations/${project.slug}` },
     openGraph: {
-      title: `${project.title} — ${SITE.name}`,
-      description: project.summary,
-      url: `${SITE.url}/realisations/${project.slug}`,
+      title: `${project.title} — réalisation ${SITE.name}`,
+      description,
+      url: `/realisations/${project.slug}`,
       type: "article",
+      siteName: SITE.legalName,
+      locale: SITE.locale,
+      ...(image ? { images: [{ url: image, alt: `Aperçu de ${project.title}` }] } : {}),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} — ${SITE.name}`,
+      description,
+      ...(image ? { images: [image] } : {}),
     },
   };
+}
+
+// Visuel de partage : la couverture du projet, sinon sa première capture.
+function shareImage(project) {
+  return project.cover_url || project.card_image || project.screens?.find((s) => s.url)?.url || "";
 }
 
 function MetaRow({ label, children }) {
@@ -74,14 +92,35 @@ export default async function ProjectPage({ params }) {
   const mediaItems = screenItems.length > 0 ? screenItems : galleryItems;
   const heroScreens = isPhone ? screenItems.slice(0, 3) : [];
 
+  const pageUrl = `${SITE.url}/realisations/${project.slug}`;
+  const image = shareImage(project);
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    name: project.title,
-    about: project.category,
-    creator: { "@type": "Organization", name: SITE.legalName },
-    abstract: project.summary,
-    keywords: project.technologies?.join(", "),
+    "@graph": [
+      {
+        "@type": project.type === "application" ? "MobileApplication" : "WebApplication",
+        name: project.title,
+        url: project.link_url || pageUrl,
+        description: project.summary,
+        applicationCategory: project.category,
+        ...(project.type === "application" && project.platforms?.length
+          ? { operatingSystem: project.platforms.join(", ") }
+          : {}),
+        ...(image ? { image: image.startsWith("http") ? image : `${SITE.url}${image}` } : {}),
+        inLanguage: "fr",
+        keywords: project.technologies?.join(", "),
+        creator: { "@id": `${SITE.url}/#organization` },
+        publisher: { "@id": `${SITE.url}/#organization` },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Accueil", item: SITE.url },
+          { "@type": "ListItem", position: 2, name: "Réalisations", item: `${SITE.url}/realisations` },
+          { "@type": "ListItem", position: 3, name: project.title, item: pageUrl },
+        ],
+      },
+    ],
   };
 
   return (

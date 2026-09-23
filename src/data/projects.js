@@ -2,14 +2,12 @@
 // Données des réalisations (repli local).
 // Utilisées quand Supabase n'est pas configuré ou ne renvoie rien.
 //
-// Projets réels de SSD Sirius :
+// Projets réels de SSD Sirius, et seulement eux :
 //   1. FLASH MARKET (projet phare) — marketplace mobile iOS / Android
-//   2. MALILINK — plateforme d’emploi web
+//   2. PICASSO RESOLVE — studio photo produit par intelligence artificielle
+//   3. MALILINK — plateforme d’emploi web
 // Contenu et stack fournis par l’équipe ou vérifiés sur le site en ligne.
-//
-// Les 3 entrées suivantes (plateforme-e-commerce, passerelle-paiement,
-// marketplace-locale) sont encore des PLACEHOLDERS : à remplacer par de vrais
-// projets ou à supprimer avant une diffusion commerciale large.
+// Aucun projet fictif : chaque fiche doit renvoyer à un produit qui existe.
 // ------------------------------------------------------------------
 
 // Passer à `false` pour revenir aux aperçus dégradés.
@@ -169,6 +167,95 @@ export const PROJECTS = [
     ],
   },
 
+  // ------------------------------------------------------------------
+  // PICASSO RESOLVE — SaaS de photos produit par intelligence artificielle.
+  // Visuels repris du site en ligne (public/realisations/picasso-resolve/).
+  // ------------------------------------------------------------------
+  {
+    slug: "picasso-resolve",
+    headline: "Des photos produit professionnelles à partir d’une simple photo",
+    card_image: "/realisations/picasso-resolve/02-vue-principale.jpg",
+    title: "Picasso Resolve",
+    client_name: "",
+    own_product: true,
+    type: "plateforme",
+    category: "SaaS & intelligence artificielle",
+    featured: true,
+    status: "published",
+    sort_order: 2,
+    link_url: "https://picassoresolve.com",
+    link_label: "Découvrir Picasso Resolve",
+    cover: "picasso",
+    cover_url: "/realisations/picasso-resolve/02-vue-principale.jpg",
+    platforms: ["Web"],
+    summary:
+      "Un studio photo par intelligence artificielle : à partir d’une photo de produit brute, Picasso Resolve génère des visuels prêts pour une fiche e-commerce. Conçu et développé par SSD Sirius.",
+    context:
+      "Une boutique en ligne vend d’abord par ses photos. Les e-commerçants ont besoin de visuels cohérents pour chaque référence, sans organiser un shooting à chaque nouveau produit.",
+    problem:
+      "Produire plusieurs mises en scène de qualité demande du matériel, un photographe, parfois des modèles, et une direction artistique difficile à reproduire à grande échelle.",
+    solution:
+      "SSD Sirius a conçu et développé Picasso Resolve de bout en bout : l’utilisateur importe une photo de son produit, l’intelligence artificielle l’analyse, propose plusieurs directions visuelles (studio, mise en scène, lifestyle) et génère un lot d’images téléchargeables en haute définition.",
+    description:
+      "De la page de présentation au studio de génération, en passant par les comptes et le système de crédits, Picasso Resolve est un produit SaaS complet, en ligne et utilisable aujourd’hui.",
+    highlights: [
+      {
+        icon: "Camera",
+        title: "Une photo suffit",
+        text: "Le point de départ est une photo de produit brute, prise au téléphone.",
+      },
+      {
+        icon: "Sparkles",
+        title: "Analyse par IA",
+        text: "Le produit est identifié et décrit avant la génération, pour des visuels fidèles.",
+      },
+      {
+        icon: "Layers",
+        title: "Plusieurs directions",
+        text: "Studio, mise en scène et lifestyle : un lot de visuels pour une même fiche produit.",
+      },
+      {
+        icon: "PenTool",
+        title: "Prompts modifiables",
+        text: "Les instructions de génération sont consultables et ajustables avant de relancer.",
+      },
+      {
+        icon: "Download",
+        title: "Haute définition",
+        text: "Les images générées se téléchargent en haute définition, prêtes à publier.",
+      },
+      {
+        icon: "Wallet",
+        title: "Système de crédits",
+        text: "Chaque génération consomme des crédits : un modèle SaaS complet, facturation comprise.",
+      },
+    ],
+    features: [
+      "Import d’une photo produit brute",
+      "Analyse du produit par intelligence artificielle",
+      "Génération de plusieurs directions visuelles",
+      "Prompts consultables et modifiables",
+      "Téléchargement des images en haute définition",
+      "Système de crédits intégré",
+    ],
+    screens: [
+      { url: "/realisations/picasso-resolve/01-photo-brute.jpg", tone: "picasso", label: "Photo produit brute, avant traitement" },
+      { url: "/realisations/picasso-resolve/02-vue-principale.jpg", tone: "picasso", label: "Vue principale générée" },
+      { url: "/realisations/picasso-resolve/03-mise-en-scene.jpg", tone: "picasso", label: "Mise en scène générée" },
+      { url: "/realisations/picasso-resolve/04-lifestyle.jpg", tone: "picasso", label: "Visuel lifestyle généré" },
+    ],
+    techGroups: [
+      { label: "Application web", items: ["Next.js", "React"] },
+      { label: "Intelligence artificielle", items: ["Gemini", "Replicate"] },
+      { label: "Modèle SaaS", items: ["Comptes utilisateurs", "Système de crédits"] },
+    ],
+    technologies: ["Next.js", "Intelligence artificielle", "Gemini", "Replicate"],
+    metrics: [
+      { label: "Produit", value: "SaaS complet" },
+      { label: "Parcours", value: "Photo brute → visuels e-commerce" },
+    ],
+  },
+
   {
     slug: "malilink",
     headline: "La plateforme qui connecte les talents maliens aux recruteurs",
@@ -180,7 +267,7 @@ export const PROJECTS = [
     category: "Plateforme d'emploi",
     featured: true,
     status: "published",
-    sort_order: 2,
+    sort_order: 3,
     link_url: "https://malilink-web-779884436442.europe-west1.run.app",
     link_label: "Voir MaliLink en ligne",
     cover: "market",
@@ -274,126 +361,6 @@ export const PROJECTS = [
       { label: "Architecture", value: "Front + API séparés" },
       { label: "Identifiant", value: "Numéro de téléphone" },
       { label: "Portée", value: "Mali + diaspora" },
-    ],
-  },
-
-  {
-    slug: "plateforme-e-commerce",
-    headline: "Une boutique en ligne pensée pour le mobile et le paiement local",
-    card_tone: "#4f52d9",
-    title: "Plateforme e-commerce",
-    client_name: "Projet interne SSD Sirius",
-    type: "plateforme",
-    category: "E-commerce",
-    featured: false,
-    status: "published",
-    sort_order: 3,
-    link_url: "",
-    cover: "commerce",
-    summary:
-      "Une expérience d'achat fluide et sécurisée, conçue pour le marché africain.",
-    context:
-      "Permettre à des commerçants de vendre en ligne sans dépendre d'une place de marché tierce, avec un paiement adapté aux usages locaux.",
-    problem:
-      "Les solutions existantes sont lentes sur mobile, complexes à administrer et mal intégrées aux moyens de paiement locaux.",
-    solution:
-      "Une plateforme e-commerce sur mesure : catalogue rapide, tunnel de commande court, paiement carte et Mobile Money, back-office simple pour produits, stocks et commandes.",
-    features: [
-      "Catalogue et fiches produits optimisés mobile",
-      "Panier et tunnel de commande en 3 étapes",
-      "Paiement carte et Mobile Money",
-      "Back-office produits, stocks et commandes",
-      "Tableau de bord des ventes et exports",
-    ],
-    technologies: ["Next.js", "Node.js", "PostgreSQL", "Mobile Money", "Docker"],
-    metrics: [
-      { label: "Paiement", value: "Carte + Mobile Money" },
-      { label: "Cible", value: "Mobile-first" },
-    ],
-    gallery: [
-      { tone: "commerce", label: "Page d'accueil boutique" },
-      { tone: "commerce-2", label: "Fiche produit" },
-      { tone: "commerce-3", label: "Tunnel de paiement" },
-      { tone: "dark", label: "Back-office commandes" },
-    ],
-  },
-
-  {
-    slug: "passerelle-paiement",
-    headline: "Une passerelle qui centralise les encaissements Mobile Money",
-    card_tone: "linear-gradient(180deg, #6f93dd 0%, #9b86dc 100%)",
-    title: "Passerelle de paiement",
-    client_name: "Projet interne SSD Sirius",
-    type: "site",
-    category: "Performance & architecture",
-    featured: false,
-    status: "published",
-    sort_order: 4,
-    link_url: "",
-    cover: "pay",
-    summary:
-      "Une architecture robuste pour encaisser de façon fiable, même en connexion instable.",
-    context: "Centraliser les encaissements Mobile Money de plusieurs services derrière une seule intégration.",
-    problem:
-      "Chaque service réintégrait les opérateurs de paiement à sa manière, sans réconciliation ni visibilité commune.",
-    solution:
-      "Une passerelle : API unique d'initiation de paiement, gestion des callbacks, reprise sur incident, réconciliation automatique et tableau de bord des transactions.",
-    features: [
-      "API unique d'initiation de paiement",
-      "Gestion des callbacks et des états de transaction",
-      "Reprise automatique sur incident réseau",
-      "Réconciliation et rapprochement comptable",
-      "Tableau de bord des encaissements et alertes",
-    ],
-    technologies: ["Node.js", "PostgreSQL", "Redis", "Docker", "Google Cloud Run"],
-    metrics: [
-      { label: "Intégration", value: "API unifiée multi-opérateurs" },
-      { label: "Fiabilité", value: "Reprise sur incident" },
-    ],
-    gallery: [
-      { tone: "pay", label: "Tableau de bord transactions" },
-      { tone: "pay-2", label: "Détail d'une transaction" },
-      { tone: "pay-3", label: "Réconciliation" },
-      { tone: "dark", label: "Journal et alertes" },
-    ],
-  },
-
-  {
-    slug: "marketplace-locale",
-    headline: "De la recherche au contact vendeur en deux clics",
-    card_tone: "#1c1d20",
-    title: "Marketplace locale",
-    client_name: "Projet interne SSD Sirius",
-    type: "site",
-    category: "Web & conversion",
-    featured: false,
-    status: "published",
-    sort_order: 5,
-    link_url: "",
-    cover: "market",
-    summary:
-      "Un site pensé pour la conversion : parcours court, recherche efficace, mise en relation rapide.",
-    context: "Mettre en relation vendeurs et acheteurs d'une même ville, avec une navigation claire et un temps de chargement minimal.",
-    problem: "Trop d'étapes entre la recherche et le contact vendeur, et une expérience peu lisible sur petit écran.",
-    solution:
-      "Refonte de l'architecture de l'information et des parcours : recherche filtrée, fiches lisibles, contact vendeur en un geste, interface entièrement responsive.",
-    features: [
-      "Recherche filtrée par catégorie et localisation",
-      "Fiches annonces lisibles et rapides",
-      "Contact vendeur direct (WhatsApp / téléphone)",
-      "Espace vendeur pour publier et gérer les annonces",
-      "Design responsive du mobile au desktop",
-    ],
-    technologies: ["Next.js", "Supabase", "PostgreSQL", "CSS", "Vercel"],
-    metrics: [
-      { label: "Parcours", value: "Recherche → contact en 2 clics" },
-      { label: "Responsive", value: "Mobile → desktop" },
-    ],
-    gallery: [
-      { tone: "market", label: "Accueil et recherche" },
-      { tone: "market-2", label: "Résultats filtrés" },
-      { tone: "market-3", label: "Fiche annonce" },
-      { tone: "dark", label: "Espace vendeur" },
     ],
   },
 ];

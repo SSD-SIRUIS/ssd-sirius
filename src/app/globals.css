@@ -1151,6 +1151,7 @@ h4 {
 
 /* Aplats des aperçus sans capture */
 .shot-commerce, .shot-commerce-2, .shot-commerce-3 { --shot-grad: linear-gradient(160deg, #1b1d3a, #2c2f6b); }
+.shot-picasso { --shot-grad: linear-gradient(160deg, #1d1712, #4a3526); }
 .shot-market, .shot-market-2, .shot-market-3 { --shot-grad: linear-gradient(160deg, #121a1f, #1d2c33); }
 .shot-pay, .shot-pay-2, .shot-pay-3 { --shot-grad: linear-gradient(160deg, #1a1426, #2c1f45); }
 .shot-app, .shot-app-2, .shot-app-3, .shot-app-4 { --shot-grad: linear-gradient(160deg, #15161a, #24262d); }

@@ -197,7 +197,7 @@ create policy "settings_admin_write" on public.settings
   for all using (public.is_admin()) with check (public.is_admin());
 
 insert into public.settings (key, value) values
-  ('contact', '{"email":"sidigano8@gmail.com","phone":"+33 6 98 43 36 02","phoneAlt":"+33 7 51 41 90 26","whatsapp":"33698433602","cities":["Bamako, Mali","Paris, France"]}'::jsonb),
+  ('contact', '{"email":"contact@sirius-mali.tech","phone":"+33 6 98 43 36 02","phoneAlt":"+33 7 51 41 90 26","whatsapp":"33698433602","cities":["Bamako, Mali","Paris, France"]}'::jsonb),
   ('social', '{"linkedin":"","facebook":"","instagram":""}'::jsonb),
   ('company', '{"name":"SSD Sirius Solutions Digitales","tagline":"Conçu au Mali. Pensé pour l''Afrique."}'::jsonb),
   ('stats', '[]'::jsonb)

@@ -1,11 +1,19 @@
 import CTA from "@/components/CTA";
 import RealisationsGrid from "@/components/RealisationsGrid";
 import { getProjects } from "@/lib/content";
+import { SITE } from "@/data/site";
 
 export const metadata = {
   title: "Réalisations",
   description:
-    "Les réalisations de SSD Sirius : Flash Market, marketplace mobile iOS et Android, MaliLink, plateforme d’emploi, et nos autres projets web.",
+    "Trois produits conçus, développés et mis en ligne par SSD Sirius : Flash Market (marketplace mobile iOS et Android), Picasso Resolve (photos produit par IA) et MaliLink (plateforme d’emploi au Mali).",
+  openGraph: {
+    title: "Réalisations — SSD Sirius",
+    description: "Flash Market, Picasso Resolve et MaliLink : trois produits en ligne, conçus et développés par SSD Sirius.",
+    url: "/realisations",
+    siteName: SITE.legalName,
+    locale: SITE.locale,
+  },
   alternates: { canonical: "/realisations" },
 };
 
@@ -14,8 +22,21 @@ export const revalidate = 300;
 export default async function RealisationsPage() {
   const projects = await getProjects();
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Réalisations SSD Sirius",
+    itemListElement: projects.map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: `${SITE.url}/realisations/${p.slug}`,
+      name: p.title,
+    })),
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <section className="hero" style={{ paddingBottom: 0 }}>
         <div className="container">
           <h1 className="title-page">Réalisations</h1>

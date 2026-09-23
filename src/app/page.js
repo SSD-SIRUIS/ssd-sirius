@@ -9,6 +9,10 @@ import { PaymentWindows, ProjectBoard } from "@/components/Mockups";
 import { getProjects } from "@/lib/content";
 import { FIGURES, GUARANTEES, HERO, MEETING, TECH } from "@/data/site";
 
+export const metadata = {
+  alternates: { canonical: "/" },
+};
+
 export const revalidate = 300;
 
 function FeatureHead({ title, children, link }) {
