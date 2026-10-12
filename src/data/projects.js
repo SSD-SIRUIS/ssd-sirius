@@ -377,7 +377,7 @@ export const PROJECTS = [
     own_product: false,
     type: "application",
     category: "Marketplace e-commerce",
-    featured: false,
+    featured: true,
     status: "published",
     sort_order: 2,
     link_url: "https://bama-mali.com/",

@@ -65,6 +65,7 @@ function applyLocalProjectPresentation(project) {
     card_image: local.card_image || "",
     card_icon: local.card_icon || "",
     logo_url: local.logo_url || project.logo_url,
+    featured: local.featured,
     sort_order: local.sort_order ?? project.sort_order,
   };
 }
