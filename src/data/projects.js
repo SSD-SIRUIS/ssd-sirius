@@ -369,7 +369,6 @@ export const PROJECTS = [
     slug: "bama",
     headline: "La place de marché de Bamako, dans votre poche",
     card_tone: "linear-gradient(140deg, #12c8c0 0%, #0b1e33 100%)",
-    card_image: "/realisations/bama/01-accueil.jpeg",
     title: "BAMA",
     client_name: "BAMA",
     own_product: false,
@@ -382,7 +381,7 @@ export const PROJECTS = [
     link_label: "Voir BAMA en ligne",
     cover: "bama",
     cover_url: "/realisations/bama/01-accueil.jpeg",
-    logo_url: "https://bama-mali.com/assets/icone.png",
+    logo_url: "/realisations/bama/logo.png",
     platforms: ["Web", "Android / Google Play", "iOS bientôt"],
     payment: {
       aggregator: "Paiement intégré",
