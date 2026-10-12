@@ -65,21 +65,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ------------------------------------------- Méthode + technologies */}
-      <section aria-label="Notre méthode">
-        <div className="container">
-          <div className="figs">
-            {FIGURES.map((f) => (
-              <figure className="fig" key={f.variant}>
-                <figcaption className="mono fig__label">{f.label}</figcaption>
-                <IsoFigure variant={f.variant} />
-              </figure>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
       {/* -------------------------------------------- Applications mobiles */}
       {mobileProjects.length > 0 && (
         <section className="section">
@@ -123,6 +108,20 @@ export default async function HomePage() {
           </div>
         </section>
       )}
+
+      {/* ------------------------------------------- Méthode + technologies */}
+      <section aria-label="Notre méthode">
+        <div className="container">
+          <div className="figs">
+            {FIGURES.map((f) => (
+              <figure className="fig" key={f.variant}>
+                <figcaption className="mono fig__label">{f.label}</figcaption>
+                <IsoFigure variant={f.variant} />
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ---------------------------------------------- Technologies */}
       <section className="section section--line">
