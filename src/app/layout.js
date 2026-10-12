@@ -3,7 +3,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { themeInitScript } from "@/components/ThemeToggle";
-import { SITE } from "@/data/site";
+import { SITE, CONTACT, SOCIAL } from "@/data/site";
 
 // Inter : la typographie de référence de l esthétique retenue.
 // Police variable : toutes les graisses intermédiaires (510, 590…) sont disponibles.
@@ -29,11 +29,17 @@ export const metadata = {
   description: SITE.description,
   keywords: [
     "agence digitale Mali",
-    "développement application Mali",
-    "e-commerce Mobile Money Mali",
-    "solutions digitales Mali",
+    "développement application mobile Mali",
+    "création application Bamako",
     "création site web Bamako",
+    "intégration Mobile Money",
+    "paiement Orange Money application",
+    "développeur React Native Mali",
+    "solutions digitales Mali",
   ],
+  applicationName: SITE.legalName,
+  category: "technology",
+  formatDetection: { telephone: false },
   authors: [{ name: SITE.legalName }],
   openGraph: {
     type: "website",
@@ -48,7 +54,11 @@ export const metadata = {
     title: SITE.legalName,
     description: SITE.description,
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+  },
 };
 
 export const viewport = {
@@ -59,14 +69,41 @@ export const viewport = {
 };
 
 export default function RootLayout({ children }) {
-  const orgJsonLd = {
+  // Données structurées : l'organisation et le site, reliés par leur @id.
+  const sameAs = Object.values(SOCIAL).filter(Boolean);
+  const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    name: SITE.legalName,
-    url: SITE.url,
-    description: SITE.description,
-    areaServed: "ML",
-    slogan: SITE.tagline,
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${SITE.url}/#organization`,
+        name: SITE.legalName,
+        alternateName: SITE.name,
+        url: SITE.url,
+        logo: `${SITE.url}/logo.svg`,
+        description: SITE.description,
+        slogan: SITE.tagline,
+        email: CONTACT.email,
+        telephone: CONTACT.phone,
+        address: { "@type": "PostalAddress", addressLocality: "Bamako", addressCountry: "ML" },
+        areaServed: ["ML", "CI", "SN", "FR"],
+        knowsAbout: [
+          "Développement d'applications mobiles",
+          "Développement web",
+          "Intégration Mobile Money",
+          "Intelligence artificielle",
+        ],
+        ...(sameAs.length ? { sameAs } : {}),
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${SITE.url}/#website`,
+        url: SITE.url,
+        name: SITE.legalName,
+        inLanguage: "fr",
+        publisher: { "@id": `${SITE.url}/#organization` },
+      },
+    ],
   };
 
   return (
@@ -78,7 +115,7 @@ export default function RootLayout({ children }) {
       <body>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <div className="app-shell">
           <Header />
