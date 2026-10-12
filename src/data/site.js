@@ -17,7 +17,7 @@ export const SITE = {
 // Hero de la page d’accueil — titre en deux tons : la phrase forte,
 // puis la suite en gris.
 export const HERO = {
-  announce: { tag: "Nouveau", label: "MaliLink, la plateforme d’emploi du Mali", href: "/realisations/malilink" },
+  announce: { tag: "Nouveau", label: "Flash Market, la marketplace mobile du Mali", href: "/realisations/flash-market" },
   strong: "Votre application conceptualisée et disponible en 1 mois.",
   soft: "Nous concevons, développons et publions votre produit — base de données, paiements Mobile Money, App Store et Play Store inclus.",
   note: "Ni devis à remplir, ni dossier à monter. Parlez-nous de votre projet, on s’occupe du reste.",
