@@ -77,14 +77,6 @@ export default async function HomePage() {
             ))}
           </div>
 
-          <div className="logos" aria-label="Technologies utilisées">
-            {TECH.map((t) => (
-              <span className="logo-word" key={t}>
-                {t}
-              </span>
-            ))}
-          </div>
-          <p className="mono logos-caption">Les technologies derrière nos produits</p>
         </div>
       </section>
 
@@ -131,6 +123,20 @@ export default async function HomePage() {
           </div>
         </section>
       )}
+
+      {/* ---------------------------------------------- Technologies */}
+      <section className="section section--line">
+        <div className="container">
+          <div className="logos" aria-label="Technologies utilisées">
+            {TECH.map((t) => (
+              <span className="logo-word" key={t}>
+                {t}
+              </span>
+            ))}
+          </div>
+          <p className="mono logos-caption">Les technologies derrière nos produits</p>
+        </div>
+      </section>
 
       {/* ------------------------------------------------ Plateformes web */}
       {malilink && (
