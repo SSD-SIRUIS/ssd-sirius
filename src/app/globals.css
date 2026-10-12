@@ -1157,6 +1157,8 @@ h4 {
 .shot-dark { --shot-grad: linear-gradient(160deg, #0e0f11, #1a1b1f); }
 .shot-flash, .shot-flash-2 { --shot-grad: linear-gradient(160deg, #0c1a14, #14803f); }
 .shot-flash-pay { --shot-grad: linear-gradient(160deg, #1a130c, #b8621d); }
+.shot-bama, .shot-bama-2 { --shot-grad: linear-gradient(160deg, #0b1e33, #0fa9a3); }
+.shot-bama-3, .shot-bama-4 { --shot-grad: linear-gradient(160deg, #06312f, #12c8c0); }
 
 /* ------------------------------------------------- Galerie ---- */
 .gallery {

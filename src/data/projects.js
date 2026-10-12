@@ -278,6 +278,129 @@ export const PROJECTS = [
   },
 
   {
+    slug: "bama",
+    headline: "La place de marché de Bamako, dans votre poche",
+    card_tone: "linear-gradient(140deg, #12c8c0 0%, #0b1e33 100%)",
+    title: "BAMA",
+    client_name: "BAMA",
+    own_product: false,
+    type: "application",
+    category: "Marketplace e-commerce",
+    featured: false,
+    status: "published",
+    sort_order: 3,
+    link_url: "https://bama-mali.com/",
+    link_label: "Voir BAMA en ligne",
+    cover: "bama",
+    logo_url: "https://bama-mali.com/assets/icone.png",
+    platforms: ["Web", "Android / Google Play", "iOS bientôt"],
+    payment: {
+      aggregator: "Paiement intégré",
+      operators: ["Orange Money", "Carte bancaire", "Espèces à la livraison"],
+      countries: ["Mali"],
+    },
+    credits: ["Sidi Oumar GANO", "Mohamed Lamine"],
+    summary:
+      "La marketplace de Bamako qui réunit boutiques et restaurants vérifiés, paiement local et livraison sécurisée.",
+    context:
+      "BAMA rassemble les commerces de proximité et les restaurants de Bamako dans une expérience pensée pour les usages locaux : catalogue, commande, paiement et livraison au même endroit.",
+    problem:
+      "Acheter auprès de commerces locaux restait dispersé entre réseaux sociaux, appels et paiements difficiles à sécuriser. Il fallait une place de marché simple, fiable et accessible depuis le téléphone.",
+    solution:
+      "SSD Sirius a conçu et développé BAMA comme une plateforme e-commerce mobile : boutiques et restaurants vérifiés, panier, messagerie, paiement par Orange Money, carte ou espèces, suivi de commande et remise protégée par un code à 4 chiffres.",
+    description:
+      "BAMA est une marketplace locale qui permet d'acheter auprès de vendeurs vérifiés à Bamako. Le projet a été livré en environ deux semaines, avec une application déjà disponible sur Google Play et une disponibilité iOS prévue prochainement.",
+    highlights: [
+      {
+        icon: "BadgeCheck",
+        title: "Vendeurs vérifiés",
+        text: "Chaque boutique et chaque restaurant est contrôlé avant de pouvoir vendre sur la plateforme.",
+      },
+      {
+        icon: "Wallet",
+        title: "Paiement adapté au Mali",
+        text: "Orange Money, carte bancaire ou espèces à la livraison selon les possibilités du vendeur.",
+      },
+      {
+        icon: "ShieldCheck",
+        title: "Livraison sécurisée",
+        text: "La commande est remise contre un code à 4 chiffres : pas de code, pas de remise.",
+      },
+      {
+        icon: "MessageCircle",
+        title: "Messagerie intégrée",
+        text: "Les acheteurs échangent directement avec les boutiques depuis l'application.",
+      },
+      {
+        icon: "BellRing",
+        title: "Suivi de commande",
+        text: "Des notifications accompagnent la préparation, la prise en charge et la livraison.",
+      },
+      {
+        icon: "Star",
+        title: "Programme fidélité",
+        text: "Les achats peuvent donner accès à des offres fidélité et à des cadeaux remis par l'équipe BAMA.",
+      },
+    ],
+    featureGroups: [
+      {
+        label: "Pour les acheteurs",
+        items: [
+          "Parcourir les boutiques, restaurants et catégories",
+          "Ajouter des produits au panier et passer commande",
+          "Payer par Orange Money, carte ou espèces à la livraison",
+          "Suivre les étapes de préparation et de livraison",
+          "Recevoir la commande contre un code de remise",
+          "Échanger avec le vendeur dans la messagerie intégrée",
+        ],
+      },
+      {
+        label: "Pour les vendeurs",
+        items: [
+          "Créer gratuitement une vitrine sur BAMA",
+          "Publier ses produits, ses prix et ses horaires",
+          "Recevoir les commandes de clients à Bamako",
+          "Organiser la livraison et confirmer la remise",
+          "Recevoir ses gains en Mobile Money",
+          "Mettre en avant ses offres dans les ventes flash",
+        ],
+      },
+      {
+        label: "Plateforme",
+        items: [
+          "Application mobile disponible sur Google Play",
+          "Version iOS annoncée prochainement",
+          "Boutiques et restaurants vérifiés par l'équipe BAMA",
+          "Parcours de paiement et de livraison pensé pour Bamako",
+        ],
+      },
+    ],
+    principles: [
+      "Rendre l'achat local aussi simple qu'une commande en ligne.",
+      "Construire la confiance grâce à la vérification des vendeurs.",
+      "Proposer des moyens de paiement adaptés aux usages maliens.",
+      "Sécuriser la remise de chaque commande.",
+    ],
+    screens: [
+      { tone: "bama", label: "Accueil — les boutiques de Bamako dans votre poche" },
+      { tone: "bama-2", label: "Catalogue et restaurants vérifiés" },
+      { tone: "bama-3", label: "Panier et paiement local" },
+      { tone: "bama-4", label: "Suivi de livraison et code de remise" },
+    ],
+    techGroups: [
+      { label: "Produit", items: ["Application mobile", "Marketplace e-commerce"] },
+      { label: "Paiement", items: ["Orange Money", "Carte bancaire", "Espèces à la livraison"] },
+      { label: "Expérience", items: ["Messagerie intégrée", "Notifications", "Suivi de commande"] },
+    ],
+    technologies: ["Application mobile", "E-commerce", "Mobile Money"],
+    metrics: [
+      { label: "Réalisation", value: "Environ 2 semaines" },
+      { label: "Disponibilité", value: "Google Play" },
+      { label: "Zone de lancement", value: "Bamako, Mali" },
+    ],
+  },
+
+  {
     slug: "plateforme-e-commerce",
     headline: "Une boutique en ligne pensée pour le mobile et le paiement local",
     card_tone: "#4f52d9",
@@ -287,7 +410,7 @@ export const PROJECTS = [
     category: "E-commerce",
     featured: false,
     status: "published",
-    sort_order: 3,
+    sort_order: 4,
     link_url: "",
     cover: "commerce",
     summary:
@@ -328,7 +451,7 @@ export const PROJECTS = [
     category: "Performance & architecture",
     featured: false,
     status: "published",
-    sort_order: 4,
+    sort_order: 5,
     link_url: "",
     cover: "pay",
     summary:
@@ -368,7 +491,7 @@ export const PROJECTS = [
     category: "Web & conversion",
     featured: false,
     status: "published",
-    sort_order: 5,
+    sort_order: 6,
     link_url: "",
     cover: "market",
     summary:
