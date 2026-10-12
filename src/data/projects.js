@@ -5,8 +5,9 @@
 // Projets réels de SSD Sirius, et seulement eux :
 //   1. FLASH MARKET (projet phare) — marketplace mobile iOS / Android
 //   2. BAMA — marketplace e-commerce mobile à Bamako
-//   3. PICASSO RESOLVE — studio photo produit par intelligence artificielle
-//   4. MALILINK — plateforme d’emploi web
+//   3. MK AUTO — importation de véhicules du Canada en Afrique de l’Ouest
+//   4. PICASSO RESOLVE — studio photo produit par intelligence artificielle
+//   5. MALILINK — plateforme d’emploi web
 // Contenu et stack fournis par l’équipe ou vérifiés sur le site en ligne.
 // Aucun projet fictif : chaque fiche doit renvoyer à un produit qui existe.
 // ------------------------------------------------------------------
@@ -184,7 +185,7 @@ export const PROJECTS = [
     category: "SaaS & intelligence artificielle",
     featured: true,
     status: "published",
-    sort_order: 3,
+    sort_order: 4,
     link_url: "https://picassoresolve.com",
     link_label: "Découvrir Picasso Resolve",
     cover: "picasso",
@@ -270,7 +271,7 @@ export const PROJECTS = [
     category: "Plateforme d'emploi",
     featured: true,
     status: "published",
-    sort_order: 4,
+    sort_order: 5,
     link_url: "https://malilink-web-779884436442.europe-west1.run.app",
     link_label: "Voir MaliLink en ligne",
     cover: "market",
@@ -464,6 +465,97 @@ export const PROJECTS = [
       { label: "Réalisation", value: "Environ 2 semaines" },
       { label: "Disponibilité", value: "Google Play" },
       { label: "Zone de lancement", value: "Bamako, Mali" },
+    ],
+  },
+
+  {
+    slug: "mk-auto",
+    headline: "L’importation de véhicules du Canada vers l’Afrique de l’Ouest",
+    card_image: "/realisations/mk-auto/hero-car-bg.png",
+    card_tone: "linear-gradient(140deg, #17130e 0%, #050607 100%)",
+    title: "MK Auto",
+    client_name: "MK AUTO",
+    own_product: false,
+    type: "site",
+    category: "Vente de véhicules",
+    featured: false,
+    status: "published",
+    sort_order: 3,
+    link_url: "https://mk-auto.store/",
+    link_label: "Visiter MK Auto",
+    cover: "mk-auto",
+    cover_url: "/realisations/mk-auto/hero-car-bg.png",
+    logo_url: "/realisations/mk-auto/logo.jpg",
+    platforms: ["Web"],
+    payment: null,
+    credits: ["Sirius Mali"],
+    summary:
+      "Une plateforme web dédiée à l’importation de véhicules d’occasion depuis le Canada vers le Mali, le Sénégal et la Côte d’Ivoire.",
+    context:
+      "MK AUTO accompagne les acheteurs ouest-africains dans la recherche et l’importation de véhicules inspectés au Canada, avec une présentation claire du service et des destinations desservies.",
+    problem:
+      "Importer un véhicule depuis l’Amérique du Nord demande de la confiance, des informations accessibles et un interlocuteur direct pour suivre le projet jusqu’à la livraison.",
+    solution:
+      "SSD Sirius a conçu le site MK AUTO comme une vitrine automobile et un point d’entrée commercial : catalogue de véhicules, parcours d’explication, couverture géographique, prise de contact et échange direct par WhatsApp.",
+    description:
+      "MK AUTO présente une offre d’importation automobile pensée pour l’Afrique de l’Ouest. Le site met en avant les véhicules disponibles, l’inspection au Canada et la livraison au Mali, au Sénégal et en Côte d’Ivoire.",
+    highlights: [
+      { icon: "ShoppingCart", title: "Catalogue automobile", text: "Une vitrine claire pour présenter les véhicules disponibles et faciliter la prise de décision." },
+      { icon: "ShieldCheck", title: "Véhicules inspectés", text: "Le service met en avant des véhicules contrôlés avant leur expédition." },
+      { icon: "Globe", title: "Canada vers l’Afrique de l’Ouest", text: "Une offre pensée pour le Mali, le Sénégal et la Côte d’Ivoire." },
+      { icon: "MapPin", title: "Livraison accompagnée", text: "Le parcours explique les étapes jusqu’à la réception du véhicule." },
+      { icon: "MessageCircle", title: "Contact direct", text: "Les visiteurs peuvent échanger rapidement avec l’équipe via WhatsApp." },
+      { icon: "LayoutDashboard", title: "Espace de gestion", text: "Une base web structurée pour administrer le catalogue et les demandes." },
+    ],
+    featureGroups: [
+      {
+        label: "Pour les acheteurs",
+        items: [
+          "Découvrir les véhicules disponibles",
+          "Comprendre le processus d’importation",
+          "Vérifier les pays desservis",
+          "Contacter l’équipe pour un projet de véhicule",
+        ],
+      },
+      {
+        label: "Pour MK AUTO",
+        items: [
+          "Présenter l’offre automobile en ligne",
+          "Mettre en avant les véhicules inspectés",
+          "Orienter chaque demande vers un contact direct",
+          "Centraliser les informations utiles avant l’achat",
+        ],
+      },
+      {
+        label: "Plateforme",
+        items: [
+          "Site web responsive",
+          "Catalogue de véhicules",
+          "Parcours d’explication du service",
+          "Contact WhatsApp et formulaire de demande",
+        ],
+      },
+    ],
+    principles: [
+      "Rendre l’importation automobile plus lisible.",
+      "Créer de la confiance avant le premier échange.",
+      "Relier une offre canadienne aux besoins des acheteurs ouest-africains.",
+    ],
+    screens: [
+      { url: "/realisations/mk-auto/hero-car-bg.png", tone: "mk-auto", label: "Accueil MK AUTO — véhicules du Canada vers l’Afrique de l’Ouest" },
+      { url: "/realisations/mk-auto/map-bg.png", tone: "mk-auto-2", label: "Réseau de livraison en Afrique de l’Ouest" },
+      { url: "/realisations/mk-auto/logo.jpg", tone: "mk-auto-3", label: "Identité MK AUTO" },
+    ],
+    techGroups: [
+      { label: "Produit", items: ["Site vitrine", "Catalogue automobile"] },
+      { label: "Acquisition", items: ["Contact WhatsApp", "Formulaire de demande"] },
+      { label: "Expérience", items: ["Responsive", "Parcours d’importation"] },
+    ],
+    technologies: ["Site web", "Catalogue", "WhatsApp"],
+    metrics: [
+      { label: "Origine", value: "Canada" },
+      { label: "Destinations", value: "Mali, Sénégal, Côte d’Ivoire" },
+      { label: "Service", value: "Véhicules inspectés et livrés" },
     ],
   },
 ];

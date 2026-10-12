@@ -65,7 +65,26 @@ function applyLocalProjectPresentation(project) {
     card_image: local.card_image || "",
     card_icon: local.card_icon || "",
     logo_url: local.logo_url || project.logo_url,
+    sort_order: local.sort_order ?? project.sort_order,
   };
+}
+
+// Le catalogue local complète Supabase pour les réalisations ajoutées au site
+// avant leur éventuelle saisie dans la base de contenu.
+function mergeProjectRows(rows, featuredOnly = false) {
+  const normalized = rows
+    .map((row) => applyLocalProjectPresentation(normalizeProject(row)))
+    .filter(Boolean);
+  const knownSlugs = new Set(normalized.map((project) => project.slug));
+  const localOnly = PROJECTS
+    .filter((project) => project.status === "published")
+    .filter((project) => !featuredOnly || project.featured)
+    .filter((project) => !knownSlugs.has(project.slug))
+    .map((project) => applyLocalProjectPresentation(normalizeProject(project)));
+
+  return [...normalized, ...localOnly].sort(
+    (a, b) => (a.sort_order || 0) - (b.sort_order || 0)
+  );
 }
 
 /** Liste des réalisations publiées. */
@@ -82,19 +101,12 @@ export async function getProjects({ featuredOnly = false } = {}) {
       if (featuredOnly) query = query.eq("featured", true);
       const { data, error } = await query;
       if (error) throw error;
-      if (data && data.length) {
-        return data.map((row) => applyLocalProjectPresentation(normalizeProject(row)));
-      }
+      if (data && data.length) return mergeProjectRows(data, featuredOnly);
     } catch (e) {
       console.warn("[content] Supabase getProjects a échoué, repli local :", e.message);
     }
   }
-  let list = PROJECTS.filter((p) => p.status === "published");
-  if (featuredOnly) list = list.filter((p) => p.featured);
-  return list
-    .slice()
-    .sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0))
-    .map(normalizeProject);
+  return mergeProjectRows([], featuredOnly);
 }
 
 /** Une réalisation par slug, avec sa galerie. */
