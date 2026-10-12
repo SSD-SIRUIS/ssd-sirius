@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-labelledby="title">
+  <title id="title">PicassoResolve</title>
+  <rect width="48" height="48" rx="12" fill="#000"/>
+  <rect x="11" y="11" width="10" height="10" rx="2" fill="#fff"/>
+  <rect x="27" y="11" width="10" height="10" rx="2" fill="#fff" fill-opacity=".5"/>
+  <rect x="11" y="27" width="10" height="10" rx="2" fill="#fff" fill-opacity=".5"/>
+  <rect x="27" y="27" width="10" height="10" rx="2" fill="#fff"/>
+</svg>

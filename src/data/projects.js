@@ -177,7 +177,6 @@ export const PROJECTS = [
     slug: "picasso-resolve",
     headline: "Des photos produit professionnelles à partir d’une simple photo",
     card_tone: "linear-gradient(140deg, #8f7aea 0%, #211b4e 100%)",
-    card_icon: "Sparkles",
     title: "Picasso Resolve",
     client_name: "",
     own_product: true,
@@ -189,6 +188,7 @@ export const PROJECTS = [
     link_url: "https://picassoresolve.com",
     link_label: "Découvrir Picasso Resolve",
     cover: "picasso",
+    logo_url: "/realisations/picasso-resolve/logo.svg",
     cover_url: "/realisations/picasso-resolve/02-vue-principale.jpg",
     platforms: ["Web"],
     summary:
@@ -263,7 +263,6 @@ export const PROJECTS = [
     slug: "malilink",
     headline: "La plateforme qui connecte les talents maliens aux recruteurs",
     card_tone: "linear-gradient(140deg, #1c6a4a 0%, #0a1d2f 100%)",
-    card_icon: "Users",
     title: "MaliLink",
     client_name: "",
     own_product: true,
@@ -275,6 +274,7 @@ export const PROJECTS = [
     link_url: "https://malilink-web-779884436442.europe-west1.run.app",
     link_label: "Voir MaliLink en ligne",
     cover: "market",
+    logo_url: "/realisations/malilink/logo.svg",
     cover_url: "/realisations/malilink/01-accueil.jpg",
     platforms: ["Web", "Mobile & desktop"],
     summary:
@@ -471,7 +471,6 @@ export const PROJECTS = [
   {
     slug: "mk-auto",
     headline: "L’importation de véhicules du Canada vers l’Afrique de l’Ouest",
-    card_image: "/realisations/mk-auto/hero-car-bg.png",
     card_tone: "linear-gradient(140deg, #17130e 0%, #050607 100%)",
     title: "MK Auto",
     client_name: "MK AUTO",
