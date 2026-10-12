@@ -175,7 +175,8 @@ export const PROJECTS = [
   {
     slug: "picasso-resolve",
     headline: "Des photos produit professionnelles à partir d’une simple photo",
-    card_image: "/realisations/picasso-resolve/02-vue-principale.jpg",
+    card_tone: "linear-gradient(140deg, #8f7aea 0%, #211b4e 100%)",
+    card_icon: "Sparkles",
     title: "Picasso Resolve",
     client_name: "",
     own_product: true,
@@ -260,7 +261,8 @@ export const PROJECTS = [
   {
     slug: "malilink",
     headline: "La plateforme qui connecte les talents maliens aux recruteurs",
-    card_image: "/realisations/malilink/01-accueil.jpg",
+    card_tone: "linear-gradient(140deg, #1c6a4a 0%, #0a1d2f 100%)",
+    card_icon: "Users",
     title: "MaliLink",
     client_name: "",
     own_product: true,

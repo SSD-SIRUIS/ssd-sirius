@@ -16,6 +16,11 @@ export default function ProjectCard({ project }) {
   ) : (
     <span className="story__brand">
       {project.logo_url && <img src={project.logo_url} alt="" />}
+      {project.card_icon && !project.logo_url && (
+        <span className="story__brand-mark">
+          <Icon name={project.card_icon} />
+        </span>
+      )}
       <span className="story__word">{project.title.replace(/-/g, "\u2011")}</span>
     </span>
   );

@@ -29,6 +29,7 @@ function normalizeProject(row) {
     headline: row.headline || row.summary || "",
     card_tone: row.card_tone || "",
     card_image: row.card_image || "",
+    card_icon: row.card_icon || "",
     platforms: asArray(row.platforms),
     payment: row.payment || null,
     summary: row.summary || "",
@@ -52,6 +53,21 @@ function normalizeProject(row) {
   };
 }
 
+// Les couvertures et marques sont des assets du dépôt : elles restent donc
+// cohérentes même quand le contenu principal vient de Supabase.
+function applyLocalProjectPresentation(project) {
+  if (!project) return project;
+  const local = PROJECTS.find((item) => item.slug === project.slug);
+  if (!local) return project;
+  return {
+    ...project,
+    card_tone: local.card_tone || project.card_tone,
+    card_image: local.card_image || "",
+    card_icon: local.card_icon || "",
+    logo_url: local.logo_url || project.logo_url,
+  };
+}
+
 /** Liste des réalisations publiées. */
 export async function getProjects({ featuredOnly = false } = {}) {
   if (hasSupabase) {
@@ -66,7 +82,9 @@ export async function getProjects({ featuredOnly = false } = {}) {
       if (featuredOnly) query = query.eq("featured", true);
       const { data, error } = await query;
       if (error) throw error;
-      if (data && data.length) return data.map(normalizeProject);
+      if (data && data.length) {
+        return data.map((row) => applyLocalProjectPresentation(normalizeProject(row)));
+      }
     } catch (e) {
       console.warn("[content] Supabase getProjects a échoué, repli local :", e.message);
     }
@@ -91,12 +109,12 @@ export async function getProject(slug) {
         .eq("status", "published")
         .maybeSingle();
       if (error) throw error;
-      if (data) return normalizeProject(data);
+      if (data) return applyLocalProjectPresentation(normalizeProject(data));
     } catch (e) {
       console.warn("[content] Supabase getProject a échoué, repli local :", e.message);
     }
   }
-  return normalizeProject(getProjectBySlug(slug));
+  return applyLocalProjectPresentation(normalizeProject(getProjectBySlug(slug)));
 }
 
 /** Slugs pour generateStaticParams / sitemap. */
