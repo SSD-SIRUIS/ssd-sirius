@@ -161,9 +161,16 @@ export async function getSettings() {
       if (error) throw error;
       if (data && data.length) {
         const map = Object.fromEntries(data.map((r) => [r.key, r.value]));
+        const socialFromDb = map.social || {};
         return {
           contact: { ...fallback.contact, ...(map.contact || {}) },
-          social: { ...fallback.social, ...(map.social || {}) },
+          // Le lien LinkedIn de la vitrine reste disponible même si l'ancien
+          // réglage Supabase contient encore une chaîne vide.
+          social: {
+            ...fallback.social,
+            ...socialFromDb,
+            linkedin: socialFromDb.linkedin || fallback.social.linkedin,
+          },
           company: { ...fallback.company, ...(map.company || {}) },
           stats: Array.isArray(map.stats) && map.stats.length ? map.stats : fallback.stats,
         };

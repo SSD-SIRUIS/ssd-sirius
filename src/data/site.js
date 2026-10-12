@@ -157,10 +157,9 @@ export const LEGAL = {
   country: "Mali",
 };
 
-// Aucun réseau social pour l'instant : les icônes restent masquées
-// tant que ces champs sont vides.
+// Réseaux sociaux publics affichés dans le pied de page.
 export const SOCIAL = {
-  linkedin: "",
+  linkedin: "https://www.linkedin.com/company/sirius-mali/?viewAsMember=true",
   facebook: "",
   instagram: "",
 };
