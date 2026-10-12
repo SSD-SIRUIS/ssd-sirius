@@ -4,8 +4,9 @@
 //
 // Projets réels de SSD Sirius, et seulement eux :
 //   1. FLASH MARKET (projet phare) — marketplace mobile iOS / Android
-//   2. PICASSO RESOLVE — studio photo produit par intelligence artificielle
-//   3. MALILINK — plateforme d’emploi web
+//   2. BAMA — marketplace e-commerce mobile à Bamako
+//   3. PICASSO RESOLVE — studio photo produit par intelligence artificielle
+//   4. MALILINK — plateforme d’emploi web
 // Contenu et stack fournis par l’équipe ou vérifiés sur le site en ligne.
 // Aucun projet fictif : chaque fiche doit renvoyer à un produit qui existe.
 // ------------------------------------------------------------------
@@ -182,7 +183,7 @@ export const PROJECTS = [
     category: "SaaS & intelligence artificielle",
     featured: true,
     status: "published",
-    sort_order: 2,
+    sort_order: 3,
     link_url: "https://picassoresolve.com",
     link_label: "Découvrir Picasso Resolve",
     cover: "picasso",
@@ -267,7 +268,7 @@ export const PROJECTS = [
     category: "Plateforme d'emploi",
     featured: true,
     status: "published",
-    sort_order: 3,
+    sort_order: 4,
     link_url: "https://malilink-web-779884436442.europe-west1.run.app",
     link_label: "Voir MaliLink en ligne",
     cover: "market",
@@ -368,6 +369,7 @@ export const PROJECTS = [
     slug: "bama",
     headline: "La place de marché de Bamako, dans votre poche",
     card_tone: "linear-gradient(140deg, #12c8c0 0%, #0b1e33 100%)",
+    card_image: "/realisations/bama/01-accueil.jpeg",
     title: "BAMA",
     client_name: "BAMA",
     own_product: false,
@@ -375,10 +377,11 @@ export const PROJECTS = [
     category: "Marketplace e-commerce",
     featured: false,
     status: "published",
-    sort_order: 4,
+    sort_order: 2,
     link_url: "https://bama-mali.com/",
     link_label: "Voir BAMA en ligne",
     cover: "bama",
+    cover_url: "/realisations/bama/01-accueil.jpeg",
     logo_url: "https://bama-mali.com/assets/icone.png",
     platforms: ["Web", "Android / Google Play", "iOS bientôt"],
     payment: {
@@ -445,10 +448,10 @@ export const PROJECTS = [
       "Sécuriser la remise de chaque commande.",
     ],
     screens: [
-      { tone: "bama", label: "Accueil — les boutiques de Bamako dans votre poche" },
-      { tone: "bama-2", label: "Catalogue et restaurants vérifiés" },
-      { tone: "bama-3", label: "Panier et paiement local" },
-      { tone: "bama-4", label: "Suivi de livraison et code de remise" },
+      { url: "/realisations/bama/01-accueil.jpeg", tone: "bama", label: "Accueil — les boutiques de Bamako dans votre poche" },
+      { url: "/realisations/bama/02-restaurants.jpeg", tone: "bama-2", label: "Restaurants et livraison à Bamako" },
+      { url: "/realisations/bama/03-connexion.jpeg", tone: "bama-3", label: "Connexion BAMA" },
+      { url: "/realisations/bama/04-profil.jpeg", tone: "bama-4", label: "Profil, commandes et services BAMA" },
     ],
     techGroups: [
       { label: "Produit", items: ["Application mobile", "Marketplace e-commerce"] },

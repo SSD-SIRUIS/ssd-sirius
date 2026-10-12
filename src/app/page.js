@@ -34,9 +34,10 @@ function FeatureHead({ title, children, link }) {
 export default async function HomePage() {
   const projects = await getProjects();
   const flash = projects.find((p) => p.slug === "flash-market");
+  const bama = projects.find((p) => p.slug === "bama");
   const malilink = projects.find((p) => p.slug === "malilink");
   const featured = projects.filter((p) => p.featured).slice(0, 2);
-  const phones = (flash?.screens || []).slice(0, 3);
+  const mobileProjects = [flash, bama].filter(Boolean);
 
   return (
     <>
@@ -88,7 +89,7 @@ export default async function HomePage() {
       </section>
 
       {/* -------------------------------------------- Applications mobiles */}
-      {flash && (
+      {mobileProjects.length > 0 && (
         <section className="section">
           <div className="container">
             <FeatureHead
@@ -99,21 +100,34 @@ export default async function HomePage() {
                   mobiles
                 </>
               }
-              link={{ href: `/realisations/${flash.slug}`, label: "Découvrir Flash Market" }}
+              link={{ href: "/realisations", label: "Voir les deux applications" }}
             >
-              Des applications iOS et Android complètes, publiées sur les stores. Flash Market,
-              notre marketplace mobile, en est la preuve : comptes, messagerie en temps réel,
-              espace professionnel et paiement Mobile Money.
+              Des applications iOS et Android complètes, publiées sur les stores. Flash Market et
+              BAMA réunissent marketplace, livraison, messagerie et paiement Mobile Money dans des
+              expériences pensées pour les usages locaux.
             </FeatureHead>
-            <Reveal className="feature-visual">
-              <div className="showcase showcase--crop fade-b">
-                <div className="phones">
-                  {phones.map((s, i) => (
-                    <MockShot key={i} src={s.url} tone={s.tone} label={s.label} alt={s.label} phone />
-                  ))}
-                </div>
-              </div>
-            </Reveal>
+            <div className="mobile-apps-grid">
+              {mobileProjects.map((project) => (
+                <Reveal className="mobile-app" key={project.slug}>
+                  <div className="showcase showcase--crop fade-b">
+                    <div className="phones">
+                      {(project.screens || []).slice(0, 3).map((s, i) => (
+                        <MockShot key={i} src={s.url} tone={s.tone} label={s.label} alt={s.label} phone />
+                      ))}
+                    </div>
+                  </div>
+                  <div className="mobile-app__meta">
+                    <div>
+                      <p className="mono">{project.category}</p>
+                      <h3>{project.title}</h3>
+                    </div>
+                    <Link href={`/realisations/${project.slug}`} className="link-more">
+                      Découvrir <Icon name="ArrowRight" />
+                    </Link>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </section>
       )}
