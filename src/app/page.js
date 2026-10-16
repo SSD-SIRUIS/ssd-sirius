@@ -7,7 +7,7 @@ import MockShot from "@/components/MockShot";
 import ProjectCard from "@/components/ProjectCard";
 import { PaymentWindows, ProjectBoard } from "@/components/Mockups";
 import { getProjects } from "@/lib/content";
-import { FIGURES, GUARANTEES, HERO, MEETING, TECH } from "@/data/site";
+import { ENGAGEMENTS, FIGURES, HERO, MEETING, TECH } from "@/data/site";
 
 export const metadata = {
   alternates: { canonical: "/" },
@@ -233,12 +233,12 @@ export default async function HomePage() {
         <div className="container">
           <div className="section-head">
             <h2 className="title-1">
-              <span className="strong">Ce que Sirius garantit.</span>{" "}
+              <span className="strong">Les engagements de Sirius.</span>{" "}
               <span className="soft">Vous validez, on s’occupe de tout le reste.</span>
             </h2>
           </div>
           <div className="cells">
-            {GUARANTEES.map((g, i) => (
+            {ENGAGEMENTS.map((g, i) => (
               <div className="cell" key={g.title}>
                 <span className="mono">{String(i + 1).padStart(2, "0")}</span>
                 <Icon name={g.icon} className="cell__icon" />

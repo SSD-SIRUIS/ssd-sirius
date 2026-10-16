@@ -49,7 +49,7 @@ export const MEETING = {
 };
 
 // Engagements concrets mis en avant sur la home.
-export const GUARANTEES = [
+export const ENGAGEMENTS = [
   {
     icon: "Rocket",
     title: "Des premiers résultats dès la 1re semaine",
@@ -176,7 +176,7 @@ export const STATS = [
 export const NAV = [
   { href: "/services", label: "Services" },
   { href: "/realisations", label: "Réalisations" },
-  { href: "/garanties", label: "Garanties" },
+  { href: "/garanties", label: "Engagements" },
   { href: "/a-propos", label: "À propos" },
   { href: "/contact", label: "Contact" },
 ];

@@ -2,15 +2,15 @@ import Icon from "@/components/Icon";
 import CTA from "@/components/CTA";
 
 export const metadata = {
-  title: "Garanties techniques",
+  title: "Engagements techniques",
   description:
-    "Disponibilité, cybersécurité, sauvegardes, supervision et continuité : les garanties techniques prévues par SSD Sirius pour vos produits numériques.",
+    "Disponibilité, cybersécurité, sauvegardes, supervision et continuité : les engagements techniques de SSD Sirius pour vos produits numériques.",
   alternates: { canonical: "/garanties" },
 };
 
 export const revalidate = 300;
 
-const GUARANTEES = [
+const ENGAGEMENTS = [
   {
     icon: "Server",
     title: "Disponibilité H24/7",
@@ -122,7 +122,7 @@ const CYBERSECURITY = [
   "Logs et alertes exploités pour détecter, qualifier et traiter un incident",
 ];
 
-export default function GarantiesPage() {
+export default function EngagementsPage() {
   return (
     <>
       <section className="hero">
@@ -144,7 +144,7 @@ export default function GarantiesPage() {
       <section className="section section--line">
         <div className="container">
           <div className="feature-head">
-            <h2 className="title-1">Notre socle de garanties.</h2>
+            <h2 className="title-1">Notre socle d’engagements.</h2>
             <p className="text-lg">
               Un produit sérieux doit fonctionner quand vos utilisateurs en ont besoin, protéger
               leurs données et pouvoir évoluer sans fragiliser ce qui existe déjà.
@@ -152,7 +152,7 @@ export default function GarantiesPage() {
           </div>
 
           <div className="cells cells--4" style={{ marginTop: "clamp(48px, 7vw, 88px)" }}>
-            {GUARANTEES.map((item) => (
+            {ENGAGEMENTS.map((item) => (
               <div className="cell" key={item.title}>
                 <Icon name={item.icon} className="cell__icon" />
                 <h3>{item.title}</h3>
@@ -312,7 +312,7 @@ export default function GarantiesPage() {
             <div>
               <span className="mono">Une exigence partagée</span>
               <h2 className="title-1" style={{ marginTop: 16 }}>
-                La garantie commence par la clarté.
+                L’engagement commence par la clarté.
               </h2>
             </div>
             <p className="text-lg">

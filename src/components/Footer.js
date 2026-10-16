@@ -32,7 +32,7 @@ export default async function Footer() {
             <h4>Agence</h4>
             <Link href="/services">Services</Link>
             <Link href="/realisations">Réalisations</Link>
-            <Link href="/garanties">Garanties techniques</Link>
+            <Link href="/garanties">Engagements techniques</Link>
             <Link href="/a-propos">À propos</Link>
             <Link href="/contact">Contact</Link>
           </div>
