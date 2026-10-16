@@ -176,6 +176,7 @@ export const STATS = [
 export const NAV = [
   { href: "/services", label: "Services" },
   { href: "/realisations", label: "Réalisations" },
+  { href: "/garanties", label: "Garanties" },
   { href: "/a-propos", label: "À propos" },
   { href: "/contact", label: "Contact" },
 ];

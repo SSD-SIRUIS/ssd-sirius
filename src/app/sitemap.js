@@ -5,7 +5,7 @@ export default async function sitemap() {
   const base = SITE.url.replace(/\/$/, "");
   const now = new Date();
 
-  const routes = ["", "/services", "/realisations", "/a-propos", "/contact", "/mentions-legales"].map(
+  const routes = ["", "/services", "/realisations", "/garanties", "/a-propos", "/contact", "/mentions-legales"].map(
     (path) => ({
       url: `${base}${path}`,
       lastModified: now,
