@@ -70,6 +70,58 @@ const CONTRACT = [
   "Niveaux d’accès, responsabilités du client et exigences réglementaires",
 ];
 
+const SUPABASE_PRO = [
+  {
+    icon: "Users",
+    title: "100 000 MAU inclus",
+    text: "Jusqu’à 100 000 utilisateurs actifs mensuels inclus, puis une tarification au MAU supplémentaire.",
+  },
+  {
+    icon: "Database",
+    title: "8 Go de base par projet",
+    text: "Une base PostgreSQL dédiée par projet, avec 8 Go de disque inclus dans le plan Pro.",
+  },
+  {
+    icon: "Globe",
+    title: "250 Go d’egress",
+    text: "250 Go de trafic sortant et 250 Go de trafic mis en cache inclus avant dépassement facturé.",
+  },
+  {
+    icon: "FolderKanban",
+    title: "100 Go de stockage",
+    text: "100 Go de stockage de fichiers inclus pour les images, documents et médias de l’application.",
+  },
+  {
+    icon: "Clock",
+    title: "Sauvegardes quotidiennes",
+    text: "Les projets Pro bénéficient de sauvegardes quotidiennes conservées pendant 7 jours.",
+  },
+  {
+    icon: "FileText",
+    title: "Logs conservés 7 jours",
+    text: "Une fenêtre de logs utile au diagnostic, à la supervision et à l’analyse des incidents.",
+  },
+  {
+    icon: "Server",
+    title: "Projet actif en continu",
+    text: "Les projets Pro ne sont pas mis en pause pour inactivité, contrairement aux projets Free.",
+  },
+  {
+    icon: "LifeBuoy",
+    title: "Support e-mail",
+    text: "Le plan Pro inclut un support e-mail pour accompagner l’exploitation de l’infrastructure.",
+  },
+];
+
+const CYBERSECURITY = [
+  "Modélisation des menaces et choix d’architecture avant le développement",
+  "Politiques Row Level Security (RLS) pour isoler les données au niveau PostgreSQL",
+  "Secrets, clés privées et variables sensibles conservés côté serveur",
+  "Authentification, permissions, sessions et accès administrateurs contrôlés",
+  "Validation des entrées, protection des routes et limitation des abus",
+  "Logs et alertes exploités pour détecter, qualifier et traiter un incident",
+];
+
 export default function GarantiesPage() {
   return (
     <>
@@ -107,6 +159,100 @@ export default function GarantiesPage() {
                 <p>{item.text}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section section--line">
+        <div className="container">
+          <div className="feature-head">
+            <div>
+              <span className="mono">Infrastructure de production</span>
+              <h2 className="title-1" style={{ marginTop: 16 }}>
+                Supabase Pro pour un backend actif et évolutif.
+              </h2>
+            </div>
+            <p className="text-lg">
+              Pour les produits qui passent en production, Supabase Pro fournit une base PostgreSQL
+              dédiée, l’authentification, le stockage, les API et le temps réel dans une même
+              infrastructure cloud.
+            </p>
+          </div>
+
+          <div className="cells cells--4" style={{ marginTop: "clamp(48px, 7vw, 88px)" }}>
+            {SUPABASE_PRO.map((item) => (
+              <div className="cell" key={item.title}>
+                <Icon name={item.icon} className="cell__icon" />
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="feature-head" style={{ marginTop: 40 }}>
+            <p className="muted">
+              Le plan Pro est proposé à partir de 25 $/mois selon la tarification Supabase en vigueur.
+              Il constitue un socle adapté à la production et à une disponibilité 24 h/24, 7 j/7 ;
+              les SLA d’uptime contractuels et l’astreinte dépendent du niveau de service retenu.
+            </p>
+            <a
+              href="https://supabase.com/pricing"
+              target="_blank"
+              rel="noreferrer"
+              className="link-more"
+            >
+              Voir les quotas et la tarification Supabase <Icon name="ArrowUpRight" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="section section--line">
+        <div className="container">
+          <div className="feature-head">
+            <div>
+              <span className="mono">Expertise Sirius</span>
+              <h2 className="title-1" style={{ marginTop: 16 }}>
+                La sécurité ne se délègue pas entièrement au fournisseur.
+              </h2>
+            </div>
+            <p className="text-lg">
+              L’équipe fondatrice est spécialisée en ingénierie logicielle et en cybersécurité,
+              avec un cursus ingénieur à EFREI Paris. Nous sécurisons donc le fournisseur, mais aussi
+              le code, les accès, les données et les usages de chaque application.
+            </p>
+          </div>
+
+          <div className="cells cells--2" style={{ marginTop: "clamp(48px, 7vw, 88px)" }}>
+            <div className="cell">
+              <Icon name="ShieldCheck" className="cell__icon" />
+              <h3>Cybersécurité applicative</h3>
+              <ul className="checklist">
+                {CYBERSECURITY.map((item) => (
+                  <li key={item}>
+                    <Icon name="Check" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="cell">
+              <Icon name="Lock" className="cell__icon" />
+              <h3>Défense en profondeur</h3>
+              <p>
+                Supabase fournit des contrôles de sécurité de plateforme, mais la configuration du
+                projet reste déterminante : RLS, politiques d’accès, MFA, gestion des secrets,
+                sauvegardes et supervision sont vérifiés selon le périmètre de chaque produit.
+              </p>
+              <a
+                href="https://supabase.com/docs/guides/security"
+                target="_blank"
+                rel="noreferrer"
+                className="link-more"
+              >
+                Consulter la documentation sécurité Supabase <Icon name="ArrowUpRight" />
+              </a>
+            </div>
           </div>
         </div>
       </section>
