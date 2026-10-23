@@ -382,10 +382,14 @@ export const PROJECTS = [
     sort_order: 2,
     link_url: "https://bama-mali.com/",
     link_label: "Voir BAMA en ligne",
+    store_links: {
+      app_store: "https://apps.apple.com/fr/app/bama-mali/id6817251569",
+      google_play: "https://play.google.com/store/apps/details?id=ml.ssd.bama&pcampaignid=web_share",
+    },
     cover: "bama",
     cover_url: "/realisations/bama/01-accueil.jpeg",
     logo_url: "/realisations/bama/logo.png",
-    platforms: ["Web", "Android / Google Play", "iOS bientôt"],
+    platforms: ["Web", "Android / Google Play", "iOS / App Store"],
     payment: {
       aggregator: "Paiement intégré",
       operators: ["Orange Money", "Carte bancaire", "Espèces à la livraison"],
@@ -401,7 +405,7 @@ export const PROJECTS = [
     solution:
       "SSD Sirius a conçu et développé BAMA comme une plateforme e-commerce mobile : boutiques et restaurants vérifiés, panier, messagerie, paiement par Orange Money, carte ou espèces, suivi de commande et remise protégée par un code à 4 chiffres.",
     description:
-      "BAMA est une marketplace locale qui permet d'acheter auprès de vendeurs vérifiés à Bamako. Le projet a été livré en environ deux semaines, avec une application déjà disponible sur Google Play et une disponibilité iOS prévue prochainement.",
+      "BAMA est une marketplace locale qui permet d'acheter auprès de vendeurs vérifiés à Bamako. Le projet a été livré en environ deux semaines et l'application est désormais disponible sur Google Play et l'App Store.",
     highlights: [
       { icon: "BadgeCheck", title: "Vendeurs vérifiés", text: "Chaque boutique et chaque restaurant est contrôlé avant de pouvoir vendre sur la plateforme." },
       { icon: "Wallet", title: "Paiement adapté au Mali", text: "Orange Money, carte bancaire ou espèces à la livraison selon les possibilités du vendeur." },
@@ -436,8 +440,8 @@ export const PROJECTS = [
       {
         label: "Plateforme",
         items: [
-          "Application mobile disponible sur Google Play",
-          "Version iOS annoncée prochainement",
+          "Application mobile disponible sur Google Play et l'App Store",
+          "Téléchargement direct depuis les deux stores",
           "Boutiques et restaurants vérifiés par l'équipe BAMA",
           "Parcours de paiement et de livraison pensé pour Bamako",
         ],
@@ -463,7 +467,7 @@ export const PROJECTS = [
     technologies: ["Application mobile", "E-commerce", "Mobile Money"],
     metrics: [
       { label: "Réalisation", value: "Environ 2 semaines" },
-      { label: "Disponibilité", value: "Google Play" },
+      { label: "Disponibilité", value: "Google Play + App Store" },
       { label: "Zone de lancement", value: "Bamako, Mali" },
     ],
   },

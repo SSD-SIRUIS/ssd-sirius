@@ -159,6 +159,18 @@ export default async function ProjectPage({ params }) {
                 <Icon name="ArrowUpRight" />
               </a>
             )}
+            {project.store_links?.app_store && (
+              <a href={project.store_links.app_store} target="_blank" rel="noreferrer" className="btn btn--secondary">
+                App Store
+                <Icon name="ArrowUpRight" />
+              </a>
+            )}
+            {project.store_links?.google_play && (
+              <a href={project.store_links.google_play} target="_blank" rel="noreferrer" className="btn btn--secondary">
+                Google Play
+                <Icon name="ArrowUpRight" />
+              </a>
+            )}
             <Link href="/contact" className={`btn ${project.link_url ? "btn--secondary" : "btn--primary"}`}>
               {MEETING.ctaLabel}
             </Link>
@@ -218,6 +230,22 @@ export default async function ProjectPage({ params }) {
                   <a href={project.link_url} target="_blank" rel="noreferrer">
                     {project.link_label || "Voir le projet"}
                   </a>
+                </MetaRow>
+              )}
+              {project.store_links && (
+                <MetaRow label="Télécharger">
+                  <span style={{ display: "grid", gap: 6 }}>
+                    {project.store_links.app_store && (
+                      <a href={project.store_links.app_store} target="_blank" rel="noreferrer">
+                        App Store
+                      </a>
+                    )}
+                    {project.store_links.google_play && (
+                      <a href={project.store_links.google_play} target="_blank" rel="noreferrer">
+                        Google Play
+                      </a>
+                    )}
+                  </span>
                 </MetaRow>
               )}
             </dl>

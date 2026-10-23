@@ -22,6 +22,7 @@ function normalizeProject(row) {
     status: row.status || "published",
     link_url: row.link_url || "",
     link_label: row.link_label || "",
+    store_links: row.store_links || null,
     credits: asArray(row.credits),
     cover: row.cover || row.cover_url || "commerce",
     cover_url: row.cover_url || "",
@@ -65,6 +66,8 @@ function applyLocalProjectPresentation(project) {
     card_image: local.card_image || "",
     card_icon: local.card_icon || "",
     logo_url: local.logo_url || project.logo_url,
+    store_links: local.store_links || project.store_links,
+    platforms: local.platforms?.length ? local.platforms : project.platforms,
     featured: local.featured,
     sort_order: local.sort_order ?? project.sort_order,
   };
