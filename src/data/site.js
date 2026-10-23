@@ -159,7 +159,8 @@ export const LEGAL = {
 
 // Réseaux sociaux publics affichés dans le pied de page.
 export const SOCIAL = {
-  linkedin: "https://www.linkedin.com/company/sirius-mali/?viewAsMember=true",
+  // URL publique de la page LinkedIn Sirius (ne pas exposer le tableau d'administration).
+  linkedin: "https://www.linkedin.com/company/146714442/",
   facebook: "",
   instagram: "",
 };
