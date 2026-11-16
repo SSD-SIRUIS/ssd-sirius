@@ -111,7 +111,7 @@ export const TEAM = [
     focus: "Produit & développement",
     school: "EFREI Paris",
     education: "Élève-ingénieur à EFREI Paris — cycle ingénieur, spécialité cybersécurité",
-    photo: "/equipe/sidi-oumar-gano.jpg",
+    photo: "/equipe/sidi-oumar-gano-portrait.webp",
     linkedin: "https://www.linkedin.com/in/sidi-gano/",
     bio: "Ingénieur logiciel, spécialisé en cybersécurité. Sur les produits SSD Sirius : conception produit, architecture applicative et développement mobile. Il a mené Flash Market de la base de données à la publication sur les stores.",
   },
