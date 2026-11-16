@@ -15,6 +15,8 @@ function normalizeProject(row) {
     title: row.title,
     client_name: row.client_name || "",
     own_product: Boolean(row.own_product),
+    delivery_stage: row.delivery_stage || "live",
+    stage_note: row.stage_note || "",
     type: row.type || "site",
     category: row.category || "",
     featured: Boolean(row.featured),
@@ -60,8 +62,14 @@ function applyLocalProjectPresentation(project) {
   if (!project) return project;
   const local = PROJECTS.find((item) => item.slug === project.slug);
   if (!local) return project;
+  // Un cadrage ou concept local ne doit pas devenir un produit livré
+  // à cause d'une ancienne fiche ou d'images ajoutées dans la base de contenu.
+  if (["cadrage", "concept"].includes(local.delivery_stage)) return normalizeProject(local);
   return {
     ...project,
+    own_product: local.own_product ?? project.own_product,
+    delivery_stage: local.delivery_stage || project.delivery_stage,
+    stage_note: local.stage_note || project.stage_note,
     card_tone: local.card_tone || project.card_tone,
     card_image: local.card_image || "",
     card_icon: local.card_icon || "",
@@ -78,7 +86,8 @@ function applyLocalProjectPresentation(project) {
 function mergeProjectRows(rows, featuredOnly = false) {
   const normalized = rows
     .map((row) => applyLocalProjectPresentation(normalizeProject(row)))
-    .filter(Boolean);
+    .filter(Boolean)
+    .filter((project) => !featuredOnly || project.featured);
   const knownSlugs = new Set(normalized.map((project) => project.slug));
   const localOnly = PROJECTS
     .filter((project) => project.status === "published")

@@ -1,15 +1,20 @@
+import { PORTFOLIO_CONCEPTS } from "./portfolio-concepts";
+
 // ------------------------------------------------------------------
 // Données des réalisations (repli local).
 // Utilisées quand Supabase n'est pas configuré ou ne renvoie rien.
 //
-// Projets réels de SSD Sirius, et seulement eux :
+// Références identifiées de SSD Sirius :
 //   1. FLASH MARKET (projet phare) — marketplace mobile iOS / Android
 //   2. BAMA — marketplace e-commerce mobile à Bamako
 //   3. MK AUTO — importation de véhicules du Canada en Afrique de l’Ouest
 //   4. PICASSO RESOLVE — studio photo produit par intelligence artificielle
 //   5. MALILINK — plateforme d’emploi web
+//   6. IMPOTMALI — projet en cadrage, aucune fonctionnalité livrée
 // Contenu et stack fournis par l’équipe ou vérifiés sur le site en ligne.
-// Aucun projet fictif : chaque fiche doit renvoyer à un produit qui existe.
+// Les concepts fictifs sont isolés dans portfolio-concepts.js et explicitement
+// présentés comme tels. `status` pilote la visibilité de la fiche ;
+// `delivery_stage` distingue les livraisons, cadrages et concepts illustratifs.
 // ------------------------------------------------------------------
 
 // Passer à `false` pour revenir aux aperçus dégradés.
@@ -561,6 +566,78 @@ export const PROJECTS = [
       { label: "Service", value: "Véhicules inspectés et livrés" },
     ],
   },
+  {
+    slug: "impot-mali",
+    title: "ImpotMali",
+    headline: "Le cadrage d’une plateforme de fiscalisation progressive au Mali",
+    client_name: "",
+    own_product: false,
+    type: "plateforme",
+    category: "Fiscalité numérique",
+    delivery_stage: "cadrage",
+    stage_note:
+      "Projet en cadrage. Aucune fonctionnalité n’est encore livrée. Les données sont synthétiques et aucun paiement réel n’est possible.",
+    featured: false,
+    status: "published",
+    sort_order: 6,
+    card_tone: "linear-gradient(140deg, #344b68 0%, #101d30 100%)",
+    card_icon: "Receipt",
+    cover: "dark",
+    platforms: ["Application citoyen", "Application agents", "Portail d’administration"],
+    credits: ["Sirius"],
+    summary:
+      "Un projet à l’étude pour le recensement des établissements, la catégorisation fiscale, la contribution mensuelle et le pilotage des recettes. Le périmètre est défini ; la solution n’est pas encore livrée.",
+    context:
+      "ImpotMali explore la fiscalisation progressive du secteur informel au Mali. Le périmètre prévu relie les contribuables enrôlés, les agents de terrain habilités et une administration chargée de la supervision, de la validation et de l’audit.",
+    problem:
+      "Le besoin étudié est de relier l’identification des établissements, leur catégorisation fiscale, le suivi des contributions et la traçabilité comptable dans un même système, avec des accès adaptés à chaque rôle.",
+    solution:
+      "Le cadrage prévoit deux applications Expo, pour les citoyens et les agents, un portail d’administration web et une API NestJS associée à PostgreSQL/PostGIS. Un simulateur partenaire est prévu pour le développement et la démonstration, jamais pour la production.",
+    description:
+      "Aucune fonctionnalité n’est encore livrée et aucun paiement réel n’est possible. Cette fiche présente le périmètre prévu et les orientations techniques du cadrage, sans traiter de données fiscales réelles.",
+    featureGroups: [
+      {
+        label: "Application citoyen — prévue",
+        items: [
+          "Accès des contribuables enrôlés",
+          "Paiement mobile de la contribution mensuelle",
+          "Quittances vérifiables",
+          "Distribution envisagée sur l’App Store et Google Play",
+        ],
+      },
+      {
+        label: "Application agents — prévue",
+        items: [
+          "Recensement des établissements par des agents habilités",
+          "Catégorisation fiscale des établissements",
+          "Distribution privée réservée aux agents",
+        ],
+      },
+      {
+        label: "Administration — prévue",
+        items: [
+          "Supervision et validation des dossiers",
+          "Gestion des barèmes",
+          "Grand livre des recettes et comptabilité",
+          "Pilotage et audit à accès restreint",
+        ],
+      },
+    ],
+    techGroups: [
+      { label: "Applications envisagées", items: ["Expo"] },
+      { label: "API envisagée", items: ["NestJS"] },
+      { label: "Données envisagées", items: ["PostgreSQL", "PostGIS"] },
+      { label: "Démonstration", items: ["Données synthétiques", "Simulateur partenaire"] },
+    ],
+    technologies: ["Expo", "NestJS", "PostgreSQL", "PostGIS"],
+    principles: [
+      "Le cadrage réserve à l’État malien la propriété exclusive des données, identifiants fiscaux, écritures, quittances et journaux.",
+      "Seules des données synthétiques sont utilisées à ce stade.",
+      "Aucun paiement réel n’est possible pendant le cadrage.",
+      "Les fonctionnalités et distributions décrites restent prévues, pas livrées.",
+    ],
+  },
+  ...PORTFOLIO_CONCEPTS,
 ];
 
 export function getProjectBySlug(slug) {

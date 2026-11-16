@@ -257,7 +257,7 @@ export default async function HomePage() {
             <h2 className="title-1">Réalisations</h2>
             <div>
               <p className="text-lg">
-                Des produits conçus, développés et mis en ligne par l’équipe Sirius.
+                Des prestations clients et des produits Sirius, conçus et développés par notre équipe.
               </p>
               <Link href="/realisations" className="link-more">
                 Toutes les réalisations <Icon name="ArrowRight" />

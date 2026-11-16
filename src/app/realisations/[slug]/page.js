@@ -6,6 +6,7 @@ import ProjectGallery from "@/components/ProjectGallery";
 import CTA from "@/components/CTA";
 import { getProject, getProjectSlugs } from "@/lib/content";
 import { SITE, MEETING } from "@/data/site";
+import { getPortfolioLabel, isScopingProject, isConceptProject, isUndeliveredProject } from "@/lib/portfolio";
 
 export const revalidate = 300;
 export const dynamicParams = true;
@@ -25,7 +26,9 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const project = await getProject(slug);
   if (!project) return { title: "Réalisation introuvable", robots: { index: false } };
-  const title = project.category ? `${project.title} — ${project.category}` : project.title;
+  const title = isUndeliveredProject(project)
+    ? `${project.title} — ${getPortfolioLabel(project)}`
+    : project.category ? `${project.title} — ${project.category}` : project.title;
   const description = project.summary || project.solution?.slice(0, 155);
   const image = shareImage(project);
   return {
@@ -34,7 +37,7 @@ export async function generateMetadata({ params }) {
     keywords: [project.title, project.category, ...(project.technologies || [])].filter(Boolean),
     alternates: { canonical: `/realisations/${project.slug}` },
     openGraph: {
-      title: `${project.title} — réalisation ${SITE.name}`,
+      title: `${project.title} — ${getPortfolioLabel(project)} | ${SITE.name}`,
       description,
       url: `/realisations/${project.slug}`,
       type: "article",
@@ -44,7 +47,7 @@ export async function generateMetadata({ params }) {
     },
     twitter: {
       card: "summary_large_image",
-      title: `${project.title} — ${SITE.name}`,
+      title: `${title} — ${SITE.name}`,
       description,
       ...(image ? { images: [image] } : {}),
     },
@@ -82,6 +85,10 @@ export default async function ProjectPage({ params }) {
   if (!project) notFound();
 
   const isPhone = project.type === "application";
+  const isScoping = isScopingProject(project);
+  const isConcept = isConceptProject(project);
+  const isUndelivered = isUndeliveredProject(project);
+  const stageTitle = isConcept ? "Concept illustratif" : "En cadrage";
   const pay = project.payment;
 
   const screenItems = (project.screens || []).map((s) => ({ url: s.url, tone: s.tone, label: s.label }));
@@ -98,11 +105,13 @@ export default async function ProjectPage({ params }) {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": project.type === "application" ? "MobileApplication" : "WebApplication",
+        "@type": isUndelivered ? "CreativeWork" : project.type === "application" ? "MobileApplication" : "WebApplication",
         name: project.title,
         url: project.link_url || pageUrl,
         description: project.summary,
-        applicationCategory: project.category,
+        ...(isUndelivered
+          ? { creativeWorkStatus: stageTitle, genre: project.category }
+          : { applicationCategory: project.category }),
         ...(project.type === "application" && project.platforms?.length
           ? { operatingSystem: project.platforms.join(", ") }
           : {}),
@@ -142,6 +151,9 @@ export default async function ProjectPage({ params }) {
             )}
             <h1 className="title-page">{project.title}</h1>
           </div>
+          <p className={`project-kind${isUndelivered ? " project-kind--scoping" : ""}`}>
+            {getPortfolioLabel(project)}
+          </p>
 
           <p className="text-lg project-lead">
             {project.headline && project.headline !== project.summary && (
@@ -151,6 +163,16 @@ export default async function ProjectPage({ params }) {
             )}
             <span className="soft">{project.summary}</span>
           </p>
+
+          {isUndelivered && (
+            <div className="callout project-stage-note" role="note">
+              <span className="callout__icon"><Icon name={isConcept ? "Sparkles" : "PenTool"} /></span>
+              <div>
+                <h2 className="title-3">{stageTitle}</h2>
+                <p>{project.stage_note}</p>
+              </div>
+            </div>
+          )}
 
           <div className="btn-row">
             {project.link_url && (
@@ -179,7 +201,7 @@ export default async function ProjectPage({ params }) {
       </section>
 
       {/* ------------------------------------------------------ Visuel */}
-      <section>
+      {!isUndelivered && <section>
         <div className="container">
           {heroScreens.length >= 3 ? (
             <div className="showcase showcase--crop fade-b">
@@ -200,7 +222,7 @@ export default async function ProjectPage({ params }) {
             </div>
           )}
         </div>
-      </section>
+      </section>}
 
       {/* ------------------------------------------ Métadonnées + récit */}
       <section className="section">
@@ -209,12 +231,12 @@ export default async function ProjectPage({ params }) {
             <dl className="meta">
               <MetaRow label="Type">{TYPE_LABEL[project.type] || "Projet"}</MetaRow>
               <MetaRow label="Catégorie">{project.category}</MetaRow>
-              <MetaRow label="Réalisé par">
-                {project.own_product ? "SSD Sirius — produit interne" : project.client_name}
-              </MetaRow>
-              <MetaRow label="Plateformes">{project.platforms?.join(" · ")}</MetaRow>
+              <MetaRow label="Nature">{getPortfolioLabel(project)}</MetaRow>
+              <MetaRow label="Client">{!project.own_product && !isUndelivered ? project.client_name : null}</MetaRow>
+              <MetaRow label={isConcept ? "Concept proposé par" : isScoping ? "Cadrage par" : "Réalisé par"}>SSD Sirius</MetaRow>
+              <MetaRow label={isUndelivered ? "Composants envisagés" : "Plateformes"}>{project.platforms?.join(" · ")}</MetaRow>
               {project.technologies?.length > 0 && (
-                <MetaRow label="Technologies">
+                <MetaRow label={isUndelivered ? "Technologies envisagées" : "Technologies"}>
                   <span className="meta__chips">
                     {project.technologies.map((t) => (
                       <span key={t} className="chip">
@@ -254,8 +276,8 @@ export default async function ProjectPage({ params }) {
           <div className="prose-block">
             <Story title="Contexte">{project.context}</Story>
             <Story title="Le problème">{project.problem}</Story>
-            <Story title="Ce que Sirius a construit">{project.solution}</Story>
-            <Story title="Pourquoi c’est une référence">{project.description}</Story>
+            <Story title={isConcept ? "La solution envisagée" : isScoping ? "Le périmètre à l’étude" : "Ce que Sirius a construit"}>{project.solution}</Story>
+            <Story title={isConcept ? "Un scénario illustratif" : isScoping ? "État d’avancement" : "Pourquoi c’est une référence"}>{project.description}</Story>
           </div>
         </div>
       </section>
@@ -313,7 +335,7 @@ export default async function ProjectPage({ params }) {
         <section className="section section--line">
           <div className="container">
             <div className="section-head">
-              <h2 className="title-1">Fonctionnalités</h2>
+              <h2 className="title-1">{isUndelivered ? "Fonctionnalités envisagées" : "Fonctionnalités"}</h2>
             </div>
             <div className={`cells ${project.featureGroups.length === 2 ? "cells--2" : ""}`}>
               {project.featureGroups.map((g) => (
@@ -322,7 +344,7 @@ export default async function ProjectPage({ params }) {
                   <ul className="checklist">
                     {(g.items || []).map((it) => (
                       <li key={it}>
-                        <Icon name="Check" />
+                        <Icon name={isUndelivered ? "Minus" : "Check"} />
                         <span>{it}</span>
                       </li>
                     ))}
@@ -350,7 +372,7 @@ export default async function ProjectPage({ params }) {
       {project.techGroups?.length > 0 && (
         <section className="section section--line">
           <div className="container story-layout">
-            <h2 className="title-2">Stack technique</h2>
+            <h2 className="title-2">{isUndelivered ? "Orientations techniques" : "Stack technique"}</h2>
             <dl>
               {project.techGroups.map((g) => (
                 <div className="spec__row" key={g.label}>
@@ -386,7 +408,7 @@ export default async function ProjectPage({ params }) {
         </section>
       )}
 
-      <CTA title="Vous voulez la même chose pour votre activité ?" />
+      <CTA title={isConcept ? "Un besoin similaire dans votre entreprise ?" : isScoping ? "Un projet métier à concevoir ?" : "Vous voulez la même chose pour votre activité ?"} />
     </>
   );
 }

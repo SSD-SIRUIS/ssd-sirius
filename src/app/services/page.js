@@ -7,7 +7,7 @@ import { MEETING } from "@/data/site";
 export const metadata = {
   title: "Services",
   description:
-    "Développement d’applications mobiles iOS et Android, plateformes web, e-commerce, intégration des paiements Mobile Money (Orange Money), API et intelligence artificielle : les services de SSD Sirius, au Mali et à Paris.",
+    "Logiciels métier, automatisations, applications mobiles iOS et Android, plateformes web, e-commerce, API et paiements Mobile Money : les services de SSD Sirius pour les entreprises au Mali et en Afrique.",
   alternates: { canonical: "/services" },
 };
 
@@ -23,8 +23,8 @@ export default function ServicesPage() {
           <p className="text-lg" style={{ marginTop: 20, maxWidth: 680 }}>
             <span className="strong">Ce que nous savons construire.</span>{" "}
             <span className="soft">
-              Du cadrage à la mise en ligne, des produits fiables, pensés pour le marché malien et
-              prêts à évoluer.
+              Du cadrage à la mise en production : logiciels métier, automatisations et applications
+              pensés pour votre organisation et ses usages.
             </span>
           </p>
         </div>

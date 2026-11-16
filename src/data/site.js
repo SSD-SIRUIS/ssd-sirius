@@ -6,9 +6,9 @@ export const SITE = {
   legalName: "SSD Sirius Solutions Digitales",
   tagline: "Conçu au Mali. Pensé pour l'Afrique.",
   promise:
-    "Vous validez, on livre : conception, développement, base de données, paiements et publication sur les stores.",
+    "Du besoin à la mise en production : logiciels métier, applications mobiles, plateformes web et intégrations sur mesure.",
   description:
-    "SSD Sirius Solutions Digitales conçoit, développe et publie des applications et produits digitaux sur mesure — base de données, paiements Mobile Money, App Store et Play Store inclus.",
+    "SSD Sirius Solutions Digitales conçoit et développe des logiciels métier, des applications mobiles, des plateformes web et des automatisations sur mesure pour les entreprises au Mali et en Afrique.",
   // Domaine public officiel. Surchargeable via NEXT_PUBLIC_SITE_URL au build.
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://sirius-mali.tech",
   locale: "fr_FR",
@@ -18,8 +18,8 @@ export const SITE = {
 // puis la suite en gris.
 export const HERO = {
   announce: { tag: "Nouveau", label: "BAMA, notre nouvelle app sur l’App Store et Google Play", href: "/realisations/bama" },
-  strong: "Votre application conceptualisée et disponible en 1 mois.",
-  soft: "Nous concevons, développons et publions votre produit — base de données, paiements Mobile Money, App Store et Play Store inclus.",
+  strong: "Des logiciels sur mesure pour vos métiers.",
+  soft: "Applications mobiles, plateformes web, outils de gestion et automatisations : nous concevons vos solutions numériques au Mali et pour l’Afrique.",
   note: "Ni devis à remplir, ni dossier à monter. Parlez-nous de votre projet, on s’occupe du reste.",
 };
 

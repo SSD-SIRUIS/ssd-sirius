@@ -937,6 +937,45 @@ h4 {
 .checklist svg { width: 15px; height: 15px; margin-top: 3px; color: var(--text-4); }
 
 /* ------------------------------------------ Cartes réalisations ---- */
+.portfolio-intro {
+  max-width: 800px;
+  margin-top: 18px;
+  color: var(--text-3);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.portfolio-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 36px;
+}
+
+.portfolio-filters button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--text-3);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.portfolio-filters button span { font-variant-numeric: tabular-nums; opacity: 0.65; }
+.portfolio-filters button:hover { border-color: var(--text-4); color: var(--text); }
+.portfolio-filters button[aria-pressed="true"] {
+  border-color: var(--text);
+  background: var(--bg-2);
+  color: var(--text);
+}
+.portfolio-filters button:focus-visible { outline: 2px solid var(--text); outline-offset: 4px; }
+.portfolio-count { margin-top: 24px; }
+.stories.portfolio-stories { margin-top: 28px; }
+
 .tabs {
   display: flex;
   flex-wrap: wrap;
@@ -1055,6 +1094,17 @@ h4 {
 
 .story__meta { margin-top: 20px; }
 .story__meta + .story__title { margin-top: 8px; }
+
+.story__kind {
+  align-self: flex-start;
+  margin-top: 18px;
+  color: var(--text-2);
+  font-size: 12px;
+  line-height: 1.4;
+}
+.story__kind--scoping { padding-left: 10px; border-left: 2px solid var(--text-3); }
+.story__kind + .story__meta { margin-top: 8px; }
+.story__stage { margin-top: 12px; color: var(--text-3); font-size: 13px; line-height: 1.5; }
 
 /* Carte « Votre projet » : cadre en pointillés, sans visuel */
 .story__media--empty {
@@ -1260,6 +1310,9 @@ h4 {
 }
 
 .project-lead { margin-top: 24px; max-width: 760px; }
+.project-kind { margin-top: 14px; color: var(--text-3); font-size: 14px; }
+.project-kind--scoping { color: var(--text); }
+.project-stage-note { max-width: 850px; margin-top: 28px; }
 .project-hero .btn-row { margin-top: 32px; }
 
 .story-layout {

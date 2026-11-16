@@ -6,6 +6,36 @@
 
 export const SERVICES = [
   {
+    slug: "logiciels-metier",
+    icon: "Workflow",
+    title: "Logiciels métier",
+    excerpt:
+      "Outils de gestion et portails conçus autour des opérations de votre organisation.",
+    description:
+      "Nous concevons des logiciels qui reprennent vos règles de travail : gestion commerciale, stocks, suivi de dossiers, portails internes et tableaux de bord. Le périmètre est défini avec les équipes qui utiliseront l’outil.",
+    points: [
+      "Gestion des dossiers, commandes, stocks et documents métier",
+      "Espaces et permissions adaptés aux différents rôles",
+      "Circuits de validation et traçabilité des opérations",
+      "Tableaux de bord, recherche et exports de données",
+    ],
+  },
+  {
+    slug: "automatisation",
+    icon: "RefreshCw",
+    title: "Automatisation & intégrations",
+    excerpt:
+      "Des systèmes qui échangent leurs données et réduisent les tâches répétitives.",
+    description:
+      "Nous étudions vos opérations récurrentes pour concevoir des automatisations adaptées : connexion d’outils existants, synchronisation de données, notifications et génération de rapports. Chaque traitement prévoit un suivi des erreurs et des reprises.",
+    points: [
+      "Connexion des outils métier au moyen d’API",
+      "Synchronisation et traitement des données",
+      "Tâches planifiées, rappels et génération de documents",
+      "Journalisation des traitements et suivi des erreurs",
+    ],
+  },
+  {
     slug: "e-commerce",
     icon: "ShoppingCart",
     title: "E-commerce",
