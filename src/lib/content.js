@@ -4,6 +4,7 @@
 import { getSupabaseServer, hasSupabase } from "@/lib/supabase";
 import { PROJECTS, getProjectBySlug } from "@/data/projects";
 import { CONTACT, SOCIAL, SITE, STATS } from "@/data/site";
+import { isUndeliveredProject } from "@/lib/portfolio";
 
 const asArray = (v) => (Array.isArray(v) ? v : v ? [v] : []);
 
@@ -14,6 +15,7 @@ function normalizeProject(row) {
     slug: row.slug,
     title: row.title,
     client_name: row.client_name || "",
+    target_partner: row.target_partner || "",
     own_product: Boolean(row.own_product),
     delivery_stage: row.delivery_stage || "live",
     stage_note: row.stage_note || "",
@@ -62,9 +64,9 @@ function applyLocalProjectPresentation(project) {
   if (!project) return project;
   const local = PROJECTS.find((item) => item.slug === project.slug);
   if (!local) return project;
-  // Un cadrage ou concept local ne doit pas devenir un produit livré
+  // Un projet non livré ne doit pas devenir une référence client
   // à cause d'une ancienne fiche ou d'images ajoutées dans la base de contenu.
-  if (["cadrage", "concept"].includes(local.delivery_stage)) return normalizeProject(local);
+  if (isUndeliveredProject(local)) return normalizeProject(local);
   return {
     ...project,
     own_product: local.own_product ?? project.own_product,

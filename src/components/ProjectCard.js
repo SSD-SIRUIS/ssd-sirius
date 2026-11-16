@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Icon from "@/components/Icon";
-import { getPortfolioLabel, isScopingProject, isConceptProject, isUndeliveredProject } from "@/lib/portfolio";
+import { getPortfolioLabel, getProjectStage } from "@/lib/portfolio";
 
 const TYPE_LABEL = {
   site: "Site web",
@@ -12,9 +12,7 @@ const TYPE_LABEL = {
 // portant le nom du projet), une phrase-titre et un lien.
 export default function ProjectCard({ project }) {
   const href = `/realisations/${project.slug}`;
-  const isScoping = isScopingProject(project);
-  const isConcept = isConceptProject(project);
-  const isUndelivered = isUndeliveredProject(project);
+  const stage = getProjectStage(project);
   const media = project.card_image ? (
     <img src={project.card_image} alt={`Aperçu de ${project.title}`} loading="lazy" />
   ) : (
@@ -35,11 +33,11 @@ export default function ProjectCard({ project }) {
         href={href}
         className="story__media"
         style={{ "--tone": project.card_tone || undefined }}
-        aria-label={`${isConcept ? "Découvrir le concept" : isScoping ? "Découvrir le cadrage de" : "Voir la réalisation"} ${project.title}`}
+        aria-label={`${stage ? "Découvrir le projet" : "Voir la réalisation"} ${project.title}`}
       >
         {media}
       </Link>
-      <p className={`story__kind${isUndelivered ? " story__kind--scoping" : ""}`}>
+      <p className={`story__kind${stage ? " story__kind--scoping" : ""}`}>
         {getPortfolioLabel(project)}
       </p>
       <p className="mono story__meta">
@@ -49,10 +47,9 @@ export default function ProjectCard({ project }) {
       <h3 className="story__title">
         <Link href={href}>{project.headline || project.summary}</Link>
       </h3>
-      {isScoping && <p className="story__stage">Périmètre à l’étude · Aucune fonctionnalité livrée</p>}
-      {isConcept && <p className="story__stage">Scénario fictif · Exemple de besoin métier</p>}
+      {stage && <p className="story__stage">{stage.cardNote}</p>}
       <Link href={href} className="link-more">
-        {isConcept ? "Explorer le concept" : isScoping ? "Découvrir le cadrage" : "Voir le projet"} <Icon name="ArrowRight" />
+        {stage?.actionLabel || "Voir le projet"} <Icon name="ArrowRight" />
       </Link>
     </article>
   );

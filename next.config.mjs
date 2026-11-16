@@ -14,6 +14,20 @@ const nextConfig = {
   output: "standalone",
   reactStrictMode: true,
   poweredByHeader: false,
+  redirects() {
+    // Les anciennes fiches ont été remplacées par les projets sectoriels.
+    return [
+      "concept-gestion-stocks",
+      "concept-suivi-clients-devis",
+      "concept-reservation-rendez-vous",
+      "concept-support-informatique",
+      "concept-automatisation-rapports",
+    ].map((slug) => ({
+      source: `/realisations/${slug}`,
+      destination: "/realisations",
+      permanent: true,
+    }));
+  },
   images: {
     // Supabase Storage + placeholders distants éventuels
     remotePatterns: [

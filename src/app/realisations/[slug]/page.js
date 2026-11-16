@@ -6,7 +6,7 @@ import ProjectGallery from "@/components/ProjectGallery";
 import CTA from "@/components/CTA";
 import { getProject, getProjectSlugs } from "@/lib/content";
 import { SITE, MEETING } from "@/data/site";
-import { getPortfolioLabel, isScopingProject, isConceptProject, isUndeliveredProject } from "@/lib/portfolio";
+import { getPortfolioLabel, getProjectStage, isUndeliveredProject } from "@/lib/portfolio";
 
 export const revalidate = 300;
 export const dynamicParams = true;
@@ -85,10 +85,9 @@ export default async function ProjectPage({ params }) {
   if (!project) notFound();
 
   const isPhone = project.type === "application";
-  const isScoping = isScopingProject(project);
-  const isConcept = isConceptProject(project);
-  const isUndelivered = isUndeliveredProject(project);
-  const stageTitle = isConcept ? "Concept illustratif" : "En cadrage";
+  const stage = getProjectStage(project);
+  const isUndelivered = Boolean(stage);
+  const stageTitle = stage?.label;
   const pay = project.payment;
 
   const screenItems = (project.screens || []).map((s) => ({ url: s.url, tone: s.tone, label: s.label }));
@@ -166,7 +165,7 @@ export default async function ProjectPage({ params }) {
 
           {isUndelivered && (
             <div className="callout project-stage-note" role="note">
-              <span className="callout__icon"><Icon name={isConcept ? "Sparkles" : "PenTool"} /></span>
+              <span className="callout__icon"><Icon name={project.delivery_stage === "development" ? "Code" : "PenTool"} /></span>
               <div>
                 <h2 className="title-3">{stageTitle}</h2>
                 <p>{project.stage_note}</p>
@@ -233,7 +232,8 @@ export default async function ProjectPage({ params }) {
               <MetaRow label="Catégorie">{project.category}</MetaRow>
               <MetaRow label="Nature">{getPortfolioLabel(project)}</MetaRow>
               <MetaRow label="Client">{!project.own_product && !isUndelivered ? project.client_name : null}</MetaRow>
-              <MetaRow label={isConcept ? "Concept proposé par" : isScoping ? "Cadrage par" : "Réalisé par"}>SSD Sirius</MetaRow>
+              <MetaRow label="Partenaire visé">{project.target_partner}</MetaRow>
+              <MetaRow label={stage?.actorLabel || "Réalisé par"}>SSD Sirius</MetaRow>
               <MetaRow label={isUndelivered ? "Composants envisagés" : "Plateformes"}>{project.platforms?.join(" · ")}</MetaRow>
               {project.technologies?.length > 0 && (
                 <MetaRow label={isUndelivered ? "Technologies envisagées" : "Technologies"}>
@@ -276,8 +276,8 @@ export default async function ProjectPage({ params }) {
           <div className="prose-block">
             <Story title="Contexte">{project.context}</Story>
             <Story title="Le problème">{project.problem}</Story>
-            <Story title={isConcept ? "La solution envisagée" : isScoping ? "Le périmètre à l’étude" : "Ce que Sirius a construit"}>{project.solution}</Story>
-            <Story title={isConcept ? "Un scénario illustratif" : isScoping ? "État d’avancement" : "Pourquoi c’est une référence"}>{project.description}</Story>
+            <Story title={stage?.solutionTitle || "Ce que Sirius a construit"}>{project.solution}</Story>
+            <Story title={stage?.descriptionTitle || "Pourquoi c’est une référence"}>{project.description}</Story>
           </div>
         </div>
       </section>
@@ -335,7 +335,7 @@ export default async function ProjectPage({ params }) {
         <section className="section section--line">
           <div className="container">
             <div className="section-head">
-              <h2 className="title-1">{isUndelivered ? "Fonctionnalités envisagées" : "Fonctionnalités"}</h2>
+              <h2 className="title-1">{stage?.featuresTitle || "Fonctionnalités"}</h2>
             </div>
             <div className={`cells ${project.featureGroups.length === 2 ? "cells--2" : ""}`}>
               {project.featureGroups.map((g) => (
@@ -408,7 +408,7 @@ export default async function ProjectPage({ params }) {
         </section>
       )}
 
-      <CTA title={isConcept ? "Un besoin similaire dans votre entreprise ?" : isScoping ? "Un projet métier à concevoir ?" : "Vous voulez la même chose pour votre activité ?"} />
+      <CTA title={isUndelivered ? "Un projet similaire pour votre organisation ?" : "Vous voulez la même chose pour votre activité ?"} />
     </>
   );
 }

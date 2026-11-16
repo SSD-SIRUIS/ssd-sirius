@@ -9,10 +9,10 @@ import { getPortfolioLabel, isUndeliveredProject } from "@/lib/portfolio";
 export const metadata = {
   title: "Réalisations",
   description:
-    "Découvrez les prestations clients, produits Sirius, projets en cadrage et concepts illustratifs : applications, plateformes et logiciels sur mesure au Mali et en Afrique.",
+    "Découvrez les prestations clients, produits Sirius et projets sectoriels : pharmacie, cloud, agriculture, transport et maintenance informatique au Mali.",
   openGraph: {
     title: "Réalisations — SSD Sirius",
-    description: "Découvrez les références BAMA, MK Auto, Flash Market, Picasso Resolve et MaliLink, le cadrage d’ImpotMali et nos concepts de logiciels métier.",
+    description: "Références clients, produits Sirius et projets sectoriels : explorez le périmètre et l’état d’avancement de chaque solution informatique.",
     url: "/realisations",
     siteName: SITE.legalName,
     locale: SITE.locale,
@@ -28,7 +28,7 @@ export default async function RealisationsPage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Portfolio SSD Sirius — références, cadrage et concepts",
+    name: "Portfolio SSD Sirius — références et projets sectoriels",
     itemListElement: projects.map((p, i) => ({
       "@type": "ListItem",
       position: i + 1,
@@ -48,9 +48,8 @@ export default async function RealisationsPage() {
             <span className="soft">Applications mobiles, plateformes web et outils métier : découvrez le besoin, le périmètre et le travail de notre équipe.</span>
           </p>
           <p className="portfolio-intro">
-            Parcourez nos prestations clients et produits Sirius, puis découvrez les projets en
-            cadrage et les concepts illustratifs. Le statut de chaque fiche distingue les références
-            existantes des scénarios fictifs proposés pour explorer un besoin métier.
+            Parcourez nos prestations clients, nos produits et nos projets sectoriels. Chaque fiche
+            précise son périmètre, le public concerné et son état d’avancement.
           </p>
 
           {projects.length === 0 ? (

@@ -1,4 +1,4 @@
-import { PORTFOLIO_CONCEPTS } from "./portfolio-concepts";
+import { SECTOR_PROJECTS } from "./sector-projects";
 
 // ------------------------------------------------------------------
 // Données des réalisations (repli local).
@@ -12,9 +12,9 @@ import { PORTFOLIO_CONCEPTS } from "./portfolio-concepts";
 //   5. MALILINK — plateforme d’emploi web
 //   6. IMPOTMALI — projet en cadrage, aucune fonctionnalité livrée
 // Contenu et stack fournis par l’équipe ou vérifiés sur le site en ligne.
-// Les concepts fictifs sont isolés dans portfolio-concepts.js et explicitement
-// présentés comme tels. `status` pilote la visibilité de la fiche ;
-// `delivery_stage` distingue les livraisons, cadrages et concepts illustratifs.
+// Les projets sectoriels fournis par l'équipe sont dans sector-projects.js.
+// `status` pilote la visibilité de la fiche ; `delivery_stage` distingue les
+// livraisons, les cadrages, le développement et les périmètres à l'étude.
 // ------------------------------------------------------------------
 
 // Passer à `false` pour revenir aux aperçus dégradés.
@@ -637,7 +637,7 @@ export const PROJECTS = [
       "Les fonctionnalités et distributions décrites restent prévues, pas livrées.",
     ],
   },
-  ...PORTFOLIO_CONCEPTS,
+  ...SECTOR_PROJECTS,
 ];
 
 export function getProjectBySlug(slug) {
